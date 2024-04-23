@@ -1,3 +1,4 @@
+library icon_button;
 import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/colors.dart';
 

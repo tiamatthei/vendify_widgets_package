@@ -1,3 +1,4 @@
+library colors;
 import 'package:flutter/material.dart';
 
 class TColors {
