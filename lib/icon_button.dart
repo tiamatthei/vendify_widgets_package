@@ -2,7 +2,7 @@ library icon_button;
 import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/colors.dart';
 
-class SimpleIconbutton extends StatefulWidget {
+class SimpleIconButton extends StatefulWidget {
   final void Function()? onPressed;
   final Color? backgroundColor;
   final Color? iconColor;
@@ -11,7 +11,7 @@ class SimpleIconbutton extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final bool isLoading;
 
-  const SimpleIconbutton({
+  const SimpleIconButton({
     super.key,
     this.onPressed,
     this.backgroundColor,
@@ -23,10 +23,10 @@ class SimpleIconbutton extends StatefulWidget {
   });
 
   @override
-  State<SimpleIconbutton> createState() => _SimpleIconbuttonState();
+  State<SimpleIconButton> createState() => _SimpleIconButtonState();
 }
 
-class _SimpleIconbuttonState extends State<SimpleIconbutton> {
+class _SimpleIconButtonState extends State<SimpleIconButton> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
