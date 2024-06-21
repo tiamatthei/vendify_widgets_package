@@ -10,7 +10,7 @@ class SimpleButton extends StatefulWidget {
   final IconData? icon;
   final MainAxisSize mainAxisSize;
   final bool isSecondary;
-  final MaterialStateProperty<EdgeInsetsGeometry>? padding;
+  final WidgetStateProperty<EdgeInsetsGeometry>? padding;
   final bool isLoading;
 
   const SimpleButton({
@@ -40,15 +40,15 @@ class _SimpleButtonState extends State<SimpleButton> {
         child: TextButton(
           onPressed: widget.onPressed,
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
+              backgroundColor: WidgetStateProperty.all<Color>(
                 widget.backgroundColor ??
                     (widget.isSecondary ? Colors.white : TColors.accentDefault),
               ),
-              foregroundColor: MaterialStateProperty.all<Color>(
+              foregroundColor: WidgetStateProperty.all<Color>(
                 widget.textColor ??
                     (widget.isSecondary ? TColors.accentDefault : Colors.white),
               ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                     side: widget.isSecondary
@@ -56,7 +56,7 @@ class _SimpleButtonState extends State<SimpleButton> {
                             color: TColors.accentDefault, width: 2)
                         : BorderSide.none),
               ),
-              maximumSize: MaterialStateProperty.all<Size>(Size(width, 50)),
+              maximumSize: WidgetStateProperty.all<Size>(Size(width, 50)),
               padding: widget.padding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

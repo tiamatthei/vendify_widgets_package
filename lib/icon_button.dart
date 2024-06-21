@@ -51,14 +51,14 @@ class _SimpleIconButtonState extends State<SimpleIconButton> {
           color: widget.iconColor ??
               (widget.isSecondary ? TColors.accentDefault : Colors.white),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(widget
+            backgroundColor: WidgetStateProperty.all<Color>(widget
                     .backgroundColor ??
                 (widget.isSecondary ? Colors.white : TColors.accentDefault)),
-            shape: MaterialStateProperty.all(CircleBorder(
+            shape: WidgetStateProperty.all(CircleBorder(
                 side: widget.isSecondary
                     ? const BorderSide(color: TColors.accentDefault, width: 2)
                     : BorderSide.none)),
-            maximumSize: MaterialStateProperty.all<Size>(Size(width, 50)),
+            maximumSize: WidgetStateProperty.all<Size>(Size(width, 50)),
           ),
           iconSize: 20,
           padding: widget.padding ?? const EdgeInsets.all(8)),

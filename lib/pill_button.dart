@@ -10,7 +10,7 @@ class PillButton extends StatefulWidget {
   final IconData? icon;
   final MainAxisSize mainAxisSize;
   final bool isSecondary;
-  final MaterialStateProperty<EdgeInsetsGeometry>? padding;
+  final WidgetStateProperty<EdgeInsetsGeometry>? padding;
   final bool isLoading;
   final double borderRadius;
   final bool isElevated;
@@ -46,15 +46,15 @@ class _PillButtonState extends State<PillButton> {
       child: TextButton(
         onPressed: widget.onPressed,
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             widget.backgroundColor ??
                 (widget.isSecondary ? Colors.white : TColors.accentDefault),
           ),
-          foregroundColor: MaterialStateProperty.all<Color>(
+          foregroundColor: WidgetStateProperty.all<Color>(
             widget.textColor ??
                 (widget.isSecondary ? TColors.accentDefault : Colors.white),
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               side: widget.isSecondary
@@ -62,15 +62,15 @@ class _PillButtonState extends State<PillButton> {
                   : BorderSide.none,
             ),
           ),
-          maximumSize: MaterialStateProperty.all<Size>(Size(width, 50)),
+          maximumSize: WidgetStateProperty.all<Size>(Size(width, 50)),
           elevation: widget.isElevated
-              ? MaterialStateProperty.all<double>(8)
-              : MaterialStateProperty.all<double>(0),
+              ? WidgetStateProperty.all<double>(8)
+              : WidgetStateProperty.all<double>(0),
           shadowColor: widget.isElevated
-              ? MaterialStateProperty.all<Color>(Colors.black.withOpacity(0.5))
+              ? WidgetStateProperty.all<Color>(Colors.black.withOpacity(0.5))
               : null,
           padding: widget.padding ??
-              MaterialStateProperty.all<EdgeInsetsGeometry>(
+              WidgetStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               ),
         ),
