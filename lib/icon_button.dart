@@ -32,6 +32,7 @@ class _SimpleIconButtonState extends State<SimpleIconButton> {
     double width = MediaQuery.of(context).size.width;
     return Align(
       heightFactor: 1,
+      widthFactor: 1,
       child: IconButton(
           onPressed: widget.onPressed,
           icon: widget.isLoading

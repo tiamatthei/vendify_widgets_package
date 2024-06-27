@@ -36,6 +36,7 @@ class _SimpleButtonState extends State<SimpleButton> {
     double width = MediaQuery.of(context).size.width;
     return Align(
         heightFactor: 1,
+        widthFactor: 1,
         alignment: Alignment.center,
         child: TextButton(
           onPressed: widget.onPressed,

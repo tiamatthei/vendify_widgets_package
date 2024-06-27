@@ -40,6 +40,7 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
     double width = MediaQuery.of(context).size.width;
     return Align(
         heightFactor: 1,
+        widthFactor: 1,
         alignment: Alignment.center,
         child: Container(
           margin: widget.margin,
