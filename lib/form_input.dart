@@ -17,6 +17,8 @@ class SimpleFormInput extends StatefulWidget {
   final TextEditingController? controller;
   final EdgeInsetsGeometry? margin;
   final List<TextInputFormatter>? inputFormatters;
+  final Widget? suffixIcon;
+  final TextCapitalization textCapitalization;
 
   const SimpleFormInput({
     super.key,
@@ -34,6 +36,8 @@ class SimpleFormInput extends StatefulWidget {
     this.margin,
     this.hintText,
     this.inputFormatters,
+    this.suffixIcon,
+    this.textCapitalization = TextCapitalization.sentences,
   });
 
   @override
@@ -51,6 +55,7 @@ class _SimpleFormInputState extends State<SimpleFormInput> {
           labelText: widget.label,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: widget.hintText,
+          suffixIcon: widget.suffixIcon,
           isDense: true,
           border: OutlineInputBorder(
             borderSide: const BorderSide(color: TColors.accentDefault),
@@ -88,6 +93,7 @@ class _SimpleFormInputState extends State<SimpleFormInput> {
         maxLength: widget.maxLength,
         enabled: widget.enabled,
         inputFormatters: widget.inputFormatters,
+        textCapitalization: widget.textCapitalization,
       ),
     );
   }
