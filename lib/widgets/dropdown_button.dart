@@ -47,9 +47,9 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
           constraints: widget.constraints ?? BoxConstraints.tightFor(width: width),
           child: DropdownButtonFormField2(
             decoration: InputDecoration(
-              prefixIconColor: MaterialStateColor.resolveWith((states) {
+              prefixIconColor: WidgetStateColor.resolveWith((states) {
                 //if the state is anything but clicked, return the default color
-                if (states.contains(MaterialState.focused) || states.contains(MaterialState.pressed)) {
+                if (states.contains(WidgetState.focused) || states.contains(WidgetState.pressed)) {
                   return TColors.accentDefault;
                 }
                 return TColors.background60;

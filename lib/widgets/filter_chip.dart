@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';import 'package:vendify_widgets_package/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:vendify_widgets_package/colors.dart';
 
 class SimpleFilterChip extends StatelessWidget {
   final String label;
@@ -18,8 +18,7 @@ class SimpleFilterChip extends StatelessWidget {
     return FilterChip(
         label: Text(label),
         labelStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
-              color:
-                  selected ? TColors.backgroundDefault : TColors.background60,
+              color: selected ? TColors.backgroundDefault : TColors.background60,
             ),
         selected: selected,
         onSelected: onSelected,

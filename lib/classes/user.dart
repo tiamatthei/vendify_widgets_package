@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vendify_widgets_package/class_widgets/user_tiny_card.dart';
 
 class User {
   final int id;
@@ -27,13 +28,78 @@ class User {
     this.contactCount,
   });
 
-  
-  Widget tinyCard(BuildContext context, VoidCallback onTap) {
-    //TODO IMPLEMENT THE TINY CARD WIDGET
-    //return UserTinyCard(user: this, onTap: onTap);
-    return Container();
+  Widget taskSummaryView(BuildContext context) {
+    //The task summary view should be a card with the number of overdue tasks and the number of tasks for today(the completed ones and the ones that are not completed)
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Flexible(
+          fit: FlexFit.tight,
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
+            ),
+            padding: const EdgeInsets.all(8.0),
+            child: FutureBuilder<Object>(
+                future: userTasks,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasData) {
+                    return Container();
+                  }
+                  return Container();
+                }),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Flexible(
+          fit: FlexFit.tight,
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
+            ),
+            padding: const EdgeInsets.all(8.0),
+            child: FutureBuilder<Object>(
+                future: userTasks,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasData) {
+                    return Container();
+                  }
+                  return Container();
+                }),
+          ),
+        ),
+      ],
+    );
   }
 
+  Widget tinyCard(BuildContext context, VoidCallback onTap) {
+    return UserTinyCard(user: this, onTap: onTap);
+  }
   ///////////////////////
   /////    UTILS   //////
   ///////////////////////
@@ -54,36 +120,32 @@ class User {
   }
 
   // Method to convert the User object to a JSON map
-  Map<String, dynamic> toJson() {
-    return {
-      'userId': id,
-      'firstName': firstName,
-      'lastName': lastName,
-      'description': description,
-      'phone': phone,
-      'role': role,
-      'email': email,
-      'joinedAt': createdAt != null ? createdAt!.toIso8601String() : '',
-      'contactCount': contactCount ?? 0,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'userId': id,
+        'firstName': firstName,
+        'lastName': lastName,
+        'description': description,
+        'phone': phone,
+        'role': role,
+        'email': email,
+        'joinedAt': createdAt != null ? createdAt!.toIso8601String() : '',
+        'contactCount': contactCount ?? 0,
+      };
 
   // Method to create a User object from a JSON map
-  static User fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['userId'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      description: json['description'],
-      phone: json['phone'],
-      role: json['role'] ?? 'executive',
-      email: json['email'],
-      createdAt: json['joinedAt'] != null ? DateTime.parse(json['joinedAt']) : DateTime.now(),
-      contactCount: json['contactCount'] != null ? int.tryParse(json['contactCount']) : 0,
-      profilePicture:
-          null, // TODO: Add profile picture, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
-    );
-  }
+  static User fromJson(Map<String, dynamic> json) => User(
+        id: json['userId'],
+        firstName: json['firstName'],
+        lastName: json['lastName'],
+        description: json['description'],
+        phone: json['phone'],
+        role: json['role'] ?? 'executive',
+        email: json['email'],
+        createdAt: json['joinedAt'] != null ? DateTime.parse(json['joinedAt']) : DateTime.now(),
+        contactCount: json['contactCount'] != null ? int.tryParse(json['contactCount']) : 0,
+        profilePicture:
+            null, // TODO: Add profile picture, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
+      );
 
   @override
   String toString() {
