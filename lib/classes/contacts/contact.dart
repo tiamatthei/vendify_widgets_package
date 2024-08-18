@@ -30,7 +30,8 @@ class ContactModel {
       this.executive,
       this.isActive,
       this.notes,
-      this.businessName});
+      this.businessName,
+      this.isInterested});
 
   int contactId;
   String? contactName;
@@ -54,6 +55,7 @@ class ContactModel {
   bool? isActive;
   String? notes;
   String? businessName;
+  bool? isInterested;
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         contactId: json["contactId"],
@@ -86,6 +88,7 @@ class ContactModel {
         isActive: json["isActive"],
         notes: json["notes"],
         businessName: json["businessName"],
+        isInterested: json["isInterested"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -110,6 +113,7 @@ class ContactModel {
         "isActive": isActive,
         "notes": notes,
         "businessName": businessName,
+        "isInterested": isInterested,
       };
 
   @override
