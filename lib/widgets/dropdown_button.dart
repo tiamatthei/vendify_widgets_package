@@ -1,6 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:vendify_widgets_package/colors.dart';
 
 class SimpleDropdown extends StatefulWidget {
@@ -10,31 +9,41 @@ class SimpleDropdown extends StatefulWidget {
   final String? hintText;
   final String? label;
   final FocusNode? focusNode;
-  final void Function(String?)? onChanged;
+  final void Function(dynamic)? onChanged;
   final String? value;
   final List<DropdownMenuItem<String>>? items;
   final bool enabled;
-  final String? Function(String?)? validator;
+  final String? Function(dynamic)? validator;
+  final bool searchable;
 
-  const SimpleDropdown(
-      {super.key,
-      this.constraints,
-      this.margin,
-      this.icon,
-      this.hintText,
-      this.label,
-      this.focusNode,
-      this.onChanged,
-      this.value,
-      this.items,
-      this.enabled = true,
-      this.validator});
+  const SimpleDropdown({
+    super.key,
+    this.constraints,
+    this.margin,
+    this.icon,
+    this.hintText,
+    this.label,
+    this.focusNode,
+    this.onChanged,
+    this.value,
+    this.items,
+    this.enabled = true,
+    this.validator,
+    this.searchable = false,
+  });
 
   @override
   State<SimpleDropdown> createState() => _SimpleDropdownState();
 }
 
 class _SimpleDropdownState extends State<SimpleDropdown> {
+  TextEditingController searchController = TextEditingController();
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -46,6 +55,32 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
           margin: widget.margin,
           constraints: widget.constraints ?? BoxConstraints.tightFor(width: width),
           child: DropdownButtonFormField2(
+            dropdownSearchData: widget.searchable
+                ? DropdownSearchData(
+                    searchController: searchController,
+                    searchInnerWidget: TextFormField(
+                      controller: searchController,
+                      decoration: const InputDecoration(
+                        hintText: 'Buscar...',
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: TColors.primary80,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                      ),
+                    ),
+                    searchInnerWidgetHeight: 50,
+                  )
+                : null,
+            onMenuStateChange: widget.searchable
+                ? (isOpen) {
+                    if (!isOpen) {
+                      searchController.clear();
+                    }
+                  }
+                : null,
             decoration: InputDecoration(
               prefixIconColor: WidgetStateColor.resolveWith((states) {
                 //if the state is anything but clicked, return the default color
