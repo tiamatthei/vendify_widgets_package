@@ -15,6 +15,7 @@ class ContactModel {
       this.email,
       this.rut,
       this.city,
+      this.country,
       this.region,
       this.street,
       this.number,
@@ -31,7 +32,9 @@ class ContactModel {
       this.isActive,
       this.notes,
       this.businessName,
-      this.isInterested});
+      this.isInterested,
+      this.executiveLatitude,
+      this.executiveLongitude});
 
   int contactId;
   String? contactName;
@@ -39,6 +42,7 @@ class ContactModel {
   String? email;
   String? rut;
   String? city;
+  String? country;
   String? region;
   String? street;
   String? number;
@@ -56,6 +60,8 @@ class ContactModel {
   String? notes;
   String? businessName;
   bool? isInterested;
+  double? executiveLatitude;
+  double? executiveLongitude;
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         contactId: json["contactId"],
@@ -64,6 +70,7 @@ class ContactModel {
         email: json["email"],
         rut: json["rut"],
         city: json["city"],
+        country: json["country"],
         region: json["region"],
         street: json["street"],
         number: json["number"]?.toString(),
@@ -89,6 +96,8 @@ class ContactModel {
         notes: json["notes"],
         businessName: json["businessName"],
         isInterested: json["isInterested"],
+        executiveLatitude: json["executiveLatitude"]?.toDouble(),
+        executiveLongitude: json["executiveLongitude"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -98,6 +107,7 @@ class ContactModel {
         "email": email,
         "rut": rut,
         "city": city,
+        "country": country,
         "region": region,
         "street": street,
         "number": number,
@@ -114,6 +124,8 @@ class ContactModel {
         "notes": notes,
         "businessName": businessName,
         "isInterested": isInterested,
+        "executiveLatitude": executiveLatitude,
+        "executiveLongitude": executiveLongitude,
       };
 
   @override
