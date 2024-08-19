@@ -19,6 +19,8 @@ class SimpleFormInput extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Widget? suffixIcon;
   final TextCapitalization textCapitalization;
+  final void Function(String)? onFieldSubmitted;
+  final void Function()? onEditingComplete;
 
   const SimpleFormInput({
     super.key,
@@ -38,6 +40,8 @@ class SimpleFormInput extends StatefulWidget {
     this.inputFormatters,
     this.suffixIcon,
     this.textCapitalization = TextCapitalization.sentences,
+    this.onFieldSubmitted,
+    this.onEditingComplete,
   });
 
   @override
@@ -94,6 +98,8 @@ class _SimpleFormInputState extends State<SimpleFormInput> {
         enabled: widget.enabled,
         inputFormatters: widget.inputFormatters,
         textCapitalization: widget.textCapitalization,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        onEditingComplete: widget.onEditingComplete,
       ),
     );
   }
