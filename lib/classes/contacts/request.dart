@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vendify_widgets_package/classes/contacts/request_resolution.dart';
 import 'package:vendify_widgets_package/classes/contacts/request_type.dart';
 import 'package:vendify_widgets_package/colors.dart';
 import 'package:vendify_widgets_package/utils/time_ago.dart';
@@ -17,6 +18,7 @@ class Request {
   String? businessName;
   String? userFirstName;
   String? userLastName;
+  RequestResolution? resolution;
 
   Request({
     required this.requestId,
@@ -32,26 +34,30 @@ class Request {
     this.businessName,
     this.userFirstName,
     this.userLastName,
+    this.resolution,
   });
 
   factory Request.fromJson(Map<String, dynamic> json) => Request(
-        requestId: json['requestId'],
-        contactId: json['contactId'],
-        userId: json['userId'],
-        resolved: json['resolved'],
-        createdAt: DateTime.parse(json['createdAt']),
-        updatedAt: DateTime.parse(json['updatedAt']),
-        resolvedAt: json['resolvedAt'] != null ? DateTime.parse(json['resolvedAt']) : null,
-        notes: json['notes'],
-        type: RequestType.fromJson({
-          'type_id': json['requestTypeId'],
-          'type_name': json['requestTypeName'],
-        }),
-        contactName: json['contactName'],
-        businessName: json['businessName'],
-        userFirstName: json['userFirstName'],
-        userLastName: json['userLastName'],
-      );
+      requestId: json['requestId'],
+      contactId: json['contactId'],
+      userId: json['userId'],
+      resolved: json['resolved'],
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
+      resolvedAt: json['resolvedAt'] != null ? DateTime.parse(json['resolvedAt']) : null,
+      notes: json['notes'],
+      type: RequestType.fromJson({
+        'type_id': json['requestTypeId'],
+        'type_name': json['requestTypeName'],
+      }),
+      contactName: json['contactName'],
+      businessName: json['businessName'],
+      userFirstName: json['userFirstName'],
+      userLastName: json['userLastName'],
+      resolution: RequestResolution.fromJson({
+        'resolutionId': json['resolutionId'],
+        'resolutionName': json['resolutionName'],
+      }));
 
   Map<String, dynamic> toJson() => {
         'requestId': requestId,
@@ -68,6 +74,7 @@ class Request {
         'businessName': businessName,
         'userFirstName': userFirstName,
         'userLastName': userLastName,
+        'resolution': resolution?.toJson(),
       };
 
   //get resolved
