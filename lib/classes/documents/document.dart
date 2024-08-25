@@ -1,4 +1,4 @@
-import 'package:vendify_widgets_package/classes/contacts/document_type.dart';
+import 'package:vendify_widgets_package/classes/documents/document_type.dart';
 
 class Document {
   int documentId;
