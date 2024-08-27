@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/classes/tasks/task_type.dart';
 
 class Task {
@@ -43,5 +44,16 @@ class Task {
         "requestId": requestId,
         "taskType": taskType?.toJson(),
       };
+
+  IconData get icon {
+    switch (taskType?.type) {
+      case "UPLOAD":
+        return Icons.upload_file;
+      case "CHECKBOX":
+        return Icons.check_box;
+      default:
+        return Icons.error;
+    }
+  }
   
 }
