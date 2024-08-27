@@ -4,10 +4,10 @@ class Document {
   int documentId;
   String documentUrl;
   DocumentType documentType;
-  bool isCompleted;
-  int taskId;
-  int contactId;
-  int requestId;
+  bool? isCompleted;
+  int? taskId;
+  int? contactId;
+  int? requestId;
 
   Document({
     required this.documentId,
