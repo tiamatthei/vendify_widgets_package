@@ -27,7 +27,7 @@ class _ContactTileState extends State<ContactTile> {
     if (widget.contact.email == null || widget.contact.email == "") {
       emailText = 'No registra email';
     }
-    stateColor = getContactStateColor(widget.contact.state);
+    stateColor = getContactStateColor(widget.contact.state!);
   }
 
   @override
