@@ -37,8 +37,8 @@ class ContactState {
         'color': color,
       };
 
-  Color get colorValue {
-    return Color(int.parse(color.substring(1, 7), radix: 16) + 0xFF000000);
-  }
+  // Color get colorValue {
+  //   return Color(int.parse(color.substring(1, 7), radix: 16) + 0xFF000000);
+  // }
 
 }
