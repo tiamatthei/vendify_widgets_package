@@ -19,11 +19,11 @@ class ContactState {
   });
 
   factory ContactState.fromJson(Map<String, dynamic> json) => ContactState(
-        contactStateId: json['contact_state_id'],
-        state: json['state'],
-        description: json['description'],
+        contactStateId: json['contact_state_id'] ?? 0,
+        state: json['state'] ?? '',
+        description: json['description'] ?? '',
         step: json['step'] ?? 0,
-        color: json['color'],
+        color: json['color'] ?? '',
         linkedLabels: json['linkedLabels'] != null
             ? List<ContactLabel>.from(json['linkedLabels'].map((x) => ContactLabel.fromJson(x)))
             : null,
