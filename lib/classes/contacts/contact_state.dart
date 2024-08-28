@@ -22,7 +22,7 @@ class ContactState {
         contactStateId: json['contact_state_id'],
         state: json['state'],
         description: json['description'],
-        step: json['step'],
+        step: json['step'] ?? 0,
         color: json['color'],
         linkedLabels: json['linkedLabels'] != null
             ? List<ContactLabel>.from(json['linkedLabels'].map((x) => ContactLabel.fromJson(x)))
