@@ -7,8 +7,8 @@ class Task {
   final String? description;
   final bool? completed;
   final int? contactId;
-  final int? requestId;
   final TaskType? taskType;
+  final DateTime? completedAt; // Added completedAt property
 
   Task({
     required this.taskId,
@@ -16,8 +16,8 @@ class Task {
     this.description,
     this.completed,
     this.contactId,
-    this.requestId,
     this.taskType,
+    this.completedAt,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -26,13 +26,13 @@ class Task {
         description: json["description"],
         completed: json["completed"],
         contactId: json["contactId"],
-        requestId: json["requestId"],
         taskType: TaskType.fromJson(
           {
             "taskTypeId": json["taskTypeId"],
             "type": json["type"],
           },
         ),
+        completedAt: json["completedAt"] != null ? DateTime.parse(json["completedAt"]) : null, // Added completedAt parsing
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,8 +41,8 @@ class Task {
         "description": description,
         "completed": completed,
         "contactId": contactId,
-        "requestId": requestId,
         "taskType": taskType?.toJson(),
+        "completedAt": completedAt?.toIso8601String(), // Added completedAt serialization
       };
 
   IconData get icon {
