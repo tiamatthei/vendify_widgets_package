@@ -19,11 +19,11 @@ class ContactState {
   });
 
   factory ContactState.fromJson(Map<String, dynamic> json) => ContactState(
-        contactStateId: json['contact_state_id'],
-        state: json['state'],
-        description: json['description'],
-        step: json['step'],
-        color: json['color'],
+        contactStateId: json['contact_state_id'] ?? 0,
+        state: json['state'] ?? '',
+        description: json['description'] ?? '',
+        step: json['step'] ?? 0,
+        color: json['color'] ?? '',
         linkedLabels: json['linkedLabels'] != null
             ? List<ContactLabel>.from(json['linkedLabels'].map((x) => ContactLabel.fromJson(x)))
             : null,
@@ -37,8 +37,8 @@ class ContactState {
         'color': color,
       };
 
-  Color get colorValue {
-    return Color(int.parse(color.substring(1, 7), radix: 16) + 0xFF000000);
-  }
+  // Color get colorValue {
+  //   return Color(int.parse(color.substring(1, 7), radix: 16) + 0xFF000000);
+  // }
 
 }

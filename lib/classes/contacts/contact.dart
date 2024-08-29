@@ -20,7 +20,8 @@ class ContactModel {
       this.street,
       this.number,
       this.apartment,
-      required this.state,
+      this.state,
+      this.step,
       this.updatedAt,
       this.validated,
       required this.createdAt,
@@ -47,7 +48,8 @@ class ContactModel {
   String? street;
   String? number;
   String? apartment;
-  String state;
+  String? state;
+  int? step;
   DateTime? updatedAt;
   bool? validated;
   DateTime createdAt;
@@ -76,6 +78,7 @@ class ContactModel {
         number: json["number"]?.toString(),
         apartment: json["apartment"],
         state: json["state"].toString(),
+        step: json["step"],
         updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
         validated: json["validated"],
         createdAt: json["createdAt"] == null ? DateTime.now() : DateTime.parse(json["createdAt"]),
@@ -113,6 +116,7 @@ class ContactModel {
         "number": number,
         "apartment": apartment,
         "state": state,
+        "step": step,
         "updatedAt": updatedAt?.toIso8601String(),
         "validated": validated,
         "createdAt": createdAt.toIso8601String(),
@@ -130,6 +134,6 @@ class ContactModel {
 
   @override
   String toString() {
-    return 'ContactModel{contactId: $contactId, contactName: $contactName, phone: $phone, email: $email, rut: $rut, city: $city, region: $region, street: $street, number: $number, state: $state, updatedAt: $updatedAt, validated: $validated, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, labels: $labels, isPending: $isPending, executive: $executive}';
+    return 'ContactModel{contactId: $contactId, contactName: $contactName, phone: $phone, email: $email, rut: $rut, city: $city, region: $region, street: $street, number: $number, state: $state, step: $step, updatedAt: $updatedAt, validated: $validated, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, labels: $labels, isPending: $isPending, executive: $executive}';
   }
 }
