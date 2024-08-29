@@ -7,8 +7,9 @@ class Task {
   final String? description;
   final bool? completed;
   final int? contactId;
+  final int? contactStateId;
   final TaskType? taskType;
-  final DateTime? completedAt; // Added completedAt property
+  final DateTime? completedAt;
 
   Task({
     required this.taskId,
@@ -16,6 +17,7 @@ class Task {
     this.description,
     this.completed,
     this.contactId,
+    this.contactStateId,
     this.taskType,
     this.completedAt,
   });
@@ -26,13 +28,14 @@ class Task {
         description: json["description"],
         completed: json["completed"],
         contactId: json["contactId"],
+        contactStateId: json["contactStateId"],
         taskType: TaskType.fromJson(
           {
             "taskTypeId": json["taskTypeId"],
             "type": json["type"],
           },
         ),
-        completedAt: json["completedAt"] != null ? DateTime.parse(json["completedAt"]) : null, // Added completedAt parsing
+        completedAt: json["completedAt"] != null ? DateTime.parse(json["completedAt"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,8 +44,9 @@ class Task {
         "description": description,
         "completed": completed,
         "contactId": contactId,
+        "contactStateId": contactStateId,
         "taskType": taskType?.toJson(),
-        "completedAt": completedAt?.toIso8601String(), // Added completedAt serialization
+        "completedAt": completedAt?.toIso8601String(),
       };
 
   IconData get icon {
