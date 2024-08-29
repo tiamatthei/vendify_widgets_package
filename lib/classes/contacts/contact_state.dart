@@ -18,7 +18,7 @@ class ContactState {
   });
 
   factory ContactState.fromJson(Map<String, dynamic> json) => ContactState(
-        contactStateId: json['contact_state_id'] ?? 0,
+        contactStateId: json['contactStateId'] ?? 0,
         state: json['state'] ?? '',
         description: json['description'] ?? '',
         step: json['step'] ?? 0,
@@ -29,7 +29,7 @@ class ContactState {
       );
 
   Map<String, dynamic> toJson() => {
-        'contact_state_id': contactStateId,
+        'contactStateId': contactStateId,
         'state': state,
         'description': description,
         'step': step,
