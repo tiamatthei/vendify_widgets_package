@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:vendify_widgets_package/classes/contacts/contact_label.dart';
+import 'package:vendify_widgets_package/classes/tasks/task.dart';
 
 class ContactState {
   final int contactStateId;
@@ -7,7 +6,7 @@ class ContactState {
   final String description;
   final int step;
   final String color;
-  List<ContactLabel>? linkedLabels;
+  List<Task>? linkedTasks;
 
   ContactState({
     required this.contactStateId,
@@ -15,7 +14,7 @@ class ContactState {
     required this.description,
     required this.step,
     required this.color,
-    this.linkedLabels,
+    this.linkedTasks,
   });
 
   factory ContactState.fromJson(Map<String, dynamic> json) => ContactState(
@@ -24,8 +23,8 @@ class ContactState {
         description: json['description'] ?? '',
         step: json['step'] ?? 0,
         color: json['color'] ?? '',
-        linkedLabels: json['linkedLabels'] != null
-            ? List<ContactLabel>.from(json['linkedLabels'].map((x) => ContactLabel.fromJson(x)))
+        linkedTasks: json['linkedTasks'] != null
+            ? List<Task>.from(json['linkedTasks'].map((x) => Task.fromJson(x)))
             : null,
       );
 
