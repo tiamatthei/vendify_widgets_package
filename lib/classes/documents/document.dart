@@ -9,8 +9,8 @@ class Document {
   int? contactId;
   int? requestId;
   String? filename;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   Document({
     required this.documentId,
