@@ -9,6 +9,8 @@ class Document {
   int? contactId;
   int? requestId;
   String? filename;
+  String? createdAt;
+  String? updatedAt;
 
   Document({
     required this.documentId,
@@ -19,6 +21,8 @@ class Document {
     required this.contactId,
     required this.requestId,
     this.filename,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Document.fromJson(Map<String, dynamic> json) => Document(
@@ -33,6 +37,8 @@ class Document {
         contactId: json["contactId"],
         requestId: json["requestId"],
         filename: json["filename"],
+        createdAt: json["createdAt"],
+        updatedAt: json["updatedAt"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,5 +50,7 @@ class Document {
         "contactId": contactId,
         "requestId": requestId,
         "filename": filename,
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
       };
 }
