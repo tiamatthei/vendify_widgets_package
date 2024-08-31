@@ -37,8 +37,12 @@ class Document {
         contactId: json["contactId"],
         requestId: json["requestId"],
         filename: json["filename"],
-        createdAt: json["createdAt"],
-        updatedAt: json["updatedAt"],
+        createdAt: json["createdAt"] != null
+            ? DateTime.parse(json["createdAt"])
+            : null,
+        updatedAt: json["updatedAt"] != null
+            ? DateTime.parse(json["updatedAt"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
