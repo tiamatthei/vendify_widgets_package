@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:vendify_widgets_package/classes/contacts/contact_status.dart';
 import 'package:vendify_widgets_package/classes/user.dart';
 
 List<ContactModel> contactModelFromJson(String str) =>
@@ -30,12 +31,12 @@ class ContactModel {
       this.labels,
       this.isPending,
       this.executive,
-      this.isActive,
       this.notes,
       this.businessName,
       this.isInterested,
       this.executiveLatitude,
-      this.executiveLongitude});
+      this.executiveLongitude,
+      this.status});
 
   int contactId;
   String? contactName;
@@ -58,12 +59,12 @@ class ContactModel {
   List<String>? labels;
   bool? isPending;
   User? executive;
-  bool? isActive;
   String? notes;
   String? businessName;
   bool? isInterested;
   double? executiveLatitude;
   double? executiveLongitude;
+  ContactStatus? status;
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         contactId: json["contactId"],
@@ -95,12 +96,17 @@ class ContactModel {
                 "email": json["executiveEmail"],
                 "phone": json["executivePhone"],
               }),
-        isActive: json["isActive"],
         notes: json["notes"],
         businessName: json["businessName"],
         isInterested: json["isInterested"],
         executiveLatitude: json["executiveLatitude"]?.toDouble(),
         executiveLongitude: json["executiveLongitude"]?.toDouble(),
+        status: ContactStatus.fromJson({
+          "statusId": json["statusId"],
+          "tenantId": json["tenantId"],
+          "status": json["status"],
+          "isActive": json["isActive"],
+        }),
       );
 
   Map<String, dynamic> toJson() => {
@@ -124,12 +130,12 @@ class ContactModel {
         "longitude": longitude,
         "labels": labels == null ? [] : List<dynamic>.from(labels!.map((x) => x.toString())),
         "isPending": isPending,
-        "isActive": isActive,
         "notes": notes,
         "businessName": businessName,
         "isInterested": isInterested,
         "executiveLatitude": executiveLatitude,
         "executiveLongitude": executiveLongitude,
+        "status": status?.toJson(),
       };
 
   @override
