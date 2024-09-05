@@ -1,32 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/class_widgets/user_tiny_card.dart';
+import 'package:vendify_widgets_package/classes/users/user_parent.dart';
 
-class User {
-  final int id;
-  final String firstName;
-  final String lastName;
-  final String? description;
-  final String? phone;
-  final String? role;
-  final String? email;
-  final DateTime? createdAt;
-  final Image? profilePicture;
+class User extends UserParent {
   Future<Map<String, dynamic>>? userTasks;
   final int? contactCount;
 
   User({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    this.description,
-    this.phone,
-    this.role,
-    required this.email,
-    required this.createdAt,
-    required this.profilePicture,
+    required int userId,
+    required int tenantId,
+    required String email,
+    required String rut,
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String role,
+    required String enrollState,
+    required String description,
+    required int score,
+    required String profileImage,
+    required DateTime? lastLogin,
+    required DateTime? joinedAt,
+    required bool isActive,
+    required String jwt,
     this.userTasks,
     this.contactCount,
-  });
+  }) : super(
+          userId: userId,
+          tenantId: tenantId,
+          email: email,
+          rut: rut,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          role: role,
+          enrollState: enrollState,
+          description: description,
+          score: score,
+          profileImage: profileImage,
+          lastLogin: lastLogin,
+          joinedAt: joinedAt,
+          isActive: isActive,
+          jwt: jwt,
+        );
 
   Widget taskSummaryView(BuildContext context) {
     //The task summary view should be a card with the number of overdue tasks and the number of tasks for today(the completed ones and the ones that are not completed)
@@ -114,42 +130,53 @@ class User {
   // Method to get the user's age based on the createdAt date
   int getAge() {
     final now = DateTime.now();
-    final difference = now.difference(createdAt ?? now);
+    final difference = now.difference(joinedAt ?? now);
     final ageInYears = (difference.inDays / 365).floor();
     return ageInYears;
   }
 
   // Method to convert the User object to a JSON map
   Map<String, dynamic> toJson() => {
-        'userId': id,
+        'userId': userId,
         'firstName': firstName,
         'lastName': lastName,
         'description': description,
         'phone': phone,
         'role': role,
         'email': email,
-        'joinedAt': createdAt != null ? createdAt!.toIso8601String() : '',
+        'joinedAt': joinedAt != null ? joinedAt!.toIso8601String() : '',
         'contactCount': contactCount ?? 0,
       };
 
   // Method to create a User object from a JSON map
   static User fromJson(Map<String, dynamic> json) => User(
-        id: json['userId'],
+        userId: json['userId'],
         firstName: json['firstName'],
         lastName: json['lastName'],
         description: json['description'],
         phone: json['phone'],
         role: json['role'] ?? 'executive',
         email: json['email'],
-        createdAt: json['joinedAt'] != null ? DateTime.parse(json['joinedAt']) : DateTime.now(),
+        joinedAt: json['joinedAt'] != null ? DateTime.parse(json['joinedAt']) : DateTime.now(),
         contactCount: json['contactCount'] != null ? int.tryParse(json['contactCount']) : 0,
-        profilePicture:
-            null, // TODO: Add profile picture, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
+        profileImage:
+            "", // TODO: Add profile picture, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
+        score:
+            0, // TODO: Add score, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
+        lastLogin:
+            null, // TODO: Add last login, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
+        isActive:
+            true, // TODO: Add is active, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
+        jwt:
+            "", // TODO: Add jwt, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
+        tenantId: 0,
+        rut: "",
+        enrollState: "",
       );
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, description: $description, phone: $phone, role: $role, email: $email, createdAt: $createdAt, profilePicture: $profilePicture)';
+    return 'User(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, joinedAt: $joinedAt)';
   }
 
   @override
@@ -157,14 +184,26 @@ class User {
     if (identical(this, other)) return true;
 
     return other is User &&
-        other.id == id &&
+        other.userId == userId &&
         other.firstName == firstName &&
         other.email == email &&
-        other.createdAt == createdAt;
+        other.joinedAt == joinedAt;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ firstName.hashCode ^ email.hashCode ^ createdAt.hashCode;
+    return userId.hashCode ^ firstName.hashCode ^ email.hashCode ^ joinedAt.hashCode;
+  }
+
+  @override
+  Future<bool> checkUser() {
+    // TODO: implement checkUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
   }
 }

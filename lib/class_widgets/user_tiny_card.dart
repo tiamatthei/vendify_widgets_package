@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vendify_widgets_package/classes/user.dart';
+import 'package:vendify_widgets_package/classes/users/user.dart';
 import 'package:vendify_widgets_package/colors.dart';
 import 'package:vendify_widgets_package/widgets/text_button.dart';
 
@@ -37,10 +37,10 @@ class _UserTinyCardState extends State<UserTinyCard> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                widget.user.profilePicture?.image != null
+                widget.user.profileImage != ""
                     ? CircleAvatar(
                         radius: 30,
-                        backgroundImage: widget.user.profilePicture?.image,
+                        backgroundImage: Image.network(widget.user.profileImage).image,
                         backgroundColor: TColors.accent60,
                       )
                     : const CircleAvatar(
@@ -93,10 +93,10 @@ class _UserTinyCardState extends State<UserTinyCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  widget.user.profilePicture?.image != null
+                  widget.user.profileImage != ""
                       ? CircleAvatar(
                           radius: 30,
-                          backgroundImage: widget.user.profilePicture?.image,
+                          backgroundImage: Image.network(widget.user.profileImage).image,
                           backgroundColor: TColors.accent60,
                         )
                       : const CircleAvatar(

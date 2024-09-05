@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vendify_widgets_package/classes/user.dart';
+import 'package:vendify_widgets_package/classes/users/user.dart';
 import 'package:vendify_widgets_package/constants/global.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
 import 'package:vendify_widgets_package/utils/jwt.dart';

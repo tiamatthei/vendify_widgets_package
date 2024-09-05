@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:convert';
 
-import 'package:vendify_widgets_package/classes/user.dart';
+import 'package:vendify_widgets_package/classes/users/user.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
 
 class UsersApi extends BaseApi {

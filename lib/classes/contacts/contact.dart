@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:vendify_widgets_package/classes/contacts/contact_status.dart';
-import 'package:vendify_widgets_package/classes/user.dart';
+import 'package:vendify_widgets_package/classes/users/user.dart';
 
 List<ContactModel> contactModelFromJson(String str) =>
     List<ContactModel>.from(json.decode(str).map((x) => ContactModel.fromJson(x)));
