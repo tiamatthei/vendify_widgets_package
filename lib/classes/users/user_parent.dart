@@ -1,38 +1,38 @@
 abstract class UserParent {
   int userId;
-  int tenantId;
-  String email;
-  String rut;
-  String firstName;
-  String lastName;
-  String phone;
-  String role;
-  String enrollState;
-  String description;
-  int score;
-  String profileImage;
+  int? tenantId;
+  String? email;
+  String? rut;
+  String? firstName;
+  String? lastName;
+  String? phone;
+  String? role;
+  String? enrollState;
+  String? description;
+  int? score;
+  String? profileImage;
   DateTime? lastLogin;
   DateTime? joinedAt;
-  bool isActive;
-  String jwt;
+  bool? isActive;
+  String? jwt;
 
   UserParent({
-    this.userId = 0,
-    this.tenantId = 0,
-    this.email = "",
-    this.rut = "",
-    this.firstName = "",
-    this.lastName = "",
-    this.phone = "",
-    this.role = "",
-    this.enrollState = "",
-    this.description = "",
-    this.score = 0,
-    this.profileImage = "",
+    required this.userId,
+    this.tenantId,
+    this.email,
+    this.rut,
+    this.firstName,
+    this.lastName,
+    this.phone,
+    this.role,
+    this.enrollState,
+    this.description,
+    this.score,
+    this.profileImage,
     this.lastLogin,
     this.joinedAt,
-    this.isActive = false,
-    this.jwt = "",
+    this.isActive,
+    this.jwt,
   });
 
   Map<String, dynamic> toJson() => {
@@ -48,8 +48,8 @@ abstract class UserParent {
         'description': description,
         'score': score,
         'profile_image': profileImage,
-        'last_login': lastLogin != null ? lastLogin!.toIso8601String() : "",
-        'joined_at': joinedAt != null ? joinedAt!.toIso8601String() : "",
+        'last_login': lastLogin?.toIso8601String(),
+        'joined_at': joinedAt?.toIso8601String(),
         'is_active': isActive,
       };
 

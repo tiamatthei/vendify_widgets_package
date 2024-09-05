@@ -40,7 +40,7 @@ class _UserTinyCardState extends State<UserTinyCard> {
                 widget.user.profileImage != ""
                     ? CircleAvatar(
                         radius: 30,
-                        backgroundImage: Image.network(widget.user.profileImage).image,
+                        backgroundImage: Image.network(widget.user.profileImage!).image,
                         backgroundColor: TColors.accent60,
                       )
                     : const CircleAvatar(
@@ -96,7 +96,7 @@ class _UserTinyCardState extends State<UserTinyCard> {
                   widget.user.profileImage != ""
                       ? CircleAvatar(
                           radius: 30,
-                          backgroundImage: Image.network(widget.user.profileImage).image,
+                          backgroundImage: Image.network(widget.user.profileImage!).image,
                           backgroundColor: TColors.accent60,
                         )
                       : const CircleAvatar(
