@@ -37,7 +37,7 @@ class _UserTinyCardState extends State<UserTinyCard> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                widget.user.profileImage != ""
+                widget.user.profileImage != null
                     ? CircleAvatar(
                         radius: 30,
                         backgroundImage: Image.network(widget.user.profileImage!).image,
@@ -93,7 +93,7 @@ class _UserTinyCardState extends State<UserTinyCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  widget.user.profileImage != ""
+                  widget.user.profileImage != null
                       ? CircleAvatar(
                           radius: 30,
                           backgroundImage: Image.network(widget.user.profileImage!).image,

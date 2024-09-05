@@ -136,6 +136,7 @@ class User extends UserParent {
   }
 
   // Method to convert the User object to a JSON map
+  @override
   Map<String, dynamic> toJson() => {
         'userId': userId,
         'firstName': firstName,
@@ -159,19 +160,15 @@ class User extends UserParent {
         email: json['email'],
         joinedAt: json['joinedAt'] != null ? DateTime.parse(json['joinedAt']) : DateTime.now(),
         contactCount: json['contactCount'] != null ? int.tryParse(json['contactCount']) : 0,
-        profileImage:
-            "", // TODO: Add profile picture, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
-        score:
-            0, // TODO: Add score, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
-        lastLogin:
-            null, // TODO: Add last login, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
-        isActive:
-            true, // TODO: Add is active, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
-        jwt:
-            "", // TODO: Add jwt, should be added to the JSON map when the user data is fetched from the API, even tho its a different endpoint
-        tenantId: 0,
-        rut: "",
-        enrollState: "",
+        profileImage: json['profileImage'],
+        lastLogin: json['lastLogin'] != null ? DateTime.parse(json['lastLogin']) : null,
+        isActive: json['isActive'],
+        jwt: json['jwt'],
+        enrollState: json['enrollState'],
+        score: json['score'],
+        tenantId: json['tenantId'],
+        rut: json['rut'],
+        userTasks: json['userTasks'],
       );
 
   @override
