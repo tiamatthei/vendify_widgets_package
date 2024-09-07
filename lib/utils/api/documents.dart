@@ -21,6 +21,21 @@ class DocumentsApi extends BaseApi {
     }
   }
 
+  Future<bool> changeDocumentStatus(int documentId, bool? newStatus) async {
+    String endpoint = '$documentsEndpoint/status/$documentId';
+    Map<String, dynamic> requestBody = {
+      'isCompleted': newStatus,
+    };
+    try {
+      log("Changing document status...");
+      await BaseApi.patch(endpoint, requestBody, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to change document status: $e");
+      return false;
+    }
+  }
+
   Future<Document> getDocumentDataById(int documentId) async {
     String endpoint = '$documentsEndpoint/data/$documentId';
     try {
