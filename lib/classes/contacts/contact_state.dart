@@ -37,6 +37,10 @@ class ContactState {
       };
 
   Color get colorValue {
-    return Color(int.parse(color!.substring(1, 7), radix: 16) + 0xFF000000);
+    try {
+      return Color(int.parse(color!.substring(1, 7), radix: 16) + 0xFF000000);
+    } catch (e) {
+      return Colors.grey;
+    }
   }
 }
