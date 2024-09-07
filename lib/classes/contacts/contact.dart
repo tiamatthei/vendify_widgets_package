@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:vendify_widgets_package/classes/contacts/contact_state.dart';
 import 'package:vendify_widgets_package/classes/contacts/contact_status.dart';
 import 'package:vendify_widgets_package/classes/users/user.dart';
 
@@ -22,7 +23,6 @@ class ContactModel {
       this.number,
       this.apartment,
       this.state,
-      this.step,
       this.updatedAt,
       this.validated,
       required this.createdAt,
@@ -49,8 +49,7 @@ class ContactModel {
   String? street;
   String? number;
   String? apartment;
-  String? state;
-  int? step;
+  ContactState? state;
   DateTime? updatedAt;
   bool? validated;
   DateTime createdAt;
@@ -78,8 +77,15 @@ class ContactModel {
         street: json["street"],
         number: json["number"]?.toString(),
         apartment: json["apartment"],
-        state: json["state"].toString(),
-        step: json["step"],
+        state: ContactState.fromJson(
+          {
+            "contactStateId": json["contactStateId"],
+            "state": json["state"],
+            "description": json["description"],
+            "step": json["step"],
+            "color": json["color"],
+          },
+        ),
         updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
         validated: json["validated"],
         createdAt: json["createdAt"] == null ? DateTime.now() : DateTime.parse(json["createdAt"]),
@@ -122,7 +128,6 @@ class ContactModel {
         "number": number,
         "apartment": apartment,
         "state": state,
-        "step": step,
         "updatedAt": updatedAt?.toIso8601String(),
         "validated": validated,
         "createdAt": createdAt.toIso8601String(),
@@ -140,6 +145,6 @@ class ContactModel {
 
   @override
   String toString() {
-    return 'ContactModel{contactId: $contactId, contactName: $contactName, phone: $phone, email: $email, rut: $rut, city: $city, region: $region, street: $street, number: $number, state: $state, step: $step, updatedAt: $updatedAt, validated: $validated, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, labels: $labels, isPending: $isPending, executive: $executive}';
+    return 'ContactModel{contactId: $contactId, contactName: $contactName, phone: $phone, email: $email, rut: $rut, city: $city, region: $region, street: $street, number: $number, state: $state, updatedAt: $updatedAt, validated: $validated, createdAt: $createdAt, latitude: $latitude, longitude: $longitude, labels: $labels, isPending: $isPending, executive: $executive}';
   }
 }
