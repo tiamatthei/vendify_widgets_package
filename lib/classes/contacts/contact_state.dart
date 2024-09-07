@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/classes/tasks/task.dart';
 
 class ContactState {
@@ -23,9 +24,8 @@ class ContactState {
         description: json['description'] ?? '',
         step: json['step'] ?? 0,
         color: json['color'] ?? '',
-        linkedTasks: json['linkedTasks'] != null
-            ? List<Task>.from(json['linkedTasks'].map((x) => Task.fromJson(x)))
-            : null,
+        linkedTasks:
+            json['linkedTasks'] != null ? List<Task>.from(json['linkedTasks'].map((x) => Task.fromJson(x))) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,8 +36,7 @@ class ContactState {
         'color': color,
       };
 
-  // Color get colorValue {
-  //   return Color(int.parse(color.substring(1, 7), radix: 16) + 0xFF000000);
-  // }
-
+  Color get colorValue {
+    return Color(int.parse(color.substring(1, 7), radix: 16) + 0xFF000000);
+  }
 }
