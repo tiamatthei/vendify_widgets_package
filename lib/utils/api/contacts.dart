@@ -64,11 +64,12 @@ class ContactsApi extends BaseApi {
     }
   }
 
-  Future<List<ContactModel>> getUserContacts({
-    int page = 1,
-    String? orderFilter,
-    List<Map<String, dynamic>> contactFilters = const [],
-  }) async {
+  Future<List<ContactModel>> getUserContacts(
+      {int page = 1,
+      String? orderFilter,
+      List<Map<String, dynamic>> contactFilters = const [],
+      DateTime? startDate,
+      DateTime? endDate}) async {
     String endpoint = contactsEndpoint;
     Map<String, String> queryParams = {
       'page': page.toString(),
@@ -94,6 +95,13 @@ class ContactsApi extends BaseApi {
       if (labels.isNotEmpty) {
         queryParams['label'] = labels.join(',');
       }
+    }
+    if (startDate != null) {
+      queryParams['start_date'] = startDate.toIso8601String().split('T')[0];
+    }
+
+    if (endDate != null) {
+      queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
     }
 
     try {
@@ -153,7 +161,6 @@ class ContactsApi extends BaseApi {
       return null;
     }
   }
-
 
   Future<List<ContactStatus>?> getContactStatus() async {
     try {
