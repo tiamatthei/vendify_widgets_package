@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendify_widgets_package/class_widgets/user_tiny_card.dart';
 import 'package:vendify_widgets_package/classes/users/user_parent.dart';
+import 'package:vendify_widgets_package/utils/api/auth.dart';
 
 class User extends UserParent {
   Future<Map<String, dynamic>>? userTasks;
@@ -158,10 +160,16 @@ class User extends UserParent {
         phone: json['phone'],
         role: json['role'] ?? 'executive',
         email: json['email'],
-        joinedAt: json['joinedAt'] != null ? DateTime.parse(json['joinedAt']) : DateTime.now(),
-        contactCount: json['contactCount'] != null ? int.tryParse(json['contactCount']) : 0,
+        joinedAt: json['joinedAt'] != null
+            ? DateTime.parse(json['joinedAt'])
+            : DateTime.now(),
+        contactCount: json['contactCount'] != null
+            ? int.tryParse(json['contactCount'])
+            : 0,
         profileImage: json['profileImage'],
-        lastLogin: json['lastLogin'] != null ? DateTime.parse(json['lastLogin']) : null,
+        lastLogin: json['lastLogin'] != null
+            ? DateTime.parse(json['lastLogin'])
+            : null,
         isActive: json['isActive'],
         jwt: json['jwt'],
         enrollState: json['enrollState'],
@@ -189,18 +197,28 @@ class User extends UserParent {
 
   @override
   int get hashCode {
-    return userId.hashCode ^ firstName.hashCode ^ email.hashCode ^ joinedAt.hashCode;
+    return userId.hashCode ^
+        firstName.hashCode ^
+        email.hashCode ^
+        joinedAt.hashCode;
   }
 
   @override
-  Future<bool> checkUser() {
-    // TODO: implement checkUser
-    throw UnimplementedError();
+  Future<bool> checkUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('email');
+    String? password = prefs.getString('password');
+    if (email != null && password != null) {
+      bool success = await AuthApi.login(email, password);
+      return success;
+    }
+    return false;
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('email');
+    prefs.remove('password');
   }
 }
