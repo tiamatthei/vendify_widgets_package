@@ -160,4 +160,18 @@ class RequestsApi extends BaseApi {
       return [];
     }
   }
+
+  Future<List<Map>> getMetricas(int tenantId) async {
+    try {
+      String respBody = await BaseApi.get("$requestsEndpoint/metrics", withToken: true);
+      List<dynamic> body = jsonDecode(respBody);
+      print(body);
+      List<Map> metricas = List<Map>.from(body.map((x) => x as Map));
+      print(metricas);
+      return metricas;
+    } catch (e) {
+      log("Error trying to get metricas: $e");
+      return [];
+    }
+  }
 }
