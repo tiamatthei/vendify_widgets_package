@@ -161,7 +161,7 @@ class RequestsApi extends BaseApi {
     }
   }
 
-  Future<List<Map>> getMetricas(int tenantId) async {
+  Future<List<Map>> getMetricas() async {
     try {
       String respBody = await BaseApi.get("$requestsEndpoint/metrics", withToken: true);
       List<dynamic> body = jsonDecode(respBody);
