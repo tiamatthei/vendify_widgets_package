@@ -110,7 +110,7 @@ class Interaction {
 
   Widget asDetailsListTile(BuildContext context) {
     return ListTile(
-      title: Text(type.interactionType ?? ""),
+      title: Text(comments ?? ""),
       subtitle: Text(timestamp.toString()),
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.start,
