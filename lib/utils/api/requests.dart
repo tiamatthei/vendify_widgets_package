@@ -160,4 +160,19 @@ class RequestsApi extends BaseApi {
       return [];
     }
   }
+
+  Future<List<Map>> getMetricas() async {
+    //Esto es una lista de mapas, pero realmente viene solo un mapa siempre,
+    //TODO arreglar el backend para que devuelva un mapa en vez de una lista
+    //TODO cambiar acá para que devuelva un mapa en vez de una lista
+    try {
+      String respBody = await BaseApi.get("$requestsEndpoint/metrics", withToken: true);
+      List<dynamic> body = jsonDecode(respBody);
+      List<Map> metricas = List<Map>.from(body.map((x) => x as Map));
+      return metricas;
+    } catch (e) {
+      log("Error trying to get metricas: $e");
+      return [];
+    }
+  }
 }
