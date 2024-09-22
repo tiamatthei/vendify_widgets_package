@@ -29,6 +29,8 @@ Color _getInteractionColor(interactionType) {
       return Colors.blue;
     case 'Modificación':
       return Colors.orange;
+    case 'Completado':
+      return Colors.purple;
     default:
       return Colors.black;
   }
