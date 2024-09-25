@@ -4,25 +4,23 @@ class FormFieldModel {
   final int formFieldId;
   final int? formId;
   final String? label;
-  final int? fieldType;
   final bool? isRequired;
   final int? fieldOrder;
   final List<String>? options;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  FormFieldTypeModel? fieldTypeModel;
+  FormFieldTypeModel? fieldType;
 
   FormFieldModel({
     required this.formFieldId,
     this.formId,
     this.label,
-    this.fieldType,
     this.isRequired,
     this.fieldOrder,
     this.options,
     this.createdAt,
     this.updatedAt,
-    this.fieldTypeModel,
+    this.fieldType,
   });
 
   factory FormFieldModel.fromJson(Map<String, dynamic> json) {
@@ -30,13 +28,12 @@ class FormFieldModel {
       formFieldId: json['form_field_id'],
       formId: json['form_id'],
       label: json['label'],
-      fieldType: json['field_type'],
       isRequired: json['is_required'],
       fieldOrder: json['field_order'],
       options: List<String>.from(json['options']),
       createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
       updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
-      fieldTypeModel: json['field_type_model'] != null
+      fieldType: json['field_type_model'] != null
           ? FormFieldTypeModel.fromJson(json['field_type_model'] as Map<String, dynamic>)
           : null,
     );
@@ -52,6 +49,5 @@ class FormFieldModel {
         'options': options,
         'created_at': createdAt?.toIso8601String(),
         'updated_at': updatedAt?.toIso8601String(),
-        'field_type_model': fieldTypeModel?.toJson(),
       };
 }
