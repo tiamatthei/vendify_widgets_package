@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/classes/tasks/task.dart';
 
 class ContactState {
-  final int? contactStateId;
-  final String? state;
-  final String? description;
-  final int? step;
-  final String? color;
+  int? contactStateId;
+  String? state;
+  String? description;
+  int? step;
+  String? color;
   List<Task>? linkedTasks;
 
   ContactState({

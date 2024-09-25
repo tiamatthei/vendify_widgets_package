@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/classes/tasks/task_type.dart';
 
 class Task {
-  final int taskId;
-  final String? title;
-  final String? description;
-  final bool? completed;
-  final int? contactId;
-  final int? contactStateId;
-  final TaskType? taskType;
-  final DateTime? completedAt;
-  final bool? isAdmin;
+  int taskId;
+  String? title;
+  String? description;
+  bool? completed;
+  int? contactId;
+  int? contactStateId;
+  TaskType? taskType;
+  DateTime? completedAt;
+  bool? isAdmin;
 
   Task({
     required this.taskId,

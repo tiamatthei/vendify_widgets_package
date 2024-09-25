@@ -1,9 +1,9 @@
 class FormFieldValueModel {
-  final int formFieldValueId;
-  final int? formResponseId;
-  final int? formFieldId;
-  final String? fieldValue;
-  final DateTime? createdAt;
+ int formFieldValueId;
+ int? formResponseId;
+ int? formFieldId;
+ String? fieldValue;
+ DateTime? createdAt;
 
   FormFieldValueModel({
     required this.formFieldValueId,

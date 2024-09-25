@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/colors.dart';
 
 class TaskType {
-  final int taskTypeId;
-  final String? type;
+  int taskTypeId;
+  String? type;
 
   TaskType({
     required this.taskTypeId,

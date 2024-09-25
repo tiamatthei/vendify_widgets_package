@@ -1,12 +1,12 @@
 import 'package:vendify_widgets_package/classes/forms/form_field.dart';
 
 class FormModel {
-  final int formId;
-  final String? title;
-  final String? description;
-  final int? createdBy;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  int formId;
+  String? title;
+  String? description;
+  int? createdBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   List<FormFieldModel>? formFields;
 
   FormModel({

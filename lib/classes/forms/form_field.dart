@@ -1,14 +1,14 @@
 import 'package:vendify_widgets_package/classes/forms/form_field_type.dart';
 
 class FormFieldModel {
-  final int formFieldId;
-  final int? formId;
-  final String? label;
-  final bool? isRequired;
-  final int? fieldOrder;
-  final List<String>? options;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  int formFieldId;
+  int? formId;
+  String? label;
+  bool? isRequired;
+  int? fieldOrder;
+  List<String>? options;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   FormFieldTypeModel? fieldType;
 
   FormFieldModel({
