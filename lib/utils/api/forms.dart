@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:vendify_widgets_package/classes/forms/form.dart';
+import 'package:vendify_widgets_package/classes/forms/form_field.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
 
 class FormsApi extends BaseApi {
@@ -19,8 +20,19 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<bool> createForm(Map<String, dynamic> formDetails) async {
+  Future<bool> createForm(
+    String formTitle,
+    String formDescription,
+    List<FormFieldModel> formFields,
+  ) async {
     String endpoint = '$formsEndpoint/create';
+
+    Map<String, dynamic> formDetails = {
+      'title': formTitle,
+      'description': formDescription,
+      'fields': formFields.map((e) => e.toJson()).toList(),
+    };
+    
     try {
       log("Creating form...");
       await BaseApi.post(endpoint, formDetails, withToken: true);
