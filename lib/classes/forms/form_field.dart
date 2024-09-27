@@ -33,9 +33,10 @@ class FormFieldModel {
       options: List<String>.from(json['options']),
       createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
       updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-      fieldType: json['fieldTypeModel'] != null
-          ? FormFieldTypeModel.fromJson(json['fieldTypeModel'] as Map<String, dynamic>)
-          : null,
+      fieldType: FormFieldTypeModel.fromJson({
+        'formFieldTypeId': json['formFieldTypeId'],
+        'fieldType': json['fieldType'],
+      }),
     );
   }
 
@@ -43,7 +44,7 @@ class FormFieldModel {
         'formFieldId': formFieldId,
         'formId': formId,
         'label': label,
-        'fieldType': fieldType,
+        'fieldType': fieldType?.toJson(),
         'isRequired': isRequired,
         'fieldOrder': fieldOrder,
         'options': options,
