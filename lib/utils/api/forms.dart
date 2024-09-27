@@ -9,7 +9,7 @@ class FormsApi extends BaseApi {
   static const String formsEndpoint = 'forms';
 
   Future<List<FormModel>?> getForms() async {
-    String endpoint = '$formsEndpoint';
+    String endpoint = formsEndpoint;
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
       List<FormModel> model = (jsonDecode(respBody) as List).map((e) => FormModel.fromJson(e)).toList();
@@ -17,6 +17,18 @@ class FormsApi extends BaseApi {
     } catch (e) {
       log("Error trying to get forms: $e");
       return [];
+    }
+  }
+
+  Future<FormModel> getFormData(int formId) async {
+    String endpoint = '$formsEndpoint/$formId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      FormModel model = FormModel.fromJson(jsonDecode(respBody));
+      return model;
+    } catch (e) {
+      log("Error trying to get form data: $e");
+      return FormModel(formId: 0, formFields: []);
     }
   }
 
@@ -32,7 +44,7 @@ class FormsApi extends BaseApi {
       'description': formDescription,
       'fields': formFields.map((e) => e.toJson()).toList(),
     };
-    
+
     try {
       log("Creating form...");
       await BaseApi.post(endpoint, formDetails, withToken: true);
