@@ -9,13 +9,13 @@ class FormFieldTypeModel {
 
   factory FormFieldTypeModel.fromJson(Map<String, dynamic> json) {
     return FormFieldTypeModel(
-      formFieldTypeId: json['form_field_type_id'],
-      fieldType: json['field_type'],
+      formFieldTypeId: json['formFieldTypeId'],
+      fieldType: json['fieldType'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'form_field_type_id': formFieldTypeId,
-        'field_type': fieldType,
+        'formFieldTypeId': formFieldTypeId,
+        'fieldType': fieldType,
       };
 }

@@ -25,29 +25,29 @@ class FormFieldModel {
 
   factory FormFieldModel.fromJson(Map<String, dynamic> json) {
     return FormFieldModel(
-      formFieldId: json['form_field_id'],
-      formId: json['form_id'],
+      formFieldId: json['formFieldId'],
+      formId: json['formId'],
       label: json['label'],
-      isRequired: json['is_required'],
-      fieldOrder: json['field_order'],
+      isRequired: json['isRequired'],
+      fieldOrder: json['fieldOrder'],
       options: List<String>.from(json['options']),
-      createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
-      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
-      fieldType: json['field_type_model'] != null
-          ? FormFieldTypeModel.fromJson(json['field_type_model'] as Map<String, dynamic>)
+      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
+      fieldType: json['fieldTypeModel'] != null
+          ? FormFieldTypeModel.fromJson(json['fieldTypeModel'] as Map<String, dynamic>)
           : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'form_field_id': formFieldId,
-        'form_id': formId,
+        'formFieldId': formFieldId,
+        'formId': formId,
         'label': label,
-        'field_type': fieldType,
-        'is_required': isRequired,
-        'field_order': fieldOrder,
+        'fieldType': fieldType,
+        'isRequired': isRequired,
+        'fieldOrder': fieldOrder,
         'options': options,
-        'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt?.toIso8601String(),
+        'createdAt': createdAt?.toIso8601String(),
+        'updatedAt': updatedAt?.toIso8601String(),
       };
 }
