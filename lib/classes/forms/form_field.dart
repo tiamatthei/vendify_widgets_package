@@ -7,6 +7,7 @@ class FormFieldModel {
   bool? isRequired;
   int? fieldOrder;
   String? correspondingColumn;
+  String? hintText;
   List<String>? options;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -19,6 +20,7 @@ class FormFieldModel {
     this.isRequired,
     this.fieldOrder,
     this.correspondingColumn,
+    this.hintText,
     this.options,
     this.createdAt,
     this.updatedAt,
@@ -33,6 +35,7 @@ class FormFieldModel {
       isRequired: json['isRequired'],
       fieldOrder: json['fieldOrder'],
       correspondingColumn: json['correspondingColumn'],
+      hintText: json['hintText'],
       options: List<String>.from(json['options']),
       createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
       updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
@@ -47,12 +50,13 @@ class FormFieldModel {
         'formFieldId': formFieldId,
         'formId': formId,
         'label': label,
-        'fieldType': fieldType?.toJson(),
         'isRequired': isRequired,
         'fieldOrder': fieldOrder,
         'correspondingColumn': correspondingColumn,
+        'hintText': hintText,
         'options': options,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'fieldType': fieldType?.toJson(),
       };
 }
