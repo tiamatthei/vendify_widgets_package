@@ -41,5 +41,6 @@ class FormFieldValueModel {
         'formResponseId': formResponseId,
         'fieldValue': fieldValue,
         'createdAt': createdAt?.toIso8601String(),
+        'formField': formField?.toJson(),
       };
 }

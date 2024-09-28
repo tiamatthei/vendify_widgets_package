@@ -1,14 +1,14 @@
 import 'package:vendify_widgets_package/classes/forms/form_field_value.dart';
 
 class FormResponseModel {
-  int formResponseId;
+  int? formResponseId;
   int? formId;
   int? contactId;
   DateTime? submittedAt;
   List<FormFieldValueModel>? formFieldValues;
 
   FormResponseModel({
-    required this.formResponseId,
+    this.formResponseId,
     this.formId,
     this.contactId,
     this.submittedAt,
