@@ -97,6 +97,17 @@ class FormsApi extends BaseApi {
     }
   }
 
+  Future<bool> registerInitialFormResponse(FormResponseModel response) async {
+    String endpoint = '$formsEndpoint/initial-response';
+    try {
+      await BaseApi.post(endpoint, response.toJson(), withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to register initial form response: $e");
+      return false;
+    }
+  }
+
   Future<List<FormResponseModel>?> getFormResponses(int formId) async {
     String endpoint = '$formsEndpoint/responses/$formId';
     try {
