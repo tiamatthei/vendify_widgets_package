@@ -1,7 +1,7 @@
 import 'package:vendify_widgets_package/classes/forms/form_field_type.dart';
 
 class FormFieldModel {
-  int formFieldId;
+  int? formFieldId;
   int? formId;
   String? label;
   bool? isRequired;
@@ -13,7 +13,7 @@ class FormFieldModel {
   FormFieldTypeModel? fieldType;
 
   FormFieldModel({
-    required this.formFieldId,
+    this.formFieldId,
     this.formId,
     this.label,
     this.isRequired,
