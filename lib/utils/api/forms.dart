@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:vendify_widgets_package/classes/forms/form.dart';
 import 'package:vendify_widgets_package/classes/forms/form_field.dart';
+import 'package:vendify_widgets_package/classes/forms/form_response.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
 
 class FormsApi extends BaseApi {
@@ -76,6 +77,35 @@ class FormsApi extends BaseApi {
     } catch (e) {
       log("Error trying to delete form: $e");
       return false;
+    }
+  }
+
+  Future<bool> registerFormResponse(FormResponseModel response) async {
+    String endpoint = '$formsEndpoint/response';
+    try {
+      log("Registering form response...");
+      Map<String, dynamic> formResponse = {
+        'formId': response.formId,
+        'contactId': response.contactId,
+        'responses': response.formFieldValues?.map((e) => e.toJson()).toList(),
+      };
+      await BaseApi.post(endpoint, formResponse, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to register form response: $e");
+      return false;
+    }
+  }
+
+  Future<List<FormResponseModel>?> getFormResponses(int formId) async {
+    String endpoint = '$formsEndpoint/responses/$formId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      List<FormResponseModel> model = (jsonDecode(respBody) as List).map((e) => FormResponseModel.fromJson(e)).toList();
+      return model;
+    } catch (e) {
+      log("Error trying to get form responses: $e");
+      return [];
     }
   }
 }
