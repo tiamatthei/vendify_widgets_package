@@ -52,11 +52,12 @@ class ContactsApi extends BaseApi {
     }
   }
 
-  Future<List<ContactModel>> getContactsReport({String? orderFilder, DateTime? startDate, DateTime? endDate}) async {
+  Future<List<ContactModel>> getContactsReport(
+      {String? orderFilter = 'updatedAt', DateTime? startDate, DateTime? endDate}) async {
     String endpoint = '$contactsEndpoint/report';
     Map<String, String> queryParams = {};
-    if (orderFilder != null) {
-      queryParams['order'] = orderFilder;
+    if (orderFilter != null) {
+      queryParams['order'] = orderFilter;
     }
     if (startDate != null) {
       queryParams['start_date'] = startDate.toIso8601String().split('T')[0];
