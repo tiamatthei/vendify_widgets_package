@@ -52,6 +52,47 @@ class ContactsApi extends BaseApi {
     }
   }
 
+  Future<List<ContactModel>> getContactsReport({String? orderFilder, DateTime? startDate, DateTime? endDate}) async {
+    String endpoint = '$contactsEndpoint/report';
+    Map<String, String> queryParams = {};
+    if (orderFilder != null) {
+      queryParams['order'] = orderFilder;
+    }
+    if (startDate != null) {
+      queryParams['start_date'] = startDate.toIso8601String().split('T')[0];
+    }
+    if (endDate != null) {
+      queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
+    }
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      List<ContactModel> model = contactModelFromJson(respBody);
+      return model;
+    } catch (e) {
+      log("Error trying to get contacts report: $e");
+      return [];
+    }
+  }
+
+  Future<int> getContactsCount({DateTime? startDate, DateTime? endDate}) async {
+    String endpoint = '$contactsEndpoint/count';
+    Map<String, String> queryParams = {};
+    if (startDate != null) {
+      queryParams['start_date'] = startDate.toIso8601String().split('T')[0];
+    }
+    if (endDate != null) {
+      queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
+    }
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      Map<String, dynamic> body = jsonDecode(respBody);
+      return body['count'];
+    } catch (e) {
+      log("Error trying to get contacts count: $e");
+      return 0;
+    }
+  }
+
   Future<ContactModel?> getContact(int id) async {
     try {
       String respBody = await BaseApi.get('$contactsEndpoint/$id/details', withToken: true);
