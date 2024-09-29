@@ -1,9 +1,9 @@
 class FormFieldTypeModel {
-  int formFieldTypeId;
+  int? formFieldTypeId;
   String? fieldType;
 
   FormFieldTypeModel({
-    required this.formFieldTypeId,
+    this.formFieldTypeId,
     this.fieldType,
   });
 

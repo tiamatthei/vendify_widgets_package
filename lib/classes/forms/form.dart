@@ -1,7 +1,7 @@
 import 'package:vendify_widgets_package/classes/forms/form_field.dart';
 
 class FormModel {
-  int formId;
+  int? formId;
   String? title;
   String? description;
   int? createdBy;
@@ -10,7 +10,7 @@ class FormModel {
   List<FormFieldModel>? formFields;
 
   FormModel({
-    required this.formId,
+    this.formId,
     this.title,
     this.description,
     this.createdBy,
