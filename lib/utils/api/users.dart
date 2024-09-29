@@ -72,7 +72,7 @@ class UsersApi extends BaseApi {
     }
   }
 
-  Future<bool> changePassword(int userId, String oldPassword, String newPassword) async {
+  Future<bool> changePassword(int userId, String newPassword) async {
     String endpoint = '$usersEndpoint/change_password/$userId';
     try {
       Map<String, String> body = {
