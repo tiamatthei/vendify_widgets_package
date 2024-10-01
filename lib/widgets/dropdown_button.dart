@@ -10,8 +10,8 @@ class SimpleDropdown extends StatefulWidget {
   final String? label;
   final FocusNode? focusNode;
   final void Function(dynamic)? onChanged;
-  final String? value;
-  final List<DropdownMenuItem<String>>? items;
+  final dynamic value;
+  final List<DropdownMenuItem<dynamic>>? items;
   final bool enabled;
   final String? Function(dynamic)? validator;
   final bool searchable;
