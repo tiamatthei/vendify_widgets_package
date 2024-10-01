@@ -16,7 +16,8 @@ class ContactsApi extends BaseApi {
       List<Map<String, String>> contactFilters = const [],
       String? query,
       DateTime? startDate,
-      DateTime? endDate}) async {
+      DateTime? endDate,
+      int? userId}) async {
     Map<String, String> queryParams = {
       'page': page.toString(),
     };
@@ -40,6 +41,10 @@ class ContactsApi extends BaseApi {
 
     if (endDate != null) {
       queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
+    }
+
+    if (userId != null) {
+      queryParams['userId'] = userId.toString();
     }
 
     try {
