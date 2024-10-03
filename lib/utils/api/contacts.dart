@@ -57,6 +57,17 @@ class ContactsApi extends BaseApi {
     }
   }
 
+  Future<List<ContactModel>> getTenantContactMarkers() async {
+    try {
+      String respBody = await BaseApi.get("$contactsEndpoint/markers", withToken: true);
+      List<ContactModel> model = contactModelFromJson(respBody);
+      return model;
+    } catch (e) {
+      log("Error trying to get contact markers: $e");
+      return [];
+    }
+  }
+
   Future<List<ContactModel>> getContactsReport(
       {String? orderFilter = 'updatedAt', DateTime? startDate, DateTime? endDate}) async {
     String endpoint = '$contactsEndpoint/report';
