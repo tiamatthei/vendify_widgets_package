@@ -59,10 +59,40 @@ class RequestsApi extends BaseApi {
       return [];
     }
   }
-
-  Future<List<Request>> getUserRequests() async {
+  
+  Future<List<Request>> getUserRequests({
+    int page = 1,
+    String resolvedFilter = 'all',
+    String? orderBy = 'updatedAt',
+    String? query,
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
+    Map<String, String>? queryParams = {
+      'page': page.toString(),
+    };
+    if (orderBy != null) {
+      queryParams['order'] = orderBy;
+    }
+    
+    if (resolvedFilter != 'all') {
+      queryParams['resolvedFilter'] = resolvedFilter;
+    }
+    
+    if (query != null && query.isNotEmpty) {
+      queryParams['query'] = query;
+    }
+    
+    if (startDate != null) {
+      queryParams['startDate'] = startDate.toIso8601String();
+    }
+    
+    if (endDate != null) {
+      queryParams['endDate'] = endDate.toIso8601String();
+    }
+    
     try {
-      String respBody = await BaseApi.get('$requestsEndpoint/executive', withToken: true);
+      String respBody = await BaseApi.get('$requestsEndpoint/executive', withToken: true, queryParams: queryParams);
       List<Request> model = (jsonDecode(respBody) as List).map((e) => Request.fromJson(e)).toList();
       return model;
     } catch (e) {
