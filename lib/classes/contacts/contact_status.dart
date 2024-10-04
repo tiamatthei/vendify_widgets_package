@@ -5,10 +5,10 @@ class ContactStatus {
   bool? isActive;
 
   ContactStatus({
-    required this.statusId,
-    required this.tenantId,
-    required this.status,
-    required this.isActive,
+    this.statusId,
+    this.tenantId,
+    this.status,
+    this.isActive,
   });
 
   factory ContactStatus.fromJson(Map<String, dynamic> json) {
