@@ -136,6 +136,18 @@ class TasksApi extends BaseApi {
     }
   }
 
+  Future<bool> undoCompleted(int taskId) async {
+    String endpoint = '$tasksEndpoint/$taskId/undo';
+    try {
+      log("Undoing task completion...");
+      await BaseApi.patch(endpoint, {}, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to undo task completion: $e");
+      return false;
+    }
+  }
+
   Future<void> deleteTask(int taskId) async {
     String endpoint = '$tasksEndpoint/$taskId';
     try {
