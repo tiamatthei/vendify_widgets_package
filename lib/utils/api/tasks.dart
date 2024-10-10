@@ -124,11 +124,11 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<bool> markAsCompleted(int taskId) async {
-    String endpoint = '$tasksEndpoint/$taskId/complete';
+  Future<bool> markAsCompleted(int taskId, int contactId) async {
+    String endpoint = '$tasksEndpoint/complete';
     try {
       log("Marking task as completed...");
-      await BaseApi.patch(endpoint, {}, withToken: true);
+      await BaseApi.patch(endpoint, {'taskId': taskId, 'contactId': contactId}, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to mark task as completed: $e");
@@ -136,11 +136,11 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<bool> undoCompleted(int taskId) async {
-    String endpoint = '$tasksEndpoint/$taskId/undo';
+  Future<bool> undoCompleted(int taskId, int contactId) async {
+    String endpoint = '$tasksEndpoint/undo';
     try {
       log("Undoing task completion...");
-      await BaseApi.patch(endpoint, {}, withToken: true);
+      await BaseApi.patch(endpoint, {'taskId': taskId, 'contactId': contactId}, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to undo task completion: $e");
@@ -148,7 +148,7 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<void> deleteTask(int taskId) async {
+  Future<void> deleteTask(int taskId, int contactId) async {
     String endpoint = '$tasksEndpoint/$taskId';
     try {
       log("Deleting task...");
