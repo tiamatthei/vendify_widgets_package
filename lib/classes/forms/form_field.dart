@@ -36,7 +36,7 @@ class FormFieldModel {
       fieldOrder: json['fieldOrder'],
       correspondingColumn: json['correspondingColumn'],
       hintText: json['hintText'],
-      options: List<String>.from(json['options']),
+      options: json['options'] != null ? List<String>.from(json['options']) : null,
       createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
       updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
       fieldType: FormFieldTypeModel.fromJson({
