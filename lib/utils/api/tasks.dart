@@ -29,6 +29,8 @@ class TasksApi extends BaseApi {
     String? startDate,
     String? endDate,
     String? search,
+    String? isCompleted = 'all',
+    bool? isAdmin,
   }) async {
     String endpoint = '$tasksEndpoint/user';
     Map<String, String> queryParameters = {
@@ -37,7 +39,23 @@ class TasksApi extends BaseApi {
       if (startDate != null) 'startDate': startDate,
       if (endDate != null) 'endDate': endDate,
       if (search != null) 'search': search,
+      if (isAdmin != null) 'isAdmin': isAdmin.toString(),
     };
+
+    switch (isCompleted) {
+      case 'rejected':
+        queryParameters['isCompleted'] = false.toString();
+        break;
+      case 'completed':
+        queryParameters['isCompleted'] = true.toString();
+        break;
+      case 'pending':
+        queryParameters['isCompleted'] = null.toString();
+        break;
+      default:
+        break;
+    }
+
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParameters);
       List<Task> model = (jsonDecode(respBody) as List).map((e) => Task.fromJson(e)).toList();
