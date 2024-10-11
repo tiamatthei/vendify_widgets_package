@@ -76,7 +76,7 @@ class RequestsApi extends BaseApi {
     }
     
     if (resolvedFilter != 'all') {
-      queryParams['resolvedFilter'] = resolvedFilter;
+      queryParams['resolved'] = resolvedFilter;
     }
     
     if (query != null && query.isNotEmpty) {
