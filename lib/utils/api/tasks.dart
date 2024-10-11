@@ -20,6 +20,8 @@ class TaskOrders {
   static const String taskTypeIdDesc = 'taskTypeIdDesc';
 }
 
+enum TaskStatus { pending, completed, rejected }
+
 class TasksApi extends BaseApi {
   static const String tasksEndpoint = 'tasks';
 
@@ -29,7 +31,7 @@ class TasksApi extends BaseApi {
     String? startDate,
     String? endDate,
     String? search,
-    String? isCompleted = 'all',
+    TaskStatus? taskStatus,
     bool? isAdmin,
   }) async {
     String endpoint = '$tasksEndpoint/user';
@@ -42,15 +44,15 @@ class TasksApi extends BaseApi {
       if (isAdmin != null) 'isAdmin': isAdmin.toString(),
     };
 
-    switch (isCompleted) {
-      case 'rejected':
-        queryParameters['isCompleted'] = false.toString();
+    switch (taskStatus) {
+      case TaskStatus.pending:
+        queryParameters['isCompleted'] = "null";
         break;
-      case 'completed':
-        queryParameters['isCompleted'] = true.toString();
+      case TaskStatus.completed:
+        queryParameters['isCompleted'] = 'true';
         break;
-      case 'pending':
-        queryParameters['isCompleted'] = null.toString();
+      case TaskStatus.rejected:
+        queryParameters['isCompleted'] = 'false';
         break;
       default:
         break;
