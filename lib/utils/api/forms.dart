@@ -109,6 +109,7 @@ class FormsApi extends BaseApi {
   }
 
   Future<List<FormResponseModel>?> getFormResponses(int formId) async {
+    //Get all responses for a form (used for admin)
     String endpoint = '$formsEndpoint/responses/$formId';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
@@ -119,4 +120,31 @@ class FormsApi extends BaseApi {
       return [];
     }
   }
+
+  Future<FormResponseModel> getFormResponse(int formResponseId) async {
+    //Get the data of a single form response in particular
+    String endpoint = '$formsEndpoint/response/$formResponseId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      FormResponseModel model = FormResponseModel.fromJson(jsonDecode(respBody));
+      return model;
+    } catch (e) {
+      log("Error trying to get form response: $e");
+      return FormResponseModel();
+    }
+  }
+
+  Future<List<FormResponseModel>?> getContactFormResponses(int contactId) async {
+    //Get all form responses for a contact
+    String endpoint = '$formsEndpoint/responses/contact/$contactId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      List<FormResponseModel> model = (jsonDecode(respBody) as List).map((e) => FormResponseModel.fromJson(e)).toList();
+      return model;
+    } catch (e) {
+      log("Error trying to get contact form responses: $e");
+      return [];
+    }
+  }
+
 }
