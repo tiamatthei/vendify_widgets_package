@@ -2,13 +2,15 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:vendify_widgets_package/classes/forms/form.dart';
+import 'package:vendify_widgets_package/classes/forms/form_field.dart';
+import 'package:vendify_widgets_package/classes/forms/form_response.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
 
 class FormsApi extends BaseApi {
   static const String formsEndpoint = 'forms';
 
   Future<List<FormModel>?> getForms() async {
-    String endpoint = '$formsEndpoint';
+    String endpoint = formsEndpoint;
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
       List<FormModel> model = (jsonDecode(respBody) as List).map((e) => FormModel.fromJson(e)).toList();
@@ -19,8 +21,31 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<bool> createForm(Map<String, dynamic> formDetails) async {
+  Future<FormModel> getFormData(int formId) async {
+    String endpoint = '$formsEndpoint/$formId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      FormModel model = FormModel.fromJson(jsonDecode(respBody));
+      return model;
+    } catch (e) {
+      log("Error trying to get form data: $e");
+      return FormModel(formId: 0, formFields: []);
+    }
+  }
+
+  Future<bool> createForm(
+    String formTitle,
+    String formDescription,
+    List<FormFieldModel> formFields,
+  ) async {
     String endpoint = '$formsEndpoint/create';
+
+    Map<String, dynamic> formDetails = {
+      'title': formTitle,
+      'description': formDescription,
+      'fields': formFields.map((e) => e.toJson()).toList(),
+    };
+
     try {
       log("Creating form...");
       await BaseApi.post(endpoint, formDetails, withToken: true);
@@ -54,4 +79,72 @@ class FormsApi extends BaseApi {
       return false;
     }
   }
+
+  Future<bool> registerFormResponse(FormResponseModel response) async {
+    String endpoint = '$formsEndpoint/response';
+    try {
+      log("Registering form response...");
+      Map<String, dynamic> formResponse = {
+        'formId': response.formId,
+        'contactId': response.contactId,
+        'responses': response.formFieldValues?.map((e) => e.toJson()).toList(),
+      };
+      await BaseApi.post(endpoint, formResponse, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to register form response: $e");
+      return false;
+    }
+  }
+
+  Future<bool> registerInitialFormResponse(FormResponseModel response) async {
+    String endpoint = '$formsEndpoint/initial-response';
+    try {
+      await BaseApi.post(endpoint, response.toJson(), withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to register initial form response: $e");
+      return false;
+    }
+  }
+
+  Future<List<FormResponseModel>?> getFormResponses(int formId) async {
+    //Get all responses for a form (used for admin)
+    String endpoint = '$formsEndpoint/responses/$formId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      List<FormResponseModel> model = (jsonDecode(respBody) as List).map((e) => FormResponseModel.fromJson(e)).toList();
+      return model;
+    } catch (e) {
+      log("Error trying to get form responses: $e");
+      return [];
+    }
+  }
+
+  Future<FormResponseModel> getFormResponse(int formResponseId) async {
+    //Get the data of a single form response in particular
+    String endpoint = '$formsEndpoint/response/$formResponseId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      FormResponseModel model = FormResponseModel.fromJson(jsonDecode(respBody));
+      return model;
+    } catch (e) {
+      log("Error trying to get form response: $e");
+      return FormResponseModel();
+    }
+  }
+
+  Future<List<FormResponseModel>?> getContactFormResponses(int contactId) async {
+    //Get all form responses for a contact
+    String endpoint = '$formsEndpoint/responses/contact/$contactId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      List<FormResponseModel> model = (jsonDecode(respBody) as List).map((e) => FormResponseModel.fromJson(e)).toList();
+      return model;
+    } catch (e) {
+      log("Error trying to get contact form responses: $e");
+      return [];
+    }
+  }
+
 }

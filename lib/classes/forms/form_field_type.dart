@@ -1,21 +1,21 @@
 class FormFieldTypeModel {
-  final int formFieldTypeId;
-  final String? fieldType;
+  int? formFieldTypeId;
+  String? fieldType;
 
   FormFieldTypeModel({
-    required this.formFieldTypeId,
+    this.formFieldTypeId,
     this.fieldType,
   });
 
   factory FormFieldTypeModel.fromJson(Map<String, dynamic> json) {
     return FormFieldTypeModel(
-      formFieldTypeId: json['form_field_type_id'],
-      fieldType: json['field_type'],
+      formFieldTypeId: json['formFieldTypeId'],
+      fieldType: json['fieldType'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'form_field_type_id': formFieldTypeId,
-        'field_type': fieldType,
+        'formFieldTypeId': formFieldTypeId,
+        'fieldType': fieldType,
       };
 }

@@ -176,7 +176,8 @@ class _SimpleModalState extends State<SimpleModal> {
                 widget.body ?? const SizedBox(),
                 const SizedBox(height: 20),
                 Wrap(
-                  runSpacing: widget.actionsSpacing,
+                  spacing: widget.actionsSpacing,
+                  runSpacing: 4,
                   children: widget.actions.map((action) => action).toList(),
                 ),
               ],

@@ -1,11 +1,11 @@
 class ContactLabel {
-  final int labelId;
-  final String label;
-  final int tenantId;
-  final String description;
-  final int? contactStateId;
-  final bool? isPositive;
-  final int? relatedLabelId;
+  int labelId;
+  String label;
+  int tenantId;
+  String description;
+  int? contactStateId;
+  bool? isPositive;
+  int? relatedLabelId;
 
   ContactLabel({
     required this.labelId,

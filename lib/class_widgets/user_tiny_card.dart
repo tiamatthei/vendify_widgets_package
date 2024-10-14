@@ -142,8 +142,7 @@ class _UserTinyCardState extends State<UserTinyCard> {
                 child: SimpleButton(
                   onPressed: widget.onTap,
                   text: "Ir a usuario",
-                  isSecondary: true,
-                  textColor: TColors.accentDefault,
+                  buttonType: SimpleButtonType.secondary,
                   icon: Icons.keyboard_arrow_right_rounded,
                   mainAxisSize: MainAxisSize.min,
                 ),

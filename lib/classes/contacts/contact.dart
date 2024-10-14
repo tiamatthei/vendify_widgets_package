@@ -127,7 +127,7 @@ class ContactModel {
         "street": street,
         "number": number,
         "apartment": apartment,
-        "state": state,
+        "state": state?.toJson(),
         "updatedAt": updatedAt?.toIso8601String(),
         "validated": validated,
         "createdAt": createdAt.toIso8601String(),

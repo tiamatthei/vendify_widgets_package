@@ -5,27 +5,27 @@ class ContactStatus {
   bool? isActive;
 
   ContactStatus({
-    required this.statusId,
-    required this.tenantId,
-    required this.status,
-    required this.isActive,
+    this.statusId,
+    this.tenantId,
+    this.status,
+    this.isActive,
   });
 
   factory ContactStatus.fromJson(Map<String, dynamic> json) {
     return ContactStatus(
-      statusId: json['status_id'],
-      tenantId: json['tenant_id'],
+      statusId: json['statusId'],
+      tenantId: json['tenantId'],
       status: json['status'],
-      isActive: json['is_active'],
+      isActive: json['isActive'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'status_id': statusId,
-      'tenant_id': tenantId,
+      'statusId': statusId,
+      'tenantId': tenantId,
       'status': status,
-      'is_active': isActive,
+      'isActive': isActive,
     };
   }
 }

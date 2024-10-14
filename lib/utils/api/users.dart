@@ -38,7 +38,7 @@ class UsersApi extends BaseApi {
   Future<User?> getUser(int userId) async {
     try {
       String respBody = await BaseApi.get('$usersEndpoint/user/$userId', withToken: true);
-      log( "user body: $respBody");
+      log("user body: $respBody");
       Map<String, dynamic> body = jsonDecode(respBody);
       User? user = User.fromJson(body);
       return user;
@@ -69,6 +69,20 @@ class UsersApi extends BaseApi {
     } catch (e) {
       log("Error trying to get leaderboard: $e");
       return null;
+    }
+  }
+
+  Future<bool> changePassword(int userId, String newPassword) async {
+    String endpoint = '$usersEndpoint/change_password/$userId';
+    try {
+      Map<String, String> body = {
+        'newPassword': newPassword,
+      };
+      await BaseApi.patch(endpoint, body, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to change password: $e");
+      return false;
     }
   }
 }

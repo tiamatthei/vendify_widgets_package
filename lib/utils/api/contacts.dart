@@ -16,7 +16,8 @@ class ContactsApi extends BaseApi {
       List<Map<String, String>> contactFilters = const [],
       String? query,
       DateTime? startDate,
-      DateTime? endDate}) async {
+      DateTime? endDate,
+      int? userId}) async {
     Map<String, String> queryParams = {
       'page': page.toString(),
     };
@@ -42,6 +43,10 @@ class ContactsApi extends BaseApi {
       queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
     }
 
+    if (userId != null) {
+      queryParams['userId'] = userId.toString();
+    }
+
     try {
       String respBody = await BaseApi.get("$contactsEndpoint/tenant", withToken: true, queryParams: queryParams);
       List<ContactModel> model = contactModelFromJson(respBody);
@@ -49,6 +54,59 @@ class ContactsApi extends BaseApi {
     } catch (e) {
       log("Error trying to get contacts: $e");
       return [];
+    }
+  }
+
+  Future<List<ContactModel>> getTenantContactMarkers() async {
+    try {
+      String respBody = await BaseApi.get("$contactsEndpoint/markers", withToken: true);
+      List<ContactModel> model = contactModelFromJson(respBody);
+      return model;
+    } catch (e) {
+      log("Error trying to get contact markers: $e");
+      return [];
+    }
+  }
+
+  Future<List<ContactModel>> getContactsReport(
+      {String? orderFilter = 'updatedAt', DateTime? startDate, DateTime? endDate}) async {
+    String endpoint = '$contactsEndpoint/report';
+    Map<String, String> queryParams = {};
+    if (orderFilter != null) {
+      queryParams['order'] = orderFilter;
+    }
+    if (startDate != null) {
+      queryParams['start_date'] = startDate.toIso8601String().split('T')[0];
+    }
+    if (endDate != null) {
+      queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
+    }
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      List<ContactModel> model = contactModelFromJson(respBody);
+      return model;
+    } catch (e) {
+      log("Error trying to get contacts report: $e");
+      return [];
+    }
+  }
+
+  Future<int> getContactsCount({DateTime? startDate, DateTime? endDate}) async {
+    String endpoint = '$contactsEndpoint/count';
+    Map<String, String> queryParams = {};
+    if (startDate != null) {
+      queryParams['start_date'] = startDate.toIso8601String().split('T')[0];
+    }
+    if (endDate != null) {
+      queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
+    }
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      Map<String, dynamic> body = jsonDecode(respBody);
+      return body['count'];
+    } catch (e) {
+      log("Error trying to get contacts count: $e");
+      return 0;
     }
   }
 

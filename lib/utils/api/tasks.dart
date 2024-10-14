@@ -20,6 +20,8 @@ class TaskOrders {
   static const String taskTypeIdDesc = 'taskTypeIdDesc';
 }
 
+enum TaskStatus { pending, completed, rejected }
+
 class TasksApi extends BaseApi {
   static const String tasksEndpoint = 'tasks';
 
@@ -29,6 +31,8 @@ class TasksApi extends BaseApi {
     String? startDate,
     String? endDate,
     String? search,
+    TaskStatus? taskStatus,
+    bool? isAdmin,
   }) async {
     String endpoint = '$tasksEndpoint/user';
     Map<String, String> queryParameters = {
@@ -37,7 +41,23 @@ class TasksApi extends BaseApi {
       if (startDate != null) 'startDate': startDate,
       if (endDate != null) 'endDate': endDate,
       if (search != null) 'search': search,
+      if (isAdmin != null) 'isAdmin': isAdmin.toString(),
     };
+
+    switch (taskStatus) {
+      case TaskStatus.pending:
+        queryParameters['isCompleted'] = "null";
+        break;
+      case TaskStatus.completed:
+        queryParameters['isCompleted'] = 'true';
+        break;
+      case TaskStatus.rejected:
+        queryParameters['isCompleted'] = 'false';
+        break;
+      default:
+        break;
+    }
+
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParameters);
       List<Task> model = (jsonDecode(respBody) as List).map((e) => Task.fromJson(e)).toList();
@@ -124,7 +144,31 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<void> deleteTask(int taskId) async {
+  Future<bool> markAsCompleted(int taskId, int contactId) async {
+    String endpoint = '$tasksEndpoint/complete';
+    try {
+      log("Marking task as completed...");
+      await BaseApi.patch(endpoint, {'taskId': taskId, 'contactId': contactId}, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to mark task as completed: $e");
+      return false;
+    }
+  }
+
+  Future<bool> undoCompleted(int taskId, int contactId) async {
+    String endpoint = '$tasksEndpoint/undo';
+    try {
+      log("Undoing task completion...");
+      await BaseApi.patch(endpoint, {'taskId': taskId, 'contactId': contactId}, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to undo task completion: $e");
+      return false;
+    }
+  }
+
+  Future<void> deleteTask(int taskId, int contactId) async {
     String endpoint = '$tasksEndpoint/$taskId';
     try {
       log("Deleting task...");

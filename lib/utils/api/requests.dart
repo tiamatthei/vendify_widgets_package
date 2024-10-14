@@ -60,9 +60,48 @@ class RequestsApi extends BaseApi {
     }
   }
 
-  Future<List<Request>> getUserRequests() async {
+  Future<List<Request>> getUserRequests({
+    int page = 1,
+    String resolvedFilter = 'all',
+    String? orderBy = 'updatedAt',
+    String? query,
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
+    Map<String, String>? queryParams = {
+      'page': page.toString(),
+    };
+    if (orderBy != null) {
+      queryParams['order'] = orderBy;
+    }
+    if (query != null && query.isNotEmpty) {
+      queryParams['query'] = query;
+    }
+
+    if (startDate != null) {
+      queryParams['startDate'] = startDate.toIso8601String();
+    }
+
+    if (endDate != null) {
+      queryParams['endDate'] = endDate.toIso8601String();
+    }
+
+    switch (resolvedFilter) {
+      case 'rejected':
+        queryParams['resolved'] = false.toString();
+        break;
+      case 'aproved':
+        queryParams['resolved'] = true.toString();
+        break;
+      case 'pending':
+        queryParams['resolved'] = null.toString();
+        break;
+      default:
+        break;
+    }
+
     try {
-      String respBody = await BaseApi.get('$requestsEndpoint/executive', withToken: true);
+      String respBody = await BaseApi.get('$requestsEndpoint/executive', withToken: true, queryParams: queryParams);
       List<Request> model = (jsonDecode(respBody) as List).map((e) => Request.fromJson(e)).toList();
       return model;
     } catch (e) {

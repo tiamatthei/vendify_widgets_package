@@ -56,7 +56,9 @@ class Request {
       userLastName: json['userLastName'],
       resolution: RequestResolution.fromJson({
         'resolutionId': json['resolutionId'],
-        'resolutionName': json['resolutionName'],
+        'resolution': json['resolution'],
+        'isAccepted': json['isAccepted'],
+        'tenantId': json['tenantId'],
       }));
 
   Map<String, dynamic> toJson() => {

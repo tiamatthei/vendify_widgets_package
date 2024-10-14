@@ -1,57 +1,62 @@
 import 'package:vendify_widgets_package/classes/forms/form_field_type.dart';
 
 class FormFieldModel {
-  final int formFieldId;
-  final int? formId;
-  final String? label;
-  final int? fieldType;
-  final bool? isRequired;
-  final int? fieldOrder;
-  final List<String>? options;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  FormFieldTypeModel? fieldTypeModel;
+  int? formFieldId;
+  int? formId;
+  String? label;
+  bool? isRequired;
+  int? fieldOrder;
+  String? correspondingColumn;
+  String? hintText;
+  List<String>? options;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  FormFieldTypeModel? fieldType;
 
   FormFieldModel({
-    required this.formFieldId,
+    this.formFieldId,
     this.formId,
     this.label,
-    this.fieldType,
     this.isRequired,
     this.fieldOrder,
+    this.correspondingColumn,
+    this.hintText,
     this.options,
     this.createdAt,
     this.updatedAt,
-    this.fieldTypeModel,
+    this.fieldType,
   });
 
   factory FormFieldModel.fromJson(Map<String, dynamic> json) {
     return FormFieldModel(
-      formFieldId: json['form_field_id'],
-      formId: json['form_id'],
+      formFieldId: json['formFieldId'],
+      formId: json['formId'],
       label: json['label'],
-      fieldType: json['field_type'],
-      isRequired: json['is_required'],
-      fieldOrder: json['field_order'],
-      options: List<String>.from(json['options']),
-      createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
-      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
-      fieldTypeModel: json['field_type_model'] != null
-          ? FormFieldTypeModel.fromJson(json['field_type_model'] as Map<String, dynamic>)
-          : null,
+      isRequired: json['isRequired'],
+      fieldOrder: json['fieldOrder'],
+      correspondingColumn: json['correspondingColumn'],
+      hintText: json['hintText'],
+      options: json['options'] != null ? List<String>.from(json['options']) : null,
+      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
+      fieldType: FormFieldTypeModel.fromJson({
+        'formFieldTypeId': json['formFieldTypeId'],
+        'fieldType': json['fieldType'],
+      }),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'form_field_id': formFieldId,
-        'form_id': formId,
+        'formFieldId': formFieldId,
+        'formId': formId,
         'label': label,
-        'field_type': fieldType,
-        'is_required': isRequired,
-        'field_order': fieldOrder,
+        'isRequired': isRequired,
+        'fieldOrder': fieldOrder,
+        'correspondingColumn': correspondingColumn,
+        'hintText': hintText,
         'options': options,
-        'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt?.toIso8601String(),
-        'field_type_model': fieldTypeModel?.toJson(),
+        'createdAt': createdAt?.toIso8601String(),
+        'updatedAt': updatedAt?.toIso8601String(),
+        'fieldType': fieldType?.toJson(),
       };
 }
