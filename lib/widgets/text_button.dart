@@ -3,7 +3,7 @@ library text_button;
 import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/colors.dart';
 
-enum SimpleButtonType { primary, secondary, tertiary, destructive, tertiaryDestructive, successDefault }
+enum SimpleButtonType { primary, secondary, tertiary, destructive, tertiaryDestructive, successDefault, disabled }
 
 class SimpleButton extends StatelessWidget {
   /// Botón simple con texto e icono
@@ -56,7 +56,7 @@ class SimpleButton extends StatelessWidget {
       switch (buttonType) {
         case SimpleButtonType.primary:
           return TColors.accentDefault;
-        case SimpleButtonType.secondary || SimpleButtonType.tertiary || SimpleButtonType.tertiaryDestructive:
+        case SimpleButtonType.secondary || SimpleButtonType.tertiary || SimpleButtonType.tertiaryDestructive || SimpleButtonType.disabled:
           return TColors.backgroundDefault;
         case SimpleButtonType.destructive:
           return TColors.errorDefault;
@@ -73,6 +73,8 @@ class SimpleButton extends StatelessWidget {
           return TColors.accentDefault;
         case SimpleButtonType.tertiaryDestructive:
           return TColors.errorDefault;
+        case SimpleButtonType.disabled:
+          return TColors.primary60;
       }
     }
 
