@@ -29,6 +29,7 @@ class DocumentsApi extends BaseApi {
     try {
       log("Changing document status...");
       await BaseApi.patch(endpoint, requestBody, withToken: true);
+      log("Document status changed successfully");
       return true;
     } catch (e) {
       log("Error trying to change document status: $e");
