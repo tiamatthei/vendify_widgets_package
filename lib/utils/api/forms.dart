@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:vendify_widgets_package/classes/forms/form.dart';
 import 'package:vendify_widgets_package/classes/forms/form_field.dart';
+import 'package:vendify_widgets_package/classes/forms/form_field_value.dart';
 import 'package:vendify_widgets_package/classes/forms/form_response.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
 
@@ -147,4 +148,17 @@ class FormsApi extends BaseApi {
     }
   }
 
+  Future<bool> updateFormResponseValues(List<FormFieldValueModel> formFieldValues) async {
+    String endpoint = ' $formsEndpoint/response';
+    try {
+      Map<String, dynamic> formResponse = {
+        'responses': formFieldValues.map((e) => e.toJson()).toList(),
+      };
+      await BaseApi.patch(endpoint, formResponse, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to update form response values: $e");
+      return false;
+    }
+  }
 }
