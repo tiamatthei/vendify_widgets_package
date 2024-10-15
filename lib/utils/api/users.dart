@@ -85,4 +85,25 @@ class UsersApi extends BaseApi {
       return false;
     }
   }
+
+  Future<List<Map<String, dynamic>>> getCountContactsByState({DateTime? startDate, DateTime? endDate}) async {
+    try {
+      Map<String, String> queryParams = {};
+
+      if (startDate != null) {
+        queryParams['start_date'] = startDate.toIso8601String().split('T')[0];
+      }
+
+      if (endDate != null) {
+        queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
+      }
+      String respBody = await BaseApi.get("contacts/count/states", withToken: true, queryParams: queryParams);
+      List<dynamic> data = jsonDecode(respBody);
+      List<Map<String, dynamic>> contacts = data.map((contact) => contact as Map<String, dynamic>).toList();
+      return contacts;
+    } catch (e) {
+      log("Error fetching contacts by state: $e");
+      return [];
+    }
+  }
 }
