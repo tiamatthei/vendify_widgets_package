@@ -36,7 +36,9 @@ class ContactModel {
       this.isInterested,
       this.executiveLatitude,
       this.executiveLongitude,
-      this.status});
+      this.status,
+      this.pendingTaskCount,
+      this.totalTaskCount});
 
   int contactId;
   String? contactName;
@@ -64,6 +66,8 @@ class ContactModel {
   double? executiveLatitude;
   double? executiveLongitude;
   ContactStatus? status;
+  int? pendingTaskCount;
+  int? totalTaskCount;
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         contactId: json["contactId"],
@@ -113,6 +117,8 @@ class ContactModel {
           "status": json["status"],
           "isActive": json["isActive"],
         }),
+        pendingTaskCount: json["pendingTaskCount"],
+        totalTaskCount: json["totalTaskCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -141,6 +147,8 @@ class ContactModel {
         "executiveLatitude": executiveLatitude,
         "executiveLongitude": executiveLongitude,
         "status": status?.toJson(),
+        "pendingTaskCount": pendingTaskCount,
+        "totalTaskCount": totalTaskCount,
       };
 
   @override
