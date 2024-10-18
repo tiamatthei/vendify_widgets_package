@@ -11,6 +11,8 @@ class Task {
   TaskType? taskType;
   DateTime? completedAt;
   bool? isAdmin;
+  String? contactName;
+  String? businessName;
 
   Task({
     required this.taskId,
@@ -22,6 +24,8 @@ class Task {
     this.taskType,
     this.completedAt,
     this.isAdmin,
+    this.contactName,
+    this.businessName,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -39,6 +43,8 @@ class Task {
         ),
         completedAt: json["completedAt"] != null ? DateTime.parse(json["completedAt"]) : null,
         isAdmin: json["isAdmin"],
+        contactName: json["contactName"],
+        businessName: json["businessName"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +57,8 @@ class Task {
         "taskType": taskType?.toJson(),
         "completedAt": completedAt?.toIso8601String(),
         "isAdmin": isAdmin,
+        "contactName": contactName,
+        "businessName": businessName,
       };
 
   IconData get icon {
