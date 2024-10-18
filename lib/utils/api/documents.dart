@@ -69,6 +69,25 @@ class DocumentsApi extends BaseApi {
     }
   }
 
+  Future<bool?> uploadContactDocument(int contactId, int documentTypeId, Uint8List bytes, String filename) async {
+    //encode the filename to base64 or something
+    String encodedFilename = base64Encode(utf8.encode(filename));
+    String endpoint = '$documentsEndpoint/upload/contact';
+    Map<String, dynamic> requestBody = {
+      'documentTypeId': documentTypeId,
+      'contactId': contactId,
+      'filename': encodedFilename,
+    };
+    try {
+      log("Uploading document...");
+      await BaseApi.post(endpoint, requestBody, withToken: true, bytes: bytes, fileName: encodedFilename);
+      return true;
+    } catch (e) {
+      log("Error trying to upload document: $e");
+      return null;
+    }
+  }
+
   Future<Uint8List?> downloadDocument(int documentId) async {
     String endpoint = '$documentsEndpoint/download/$documentId';
     try {
