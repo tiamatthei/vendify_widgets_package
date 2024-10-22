@@ -67,6 +67,8 @@ class Task {
         return Icons.upload_file;
       case "CHECKBOX":
         return Icons.check_box;
+      case "SCAN":
+        return Icons.qr_code;
       default:
         return Icons.error;
     }
