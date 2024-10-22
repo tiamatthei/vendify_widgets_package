@@ -145,7 +145,12 @@ class TasksApi extends BaseApi {
   }
 
   Future<bool> markAsCompleted(
-      int taskId, int contactId, String? data, String? userLatitude, String? userLongitude) async {
+    int taskId,
+    int contactId, {
+    String? data,
+    String? userLatitude,
+    String? userLongitude,
+  }) async {
     String endpoint = '$tasksEndpoint/complete';
     try {
       Map<String, dynamic> body = {
