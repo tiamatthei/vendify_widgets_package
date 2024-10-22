@@ -8,6 +8,7 @@ class ContactState {
   int? step;
   String? color;
   List<Task>? linkedTasks;
+  bool? userAdvance;
 
   ContactState({
     this.contactStateId,
@@ -16,6 +17,7 @@ class ContactState {
     this.step,
     this.color,
     this.linkedTasks,
+    this.userAdvance,
   });
 
   factory ContactState.fromJson(Map<String, dynamic> json) => ContactState(
@@ -26,6 +28,7 @@ class ContactState {
         color: json['color'],
         linkedTasks:
             json['linkedTasks'] != null ? List<Task>.from(json['linkedTasks'].map((x) => Task.fromJson(x))) : null,
+        userAdvance: json['userAdvance'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +37,8 @@ class ContactState {
         'description': description,
         'step': step,
         'color': color,
+        'linkedTasks': linkedTasks != null ? List<dynamic>.from(linkedTasks!.map((x) => x.toJson())) : null,
+        'userAdvance': userAdvance,
       };
 
   Color get colorValue {
