@@ -144,11 +144,19 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<bool> markAsCompleted(int taskId, int contactId) async {
+  Future<bool> markAsCompleted(
+      int taskId, int contactId, String? data, String? userLatitude, String? userLongitude) async {
     String endpoint = '$tasksEndpoint/complete';
     try {
+      Map<String, dynamic> body = {
+        'taskId': taskId,
+        'contactId': contactId,
+        'data': data,
+        'user_latitude': userLatitude,
+        'user_longitude': userLongitude,
+      };
       log("Marking task as completed...");
-      await BaseApi.patch(endpoint, {'taskId': taskId, 'contactId': contactId}, withToken: true);
+      await BaseApi.patch(endpoint, body, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to mark task as completed: $e");
