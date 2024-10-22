@@ -13,6 +13,7 @@ class Task {
   bool? isAdmin;
   String? contactName;
   String? businessName;
+  String? data;
 
   Task({
     required this.taskId,
@@ -26,6 +27,7 @@ class Task {
     this.isAdmin,
     this.contactName,
     this.businessName,
+    this.data,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -45,6 +47,7 @@ class Task {
         isAdmin: json["isAdmin"],
         contactName: json["contactName"],
         businessName: json["businessName"],
+        data: json["data"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,6 +62,7 @@ class Task {
         "isAdmin": isAdmin,
         "contactName": contactName,
         "businessName": businessName,
+        "data": data,
       };
 
   IconData get icon {
