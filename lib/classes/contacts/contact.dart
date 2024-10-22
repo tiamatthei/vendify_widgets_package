@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:vendify_widgets_package/classes/contacts/contact_state.dart';
 import 'package:vendify_widgets_package/classes/contacts/contact_status.dart';
+import 'package:vendify_widgets_package/classes/tasks/task.dart';
 import 'package:vendify_widgets_package/classes/users/user.dart';
 
 List<ContactModel> contactModelFromJson(String str) =>
@@ -88,6 +89,9 @@ class ContactModel {
             "description": json["description"],
             "step": json["step"],
             "color": json["color"],
+            "linkedTasks":
+                json["linkedTasks"] == null ? null : List<Task>.from(json["linkedTasks"].map((x) => Task.fromJson(x))),
+            "userAdvance": json["userAdvance"],
           },
         ),
         updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
