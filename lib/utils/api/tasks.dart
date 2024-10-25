@@ -148,8 +148,8 @@ class TasksApi extends BaseApi {
     int taskId,
     int contactId, {
     String? data,
-    String? userLatitude,
-    String? userLongitude,
+    double? userLatitude,
+    double? userLongitude,
   }) async {
     String endpoint = '$tasksEndpoint/complete';
     try {
