@@ -204,11 +204,12 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<void> deleteContactTask(int taskId, int contactId) async {
+  Future<bool> deleteContactTask(int taskId, int contactId) async {
     String endpoint = '$tasksEndpoint/contact/$contactId/task/$taskId';
     try {
       log("Deleting contact task...");
       await BaseApi.delete(endpoint, {}, withToken: true);
+      return true;
     } catch (e) {
       log("Error trying to delete contact task: $e");
       throw Exception('Failed to delete contact task');
