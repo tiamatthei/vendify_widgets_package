@@ -113,8 +113,8 @@ class ContactModel {
         notes: json["notes"],
         businessName: json["businessName"],
         isInterested: json["isInterested"],
-        executiveLatitude: json["executiveLatitude"]?.toDouble(),
-        executiveLongitude: json["executiveLongitude"]?.toDouble(),
+        executiveLatitude: (json["executiveLatitude"] as num?)?.toDouble(),
+        executiveLongitude: (json["executiveLongitude"] as num?)?.toDouble(),
         status: ContactStatus.fromJson({
           "statusId": json["statusId"],
           "tenantId": json["tenantId"],
