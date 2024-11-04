@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:vendify_widgets_package/classes/tasks/extra_task.dart';
 import 'package:vendify_widgets_package/classes/tasks/task.dart';
 import 'package:vendify_widgets_package/classes/tasks/task_type.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
@@ -215,4 +216,90 @@ class TasksApi extends BaseApi {
       throw Exception('Failed to delete contact task');
     }
   }
+
+  Future<ExtraTask> createContactExtraTask(ExtraTask task, int contactId) async {
+    String endpoint = '$tasksEndpoint/contact/$contactId/extra';
+    try {
+      log("Creating extra task...");
+      String respBody = await BaseApi.post(endpoint, task.toJson(), withToken: true);
+      ExtraTask model = ExtraTask.fromJson(jsonDecode(respBody));
+      return model;
+    } catch (e) {
+      log("Error trying to create extra task: $e");
+      throw Exception('Failed to create extra task');
+    }
+  }
+
+  Future<List<ExtraTask>?> getContactExtraTasks(int contactId) async {
+    String endpoint = '$tasksEndpoint/contact/$contactId/extra';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      List<ExtraTask> model = (jsonDecode(respBody) as List).map((e) => ExtraTask.fromJson(e)).toList();
+      return model;
+    } catch (e) {
+      log("Error trying to get extra tasks: $e");
+      return [];
+    }
+  }
+
+  Future<List<ExtraTask>?> getContactExtraTasksByState(int contactId, int stateId) async {
+    String endpoint = '$tasksEndpoint/contact/$contactId/state/$stateId/extra';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      List<ExtraTask> model = (jsonDecode(respBody) as List).map((e) => ExtraTask.fromJson(e)).toList();
+      return model;
+    } catch (e) {
+      log("Error trying to get extra tasks by state: $e");
+      return [];
+    }
+  }
+
+  Future<bool> completeExtraTask(
+    int extraTaskId,
+    int contactId, {
+    String? data,
+    double? userLatitude,
+    double? userLongitude,
+  }) async {
+    String endpoint = '$tasksEndpoint/extra/complete';
+    try {
+      Map<String, dynamic> body = {
+        'extraTaskId': extraTaskId,
+        'contactId': contactId,
+        'data': data,
+        'user_latitude': userLatitude,
+        'user_longitude': userLongitude,
+      };
+      log("Marking extra task as completed...");
+      await BaseApi.patch(endpoint, body, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to mark extra task as completed: $e");
+      return false;
+    }
+  }
+
+  Future<bool> undoExtraTask(int extraTaskId, int contactId) async {
+    String endpoint = '$tasksEndpoint/extra/undo';
+    try {
+      log("Undoing extra task completion...");
+      await BaseApi.patch(endpoint, {'extraTaskId': extraTaskId, 'contactId': contactId}, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to undo extra task completion: $e");
+      return false;
+    }
+  }
+  
+  Future<void> deleteExtraTask(int extraTaskId) async {
+    String endpoint = '$tasksEndpoint/extra/$extraTaskId';
+    try {
+      log("Deleting extra task...");
+      await BaseApi.delete(endpoint, {}, withToken: true);
+    } catch (e) {
+      log("Error trying to delete extra task: $e");
+      throw Exception('Failed to delete extra task');
+    }
+  }
+
 }
