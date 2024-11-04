@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/classes/tasks/task_type.dart';
 
 class Task {
-  int taskId;
+  int contactTaskId;
+  int? taskId;
   String? title;
   String? description;
   bool? completed;
@@ -17,7 +18,8 @@ class Task {
   String? notes;
 
   Task({
-    required this.taskId,
+    required this.contactTaskId,
+    this.taskId,
     this.title,
     this.description,
     this.completed,
@@ -33,6 +35,7 @@ class Task {
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
+        contactTaskId: json["contactTaskId"],
         taskId: json["taskId"],
         title: json["title"],
         description: json["description"],
@@ -54,6 +57,7 @@ class Task {
       );
 
   Map<String, dynamic> toJson() => {
+        "contactTaskId": contactTaskId,
         "taskId": taskId,
         "title": title,
         "description": description,
