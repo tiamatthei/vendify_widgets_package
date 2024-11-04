@@ -5,7 +5,7 @@ class Document {
   String documentUrl;
   DocumentType documentType;
   bool? isCompleted;
-  int? taskId;
+  int? contactTaskId;
   int? contactId;
   int? requestId;
   String? filename;
@@ -17,7 +17,7 @@ class Document {
     required this.documentUrl,
     required this.documentType,
     required this.isCompleted,
-    required this.taskId,
+    required this.contactTaskId,
     required this.contactId,
     required this.requestId,
     this.filename,
@@ -33,7 +33,7 @@ class Document {
           documentType: json["documentType"],
         ),
         isCompleted: json["isCompleted"],
-        taskId: json["taskId"],
+        contactTaskId: json["contactTaskId"],
         contactId: json["contactId"],
         requestId: json["requestId"],
         filename: json["filename"],
@@ -50,7 +50,7 @@ class Document {
         "documentUrl": documentUrl,
         "documentType": documentType,
         "isCompleted": isCompleted,
-        "taskId": taskId,
+        "contactTaskId": contactTaskId,
         "contactId": contactId,
         "requestId": requestId,
         "filename": filename,
