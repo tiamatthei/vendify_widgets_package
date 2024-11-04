@@ -14,6 +14,7 @@ class ExtraTask {
   String? contactName;
   String? businessName;
   String? data;
+  String? notes;
 
   ExtraTask({
     required this.extraTaskId,
@@ -28,6 +29,7 @@ class ExtraTask {
     this.contactName,
     this.businessName,
     this.data,
+    this.notes,
   });
 
   factory ExtraTask.fromJson(Map<String, dynamic> json) => ExtraTask(
@@ -48,6 +50,7 @@ class ExtraTask {
         contactName: json["contactName"],
         businessName: json["businessName"],
         data: json["data"],
+        notes: json["notes"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -63,6 +66,7 @@ class ExtraTask {
         "contactName": contactName,
         "businessName": businessName,
         "data": data,
+        "notes": notes,
       };
 
   IconData get icon {
