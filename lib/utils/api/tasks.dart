@@ -145,7 +145,7 @@ class TasksApi extends BaseApi {
   }
 
   Future<bool> markAsCompleted(
-    int taskId,
+    int contactTaskId,
     int contactId, {
     String? data,
     double? userLatitude,
@@ -154,7 +154,7 @@ class TasksApi extends BaseApi {
     String endpoint = '$tasksEndpoint/complete';
     try {
       Map<String, dynamic> body = {
-        'taskId': taskId,
+        'contactTaskId': contactTaskId,
         'contactId': contactId,
         'data': data,
         'user_latitude': userLatitude,
@@ -169,11 +169,11 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<bool> undoCompleted(int taskId, int contactId) async {
+  Future<bool> undoCompleted(int contactTaskId, int contactId) async {
     String endpoint = '$tasksEndpoint/undo';
     try {
       log("Undoing task completion...");
-      await BaseApi.patch(endpoint, {'taskId': taskId, 'contactId': contactId}, withToken: true);
+      await BaseApi.patch(endpoint, {'contactTaskId': contactTaskId, 'contactId': contactId}, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to undo task completion: $e");
@@ -204,8 +204,8 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<bool> deleteContactTask(int taskId, int contactId) async {
-    String endpoint = '$tasksEndpoint/contact/$contactId/task/$taskId';
+  Future<bool> deleteContactTask(int contactTaskId, int contactId) async {
+    String endpoint = '$tasksEndpoint/contact/$contactId/task/$contactTaskId';
     try {
       log("Deleting contact task...");
       await BaseApi.delete(endpoint, {}, withToken: true);
