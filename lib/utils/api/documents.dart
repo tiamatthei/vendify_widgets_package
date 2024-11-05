@@ -49,13 +49,13 @@ class DocumentsApi extends BaseApi {
     }
   }
 
-  Future<bool?> uploadDocument(int contactId, int documentTypeId, Uint8List bytes, String filename, int taskId) async {
+  Future<bool?> uploadDocument(int contactId, int documentTypeId, Uint8List bytes, String filename, int contactTaskId) async {
     //encode the filename to base64 or something
     String encodedFilename = base64Encode(utf8.encode(filename));
     String endpoint = '$documentsEndpoint/upload';
     Map<String, dynamic> requestBody = {
       'documentTypeId': documentTypeId,
-      'taskId': taskId,
+      'contactTaskId': contactTaskId,
       'contactId': contactId,
       'filename': encodedFilename,
     };
