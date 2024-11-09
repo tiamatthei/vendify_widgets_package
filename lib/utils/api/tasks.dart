@@ -160,8 +160,9 @@ class TasksApi extends BaseApi {
         'user_latitude': userLatitude,
         'user_longitude': userLongitude,
       };
+      log("request body: $body");
       log("Marking task as completed...");
-      await BaseApi.patch(endpoint, body, withToken: true);
+      String algo = await BaseApi.patch(endpoint, body, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to mark task as completed: $e");
