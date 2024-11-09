@@ -26,6 +26,7 @@ class DocumentsApi extends BaseApi {
     Map<String, dynamic> requestBody = {
       'isCompleted': newStatus,
     };
+    log("Request body: $requestBody");
     try {
       log("Changing document status...");
       await BaseApi.patch(endpoint, requestBody, withToken: true);
@@ -49,7 +50,8 @@ class DocumentsApi extends BaseApi {
     }
   }
 
-  Future<bool?> uploadDocument(int contactId, int documentTypeId, Uint8List bytes, String filename, int contactTaskId) async {
+  Future<bool?> uploadDocument(
+      int contactId, int documentTypeId, Uint8List bytes, String filename, int contactTaskId) async {
     //encode the filename to base64 or something
     String encodedFilename = base64Encode(utf8.encode(filename));
     String endpoint = '$documentsEndpoint/upload';
