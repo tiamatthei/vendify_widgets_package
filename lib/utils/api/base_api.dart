@@ -104,6 +104,25 @@ class BaseApi {
     }
   }
 
+  static Future<String> put(String endpoint, Map<String, dynamic> body, {bool withToken = false}) async {
+    if (withToken) {
+      final token = await TokenManager.getToken();
+      headers['Authorization'] = 'Bearer $token';
+    }
+    var uri = environment == 'dev' ? Uri.http(baseUrl, '$basePath$endpoint') : Uri.https(baseUrl, '$basePath$endpoint');
+    http.Response response = await http.put(
+      uri,
+      headers: headers,
+      body: jsonEncode(body),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
   static Future<String> delete(String endpoint, Map<String, dynamic> body, {bool withToken = false}) async {
     if (withToken) {
       final token = await TokenManager.getToken();

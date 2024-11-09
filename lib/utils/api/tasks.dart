@@ -135,7 +135,7 @@ class TasksApi extends BaseApi {
     String endpoint = '$tasksEndpoint/$taskId';
     try {
       log("Updating task...");
-      String respBody = await BaseApi.patch(endpoint, task.toJson(), withToken: true);
+      String respBody = await BaseApi.put(endpoint, task.toJson(), withToken: true);
       Task model = Task.fromJson(jsonDecode(respBody));
       return model;
     } catch (e) {
@@ -162,7 +162,7 @@ class TasksApi extends BaseApi {
       };
       log("request body: $body");
       log("Marking task as completed...");
-      String algo = await BaseApi.patch(endpoint, body, withToken: true);
+      await BaseApi.put(endpoint, body, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to mark task as completed: $e");
@@ -174,7 +174,7 @@ class TasksApi extends BaseApi {
     String endpoint = '$tasksEndpoint/undo';
     try {
       log("Undoing task completion...");
-      await BaseApi.patch(endpoint, {'contactTaskId': contactTaskId, 'contactId': contactId}, withToken: true);
+      await BaseApi.put(endpoint, {'contactTaskId': contactTaskId, 'contactId': contactId}, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to undo task completion: $e");
