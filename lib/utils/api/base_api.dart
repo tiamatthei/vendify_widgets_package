@@ -108,6 +108,7 @@ class BaseApi {
     if (withToken) {
       final token = await TokenManager.getToken();
       headers['Authorization'] = 'Bearer $token';
+      headers['Content-Type'] = 'application/json';
     }
     var uri = environment == 'dev' ? Uri.http(baseUrl, '$basePath$endpoint') : Uri.https(baseUrl, '$basePath$endpoint');
     http.Response response = await http.put(
