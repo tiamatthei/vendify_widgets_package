@@ -21,19 +21,26 @@ class DocumentsApi extends BaseApi {
     }
   }
 
-  Future<bool> changeDocumentStatus(int documentId, bool? newStatus) async {
-    String endpoint = '$documentsEndpoint/status/$documentId';
-    Map<String, dynamic> requestBody = {
-      'isCompleted': newStatus,
-    };
-    log("Request body: $requestBody");
+  Future<bool> completeDocument(int documentId) async {
     try {
-      log("Changing document status...");
-      await BaseApi.patch(endpoint, requestBody, withToken: true);
+      String endpoint = '$documentsEndpoint/complete/$documentId';
+      await BaseApi.patch(endpoint, {}, withToken: true);
       log("Document status changed successfully");
       return true;
     } catch (e) {
-      log("Error trying to change document status: $e");
+      log("Error trying to complete document: $e");
+      return false;
+    }
+  }
+
+  Future<bool> undoDocument(int documentId) async {
+    try {
+      String endpoint = '$documentsEndpoint/undo/$documentId';
+      await BaseApi.patch(endpoint, {}, withToken: true);
+      log("Document status changed successfully");
+      return true;
+    } catch (e) {
+      log("Error trying to undo document: $e");
       return false;
     }
   }
