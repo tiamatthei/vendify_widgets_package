@@ -148,6 +148,7 @@ class TasksApi extends BaseApi {
     int contactTaskId,
     int contactId, {
     String? data,
+    String? notes,
     double? userLatitude,
     double? userLongitude,
   }) async {
@@ -170,11 +171,11 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<bool> undoCompleted(int contactTaskId, int contactId) async {
+  Future<bool> undoCompleted(int contactTaskId, int contactId, String? notes) async {
     String endpoint = '$tasksEndpoint/undo';
     try {
       log("Undoing task completion...");
-      await BaseApi.put(endpoint, {'contactTaskId': contactTaskId, 'contactId': contactId}, withToken: true);
+      await BaseApi.put(endpoint, {'contactTaskId': contactTaskId, 'contactId': contactId, 'notes': notes}, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to undo task completion: $e");
