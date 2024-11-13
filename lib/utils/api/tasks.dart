@@ -229,13 +229,12 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<Task> createContactTask(int contactId, Task task) async {
+  Future<bool> createContactTask(int contactId, Task task) async {
     String endpoint = '$tasksEndpoint/contact/$contactId';
     try {
       log("Creating contact task...");
-      String respBody = await BaseApi.post(endpoint, task.toJson(), withToken: true);
-      Task model = Task.fromJson(jsonDecode(respBody));
-      return model;
+      await BaseApi.post(endpoint, task.toJson(), withToken: true);
+      return true;
     } catch (e) {
       log("Error trying to create contact task: $e");
       throw Exception('Failed to create contact task');
