@@ -125,7 +125,7 @@ class ContactsApi extends BaseApi {
   Future<List<ContactModel>> getUserContacts(
       {int page = 1,
       String? orderFilter,
-      List<Map<String, dynamic>> contactFilters = const [],
+      List<Map<String, String>> contactFilters = const [],
       DateTime? startDate,
       DateTime? endDate}) async {
     String endpoint = contactsEndpoint;
@@ -137,21 +137,8 @@ class ContactsApi extends BaseApi {
     }
 
     if (contactFilters.isNotEmpty) {
-      List<String> states = [];
-      List<String> labels = [];
-      for (var filter in contactFilters) {
-        if (filter.containsKey('state')) {
-          states.add(filter['state']);
-        }
-        if (filter.containsKey('label')) {
-          labels.add(filter['label']);
-        }
-      }
-      if (states.isNotEmpty) {
-        queryParams['state'] = states.join(',');
-      }
-      if (labels.isNotEmpty) {
-        queryParams['label'] = labels.join(',');
+      for (Map<String, String> filter in contactFilters) {
+        queryParams.addAll(filter);
       }
     }
     if (startDate != null) {
