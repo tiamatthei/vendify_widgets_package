@@ -38,6 +38,8 @@ class LabelChip extends StatelessWidget {
         return Colors.red;
       case "Doc.(s) rechazado(s)":
         return Colors.red;
+      case "Tarea(s) pendiente":
+        return Colors.orange;
       default:
         return Colors.grey;
     }
