@@ -158,6 +158,7 @@ class TasksApi extends BaseApi {
         'contactTaskId': contactTaskId,
         'contactId': contactId,
         'data': data,
+        'notes': notes,
         'user_latitude': userLatitude,
         'user_longitude': userLongitude,
       };
