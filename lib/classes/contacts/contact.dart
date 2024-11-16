@@ -38,8 +38,14 @@ class ContactModel {
       this.executiveLatitude,
       this.executiveLongitude,
       this.status,
-      this.pendingTaskCount,
-      this.totalTaskCount});
+      this.completedTasksCount,
+      this.rejectedTasksCount,
+      this.pendingTasksCount,
+      this.totalTasksCount,
+      this.completedDocumentsCount,
+      this.rejectedDocumentsCount,
+      this.pendingDocumentsCount,
+      this.totalDocumentsCount});
 
   int contactId;
   String? contactName;
@@ -67,8 +73,14 @@ class ContactModel {
   double? executiveLatitude;
   double? executiveLongitude;
   ContactStatus? status;
-  int? pendingTaskCount;
-  int? totalTaskCount;
+  int? completedTasksCount;
+  int? rejectedTasksCount;
+  int? pendingTasksCount;
+  int? totalTasksCount;
+  int? completedDocumentsCount;
+  int? rejectedDocumentsCount;
+  int? pendingDocumentsCount;
+  int? totalDocumentsCount;
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         contactId: json["contactId"],
@@ -121,8 +133,14 @@ class ContactModel {
           "status": json["status"],
           "isActive": json["isActive"],
         }),
-        pendingTaskCount: json["pendingTaskCount"],
-        totalTaskCount: json["totalTaskCount"],
+        completedTasksCount: json["completedTasksCount"],
+        rejectedTasksCount: json["rejectedTasksCount"],
+        pendingTasksCount: json["pendingTasksCount"],
+        totalTasksCount: json["totalTasksCount"],
+        completedDocumentsCount: json["completedDocumentsCount"],
+        rejectedDocumentsCount: json["rejectedDocumentsCount"],
+        pendingDocumentsCount: json["pendingDocumentsCount"],
+        totalDocumentsCount: json["totalDocumentsCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -151,8 +169,14 @@ class ContactModel {
         "executiveLatitude": executiveLatitude,
         "executiveLongitude": executiveLongitude,
         "status": status?.toJson(),
-        "pendingTaskCount": pendingTaskCount,
-        "totalTaskCount": totalTaskCount,
+        "completedTasksCount": completedTasksCount,
+        "rejectedTasksCount": rejectedTasksCount,
+        "pendingTasksCount": pendingTasksCount,
+        "totalTasksCount": totalTasksCount,
+        "completedDocumentsCount": completedDocumentsCount,
+        "rejectedDocumentsCount": rejectedDocumentsCount,
+        "pendingDocumentsCount": pendingDocumentsCount,
+        "totalDocumentsCount": totalDocumentsCount,
       };
 
   @override
