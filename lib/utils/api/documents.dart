@@ -120,4 +120,21 @@ class DocumentsApi extends BaseApi {
       return null;
     }
   }
+
+  Future<bool?> updateDocument(int documentId, int documentTypeId, Uint8List bytes, String filename) async {
+    String endpoint = '$documentsEndpoint/update/$documentId';
+    String encodedFilename = base64Encode(utf8.encode(filename));
+    Map<String, dynamic> requestBody = {
+      'documentTypeId': documentTypeId,
+      'filename': encodedFilename,
+    };
+    try {
+      log("Updating document...");
+      await BaseApi.patch(endpoint, requestBody, withToken: true, bytes: bytes, fileName: encodedFilename);
+      return true;
+    } catch (e) {
+      log("Error trying to update document: $e");
+      return null;
+    }
+  }
 }

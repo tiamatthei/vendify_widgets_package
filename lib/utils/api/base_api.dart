@@ -85,23 +85,53 @@ class BaseApi {
     }
   }
 
-  static Future<String> patch(String endpoint, Map<String, dynamic> body, {bool withToken = false}) async {
+  static Future<String> patch(String endpoint, Map<String, dynamic> body,
+      {bool withToken = false, Uint8List? bytes, String? fileName}) async {
     if (withToken) {
       final token = await TokenManager.getToken();
       headers['Authorization'] = 'Bearer $token';
       headers['Content-Type'] = 'application/json';
     }
     var uri = environment == 'dev' ? Uri.http(baseUrl, '$basePath$endpoint') : Uri.https(baseUrl, '$basePath$endpoint');
-    final response = await http.patch(
-      uri,
-      headers: headers,
-      body: jsonEncode(body),
-    );
 
-    if (response.statusCode == 200) {
-      return response.body;
+    if (bytes != null) {
+      var request = http.MultipartRequest('PATCH', uri);
+      headers['Content-Type'] = 'multipart/form-data';
+      request.headers.addAll(
+        headers,
+      );
+
+      // transform the file into a byte array
+      Uint8List byteArray = bytes;
+      // Add the file, regardless of the type, remember the filename
+      var multipartFile = http.MultipartFile.fromBytes('file', byteArray, filename: fileName);
+      request.files.add(multipartFile);
+
+      // Add the fields
+      Map<String, String> fields = body.map((key, value) => MapEntry(key, value.toString()));
+      request.fields.addAll(fields);
+
+      final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        log(responseBody);
+        return responseBody;
+      } else {
+        throw Exception('Failed to load data');
+      }
     } else {
-      throw Exception('Failed to load data');
+      final response = await http.patch(
+        uri,
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception('Failed to load data');
+      }
     }
   }
 
