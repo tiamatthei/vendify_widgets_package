@@ -98,10 +98,14 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<bool> registerInitialFormResponse(FormResponseModel response) async {
+  Future<bool> registerInitialFormResponse(FormResponseModel response, {double? latitude, double? longitude}) async {
     String endpoint = '$formsEndpoint/initial-response';
     try {
-      await BaseApi.post(endpoint, response.toJson(), withToken: true);
+      Map<String, dynamic> body = response.toJson();
+      if (latitude != null) body['latitude'] = latitude;
+      if (longitude != null) body['longitude'] = longitude;
+
+      await BaseApi.post(endpoint, body, withToken: true);
       return true;
     } catch (e) {
       log("Error trying to register initial form response: $e");
