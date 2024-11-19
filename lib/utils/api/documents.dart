@@ -138,7 +138,7 @@ class DocumentsApi extends BaseApi {
     }
   }
 
-  Future<int?> getActiveRejectedDocumentsCount(int tenantId, int userId) async {
+  Future<int?> getActiveRejectedDocumentsCount() async {
     String endpoint = '$documentsEndpoint/rejected/count';
     try {
       log("Getting active rejected documents count...");
@@ -150,7 +150,7 @@ class DocumentsApi extends BaseApi {
     }
   }
 
-  Future<List<Document>?> getActiveRejectedDocuments(int tenantId, int userId) async {
+  Future<List<Document>?> getActiveRejectedDocuments() async {
     String endpoint = '$documentsEndpoint/rejected';
     try {
       log("Getting active rejected documents...");
