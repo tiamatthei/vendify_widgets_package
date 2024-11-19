@@ -145,7 +145,7 @@ class DocumentsApi extends BaseApi {
       String respBody = await BaseApi.get(endpoint, withToken: true);
       //parse the response body as json, then use the count key to get the count
       Map<String, dynamic> json = jsonDecode(respBody);
-      return json['count'];
+      return int.parse(json['count'].toString());
     } catch (e) {
       log("Error trying to get active rejected documents count: $e");
       return null;

@@ -245,7 +245,7 @@ class TasksApi extends BaseApi {
       log("Getting active rejected tasks count...");
       String respBody = await BaseApi.get(endpoint, withToken: true);
       Map<String, dynamic> json = jsonDecode(respBody);
-      return json['count'];
+      return int.parse(json['count'].toString());
     } catch (e) {
       log("Error trying to get active rejected tasks count: $e");
       return null;
