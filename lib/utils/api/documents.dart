@@ -137,4 +137,37 @@ class DocumentsApi extends BaseApi {
       return null;
     }
   }
+
+  Future<int?> getActiveRejectedDocumentsCount(int tenantId, int userId) async {
+    String endpoint = '$documentsEndpoint/rejected/count';
+    try {
+      log("Getting active rejected documents count...");
+      Map<String, String> queryParameters = {
+        'tenantId': tenantId.toString(),
+        'userId': userId.toString(),
+      };
+      String respBody = await BaseApi.get(endpoint, queryParams: queryParameters, withToken: true);
+      return int.parse(respBody);
+    } catch (e) {
+      log("Error trying to get active rejected documents count: $e");
+      return null;
+    }
+  }
+
+  Future<List<Document>?> getActiveRejectedDocuments(int tenantId, int userId) async {
+    String endpoint = '$documentsEndpoint/rejected';
+    try {
+      log("Getting active rejected documents...");
+      Map<String, String> queryParameters = {
+        'tenantId': tenantId.toString(),
+        'userId': userId.toString(),
+      };
+      String respBody = await BaseApi.get(endpoint, queryParams: queryParameters, withToken: true);
+      List<Document> documents = (jsonDecode(respBody) as List).map((e) => Document.fromJson(e)).toList();
+      return documents;
+    } catch (e) {
+      log("Error trying to get active rejected documents: $e");
+      return null;
+    }
+  }
 }

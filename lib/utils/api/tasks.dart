@@ -172,10 +172,7 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<bool> undoCompleted(
-    int contactTaskId, 
-    int contactId, 
-    {String? notes}) async {
+  Future<bool> undoCompleted(int contactTaskId, int contactId, {String? notes}) async {
     String endpoint = '$tasksEndpoint/undo';
     try {
       Map<String, dynamic> body = {
@@ -239,6 +236,57 @@ class TasksApi extends BaseApi {
     } catch (e) {
       log("Error trying to create contact task: $e");
       throw Exception('Failed to create contact task');
+    }
+  }
+
+  Future<int?> getActiveRejectedTasksCount(int tenantId, int userId) async {
+    String endpoint = '$tasksEndpoint/rejected';
+    try {
+      log("Getting active rejected tasks count...");
+      Map<String, String> queryParameters = {
+        'tenantId': tenantId.toString(),
+        'userId': userId.toString(),
+      };
+      String respBody = await BaseApi.get(endpoint, queryParams: queryParameters, withToken: true);
+      return int.parse(respBody);
+    } catch (e) {
+      log("Error trying to get active rejected tasks count: $e");
+      return null;
+    }
+  }
+
+  Future<List<Task>?> getActiveRejectedTasks({
+    int? tenantId,
+    int? userId,
+    int page = 1,
+    String order = TaskOrders.titleAsc,
+    String? startDate,
+    String? endDate,
+    String? search,
+    String? isCompleted,
+    bool? isAdmin,
+  }) async {
+    String endpoint = '$tasksEndpoint/rejected/count';
+    Map<String, String> queryParameters = {
+      'page': page.toString(),
+      'order': order,
+      if (tenantId != null) 'tenantId': tenantId.toString(),
+      if (userId != null) 'userId': userId.toString(),
+      if (startDate != null) 'startDate': startDate,
+      if (endDate != null) 'endDate': endDate,
+      if (search != null) 'search': search,
+      if (isCompleted != null) 'isCompleted': isCompleted,
+      if (isAdmin != null) 'isAdmin': isAdmin.toString(),
+    };
+
+    try {
+      log("Getting active rejected tasks...");
+      String respBody = await BaseApi.get(endpoint, queryParams: queryParameters, withToken: true);
+      List<Task> tasks = (jsonDecode(respBody) as List).map((e) => Task.fromJson(e)).toList();
+      return tasks;
+    } catch (e) {
+      log("Error trying to get active rejected tasks: $e");
+      return null;
     }
   }
 }
