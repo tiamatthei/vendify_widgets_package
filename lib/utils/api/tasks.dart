@@ -240,7 +240,7 @@ class TasksApi extends BaseApi {
   }
 
   Future<int?> getActiveRejectedTasksCount() async {
-    String endpoint = '$tasksEndpoint/rejected';
+    String endpoint = '$tasksEndpoint/rejected/count';
     try {
       log("Getting active rejected tasks count...");
       String respBody = await BaseApi.get(endpoint, withToken: true);
@@ -260,7 +260,7 @@ class TasksApi extends BaseApi {
     String? isCompleted,
     bool? isAdmin,
   }) async {
-    String endpoint = '$tasksEndpoint/rejected/count';
+    String endpoint = '$tasksEndpoint/rejected';
     Map<String, String> queryParameters = {
       'page': page.toString(),
       'order': order,
