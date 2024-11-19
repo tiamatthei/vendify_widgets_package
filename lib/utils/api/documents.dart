@@ -142,11 +142,7 @@ class DocumentsApi extends BaseApi {
     String endpoint = '$documentsEndpoint/rejected/count';
     try {
       log("Getting active rejected documents count...");
-      Map<String, String> queryParameters = {
-        'tenantId': tenantId.toString(),
-        'userId': userId.toString(),
-      };
-      String respBody = await BaseApi.get(endpoint, queryParams: queryParameters, withToken: true);
+      String respBody = await BaseApi.get(endpoint, withToken: true);
       return int.parse(respBody);
     } catch (e) {
       log("Error trying to get active rejected documents count: $e");
@@ -158,11 +154,7 @@ class DocumentsApi extends BaseApi {
     String endpoint = '$documentsEndpoint/rejected';
     try {
       log("Getting active rejected documents...");
-      Map<String, String> queryParameters = {
-        'tenantId': tenantId.toString(),
-        'userId': userId.toString(),
-      };
-      String respBody = await BaseApi.get(endpoint, queryParams: queryParameters, withToken: true);
+      String respBody = await BaseApi.get(endpoint, withToken: true);
       List<Document> documents = (jsonDecode(respBody) as List).map((e) => Document.fromJson(e)).toList();
       return documents;
     } catch (e) {

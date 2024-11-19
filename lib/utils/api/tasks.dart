@@ -239,15 +239,11 @@ class TasksApi extends BaseApi {
     }
   }
 
-  Future<int?> getActiveRejectedTasksCount(int tenantId, int userId) async {
+  Future<int?> getActiveRejectedTasksCount() async {
     String endpoint = '$tasksEndpoint/rejected';
     try {
       log("Getting active rejected tasks count...");
-      Map<String, String> queryParameters = {
-        'tenantId': tenantId.toString(),
-        'userId': userId.toString(),
-      };
-      String respBody = await BaseApi.get(endpoint, queryParams: queryParameters, withToken: true);
+      String respBody = await BaseApi.get(endpoint, withToken: true);
       return int.parse(respBody);
     } catch (e) {
       log("Error trying to get active rejected tasks count: $e");
@@ -256,8 +252,6 @@ class TasksApi extends BaseApi {
   }
 
   Future<List<Task>?> getActiveRejectedTasks({
-    int? tenantId,
-    int? userId,
     int page = 1,
     String order = TaskOrders.titleAsc,
     String? startDate,
@@ -270,8 +264,6 @@ class TasksApi extends BaseApi {
     Map<String, String> queryParameters = {
       'page': page.toString(),
       'order': order,
-      if (tenantId != null) 'tenantId': tenantId.toString(),
-      if (userId != null) 'userId': userId.toString(),
       if (startDate != null) 'startDate': startDate,
       if (endDate != null) 'endDate': endDate,
       if (search != null) 'search': search,
