@@ -21,6 +21,7 @@ class SimpleFormInput extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final void Function(String)? onFieldSubmitted;
   final void Function()? onEditingComplete;
+  final Iterable<String>? autofillHints;
 
   const SimpleFormInput({
     super.key,
@@ -42,6 +43,7 @@ class SimpleFormInput extends StatefulWidget {
     this.textCapitalization = TextCapitalization.sentences,
     this.onFieldSubmitted,
     this.onEditingComplete,
+    this.autofillHints,
   });
 
   @override
@@ -100,6 +102,7 @@ class _SimpleFormInputState extends State<SimpleFormInput> {
         textCapitalization: widget.textCapitalization,
         onFieldSubmitted: widget.onFieldSubmitted,
         onEditingComplete: widget.onEditingComplete,
+        autofillHints: widget.autofillHints,
       ),
     );
   }
