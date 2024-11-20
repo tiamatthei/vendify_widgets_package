@@ -45,7 +45,14 @@ class ContactModel {
       this.completedDocumentsCount,
       this.rejectedDocumentsCount,
       this.pendingDocumentsCount,
-      this.totalDocumentsCount});
+      this.totalDocumentsCount,
+      this.completedAdminTasksCount,
+      this.rejectedAdminTasksCount,
+      this.pendingAdminTasksCount,
+      this.completedExecutiveTasksCount,
+      this.rejectedExecutiveTasksCount,
+      this.pendingExecutiveTasksCount,
+      });
 
   int contactId;
   String? contactName;
@@ -81,6 +88,12 @@ class ContactModel {
   int? rejectedDocumentsCount;
   int? pendingDocumentsCount;
   int? totalDocumentsCount;
+  int? completedAdminTasksCount;
+  int? rejectedAdminTasksCount;
+  int? pendingAdminTasksCount;
+  int? completedExecutiveTasksCount;
+  int? rejectedExecutiveTasksCount;
+  int? pendingExecutiveTasksCount;
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         contactId: json["contactId"],
@@ -141,6 +154,12 @@ class ContactModel {
         rejectedDocumentsCount: json["rejectedDocumentsCount"],
         pendingDocumentsCount: json["pendingDocumentsCount"],
         totalDocumentsCount: json["totalDocumentsCount"],
+        completedAdminTasksCount: json["completedAdminTasksCount"],
+        rejectedAdminTasksCount: json["rejectedAdminTasksCount"],
+        pendingAdminTasksCount: json["pendingAdminTasksCount"],
+        completedExecutiveTasksCount: json["completedExecutiveTasksCount"],
+        rejectedExecutiveTasksCount: json["rejectedExecutiveTasksCount"],
+        pendingExecutiveTasksCount: json["pendingExecutiveTasksCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -177,6 +196,12 @@ class ContactModel {
         "rejectedDocumentsCount": rejectedDocumentsCount,
         "pendingDocumentsCount": pendingDocumentsCount,
         "totalDocumentsCount": totalDocumentsCount,
+        "completedAdminTasksCount": completedAdminTasksCount,
+        "rejectedAdminTasksCount": rejectedAdminTasksCount,
+        "pendingAdminTasksCount": pendingAdminTasksCount,
+        "completedExecutiveTasksCount": completedExecutiveTasksCount,
+        "rejectedExecutiveTasksCount": rejectedExecutiveTasksCount,
+        "pendingExecutiveTasksCount": pendingExecutiveTasksCount,
       };
 
   @override
