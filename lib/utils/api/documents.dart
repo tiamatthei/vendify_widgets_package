@@ -57,7 +57,7 @@ class DocumentsApi extends BaseApi {
     }
   }
 
-  Future<bool?> uploadDocument(
+  Future<Document?> uploadDocument(
       int contactId, int documentTypeId, Uint8List bytes, String filename, int contactTaskId) async {
     //encode the filename to base64 or something
     String encodedFilename = base64Encode(utf8.encode(filename));
@@ -70,8 +70,11 @@ class DocumentsApi extends BaseApi {
     };
     try {
       log("Uploading document...");
-      await BaseApi.post(endpoint, requestBody, withToken: true, bytes: bytes, fileName: encodedFilename);
-      return true;
+      String respBody =
+          await BaseApi.post(endpoint, requestBody, withToken: true, bytes: bytes, fileName: encodedFilename);
+
+      Document model = Document.fromJson(jsonDecode(respBody));
+      return model;
     } catch (e) {
       log("Error trying to upload document: $e");
       return null;
