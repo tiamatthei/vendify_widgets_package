@@ -94,7 +94,7 @@ class DocumentsApi extends BaseApi {
       log("Uploading document...");
       String respBody =
           await BaseApi.post(endpoint, requestBody, withToken: true, bytes: bytes, fileName: encodedFilename);
-      
+
       Document model = Document.fromJson(jsonDecode(respBody));
       return model;
     } catch (e) {
@@ -168,6 +168,20 @@ class DocumentsApi extends BaseApi {
     } catch (e) {
       log("Error trying to get active rejected documents: $e");
       return null;
+    }
+  }
+
+  Future<bool> changeTaskDocument(int documentId, int taskId) async {
+    String endpoint = '$documentsEndpoint/modify/$documentId';
+    Map<String, dynamic> requestBody = {
+      'taskId': taskId.toString(),
+    };
+    try {
+      await BaseApi.patch(endpoint, requestBody, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to change task document: $e");
+      return false;
     }
   }
 }
