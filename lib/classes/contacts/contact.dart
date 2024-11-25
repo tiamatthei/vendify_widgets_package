@@ -52,6 +52,10 @@ class ContactModel {
       this.completedExecutiveTasksCount,
       this.rejectedExecutiveTasksCount,
       this.pendingExecutiveTasksCount,
+      this.totalRequestsCount,
+      this.completedRequestsCount,
+      this.rejectedRequestsCount,
+      this.pendingRequestsCount,
       });
 
   int contactId;
@@ -94,6 +98,10 @@ class ContactModel {
   int? completedExecutiveTasksCount;
   int? rejectedExecutiveTasksCount;
   int? pendingExecutiveTasksCount;
+  int? totalRequestsCount;
+  int? completedRequestsCount;
+  int? rejectedRequestsCount;
+  int? pendingRequestsCount;
 
   factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
         contactId: json["contactId"],
@@ -160,6 +168,10 @@ class ContactModel {
         completedExecutiveTasksCount: json["completedExecutiveTasksCount"],
         rejectedExecutiveTasksCount: json["rejectedExecutiveTasksCount"],
         pendingExecutiveTasksCount: json["pendingExecutiveTasksCount"],
+        totalRequestsCount: json["totalRequestsCount"],
+        completedRequestsCount: json["completedRequestsCount"],
+        rejectedRequestsCount: json["rejectedRequestsCount"],
+        pendingRequestsCount: json["pendingRequestsCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -202,6 +214,10 @@ class ContactModel {
         "completedExecutiveTasksCount": completedExecutiveTasksCount,
         "rejectedExecutiveTasksCount": rejectedExecutiveTasksCount,
         "pendingExecutiveTasksCount": pendingExecutiveTasksCount,
+        "totalRequestsCount": totalRequestsCount,
+        "completedRequestsCount": completedRequestsCount,
+        "rejectedRequestsCount": rejectedRequestsCount,
+        "pendingRequestsCount": pendingRequestsCount,
       };
 
   @override
