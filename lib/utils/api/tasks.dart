@@ -118,6 +118,23 @@ class TasksApi extends BaseApi {
     }
   }
 
+  Future<Map<String, dynamic>> getTaskSummary() async {
+    String endpoint = '$tasksEndpoint/summary';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      Map<String, dynamic> json = jsonDecode(respBody);
+      return json;
+    } catch (e) {
+      log("Error trying to get task summary: $e");
+      return {
+        'todayCount': 0,
+        'pendingCount': 0,
+        'completedCount': 0,
+        'rejectedCount': 0,
+      };
+    }
+  }
+
   Future<Task> createTask(Task task) async {
     String endpoint = tasksEndpoint;
     try {
