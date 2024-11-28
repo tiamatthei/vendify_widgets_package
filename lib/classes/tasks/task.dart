@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vendify_widgets_package/classes/tasks/task_status.dart';
 import 'package:vendify_widgets_package/classes/tasks/task_type.dart';
 
 class Task {
@@ -16,6 +17,7 @@ class Task {
   String? businessName;
   String? data;
   String? notes;
+  TaskStatus? taskStatus;
 
   Task({
     required this.contactTaskId,
@@ -32,6 +34,7 @@ class Task {
     this.businessName,
     this.data,
     this.notes,
+    this.taskStatus,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -54,6 +57,13 @@ class Task {
         businessName: json["businessName"],
         data: json["data"],
         notes: json["notes"],
+        taskStatus: TaskStatus.fromJson(
+          {
+            "taskStatusId": json["taskStatusId"],
+            "taskStatus": json["taskStatus"],
+            "isCompleted": json["isCompleted"],
+          },
+        ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,6 +81,7 @@ class Task {
         "businessName": businessName,
         "data": data,
         "notes": notes,
+        "taskStatus": taskStatus?.toJson(),
       };
 
   IconData get icon {

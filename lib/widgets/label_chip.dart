@@ -42,6 +42,8 @@ class LabelChip extends StatelessWidget {
         return Colors.orange;
       case "Completado":
         return Colors.green;
+      case "Por Aprobar":
+        return TColors.accentDefault;
       default:
         return Colors.grey;
     }
