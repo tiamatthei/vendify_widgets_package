@@ -64,10 +64,9 @@ class BaseApi {
       final responseBody = await response.stream.bytesToString();
 
       if (response.statusCode == 200) {
-        log(responseBody);
         return responseBody;
       } else {
-        throw Exception('Failed to load data');
+        throw Exception(_extractErrorMessage(responseBody, response.statusCode));
       }
     } else {
       final response = await http.post(
@@ -75,14 +74,29 @@ class BaseApi {
         headers: headers,
         body: jsonEncode(body),
       );
-
+      log("Request URL: $uri");
+      log("Request Headers: $headers");
+      log("Request Body: ${jsonEncode(body)}");
+      log("Response Status Code: ${response.statusCode}");
+      log("Response Body: ${response.body}");
       if (response.statusCode == 200) {
-        log(response.body);
         return response.body;
       } else {
-        throw Exception('Failed to load data');
+        throw Exception(_extractErrorMessage(response.body, response.statusCode));
       }
     }
+  }
+
+  static String _extractErrorMessage(String responseBody, int statusCode) {
+    try {
+        final decodedBody = jsonDecode(responseBody);
+        if (decodedBody is Map && decodedBody.containsKey('message')) {
+            return decodedBody['message'];
+        }
+    } catch (e) {
+        log("Error parsing error response: $e");
+    }
+    return 'Error desconocido con código $statusCode y cuerpo: $responseBody';
   }
 
   static Future<String> patch(String endpoint, Map<String, dynamic> body,
