@@ -64,7 +64,6 @@ class BaseApi {
       final responseBody = await response.stream.bytesToString();
 
       if (response.statusCode == 200) {
-        log(responseBody);
         return responseBody;
       } else {
         throw Exception(_extractErrorMessage(responseBody, response.statusCode));
@@ -75,9 +74,12 @@ class BaseApi {
         headers: headers,
         body: jsonEncode(body),
       );
-
+      log("Request URL: $uri");
+      log("Request Headers: $headers");
+      log("Request Body: ${jsonEncode(body)}");
+      log("Response Status Code: ${response.statusCode}");
+      log("Response Body: ${response.body}");
       if (response.statusCode == 200) {
-        log(response.body);
         return response.body;
       } else {
         throw Exception(_extractErrorMessage(response.body, response.statusCode));
@@ -87,14 +89,14 @@ class BaseApi {
 
   static String _extractErrorMessage(String responseBody, int statusCode) {
     try {
-      final decodedBody = jsonDecode(responseBody);
-      if (decodedBody is Map && decodedBody.containsKey('message')) {
-        return decodedBody['message'];
-      }
+        final decodedBody = jsonDecode(responseBody);
+        if (decodedBody is Map && decodedBody.containsKey('message')) {
+            return decodedBody['message'];
+        }
     } catch (e) {
-      // Ignorar si no se puede decodificar como JSON
+        log("Error parsing error response: $e");
     }
-    return 'Error desconocido con código $statusCode';
+    return 'Error desconocido con código $statusCode y cuerpo: $responseBody';
   }
 
   static Future<String> patch(String endpoint, Map<String, dynamic> body,

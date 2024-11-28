@@ -107,7 +107,11 @@ class FormsApi extends BaseApi {
 
       final responseString = await BaseApi.post(endpoint, body, withToken: true);
 
+      log(responseString);
+
       final responseJson = jsonDecode(responseString) as Map<String, dynamic>;
+
+      log(responseJson.toString());
 
       if (responseJson['success'] == true) {
         return true;
