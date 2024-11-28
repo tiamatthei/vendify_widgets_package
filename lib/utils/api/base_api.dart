@@ -67,7 +67,7 @@ class BaseApi {
         log(responseBody);
         return responseBody;
       } else {
-        throw Exception('Failed to load data');
+        throw Exception(_extractErrorMessage(responseBody, response.statusCode));
       }
     } else {
       final response = await http.post(
@@ -80,9 +80,21 @@ class BaseApi {
         log(response.body);
         return response.body;
       } else {
-        throw Exception('Failed to load data');
+        throw Exception(_extractErrorMessage(response.body, response.statusCode));
       }
     }
+  }
+
+  static String _extractErrorMessage(String responseBody, int statusCode) {
+    try {
+      final decodedBody = jsonDecode(responseBody);
+      if (decodedBody is Map && decodedBody.containsKey('message')) {
+        return decodedBody['message'];
+      }
+    } catch (e) {
+      // Ignorar si no se puede decodificar como JSON
+    }
+    return 'Error desconocido con código $statusCode';
   }
 
   static Future<String> patch(String endpoint, Map<String, dynamic> body,
