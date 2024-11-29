@@ -105,11 +105,22 @@ class FormsApi extends BaseApi {
       if (latitude != null) body['latitude'] = latitude;
       if (longitude != null) body['longitude'] = longitude;
 
-      await BaseApi.post(endpoint, body, withToken: true);
-      return true;
+      final responseString = await BaseApi.post(endpoint, body, withToken: true);
+
+      log(responseString);
+
+      final responseJson = jsonDecode(responseString) as Map<String, dynamic>;
+
+      log(responseJson.toString());
+
+      if (responseJson['success'] == true) {
+        return true;
+      } else {
+        throw Exception(responseJson['message'] ?? 'Error desconocido al registrar la respuesta inicial.');
+      }
     } catch (e) {
       log("Error trying to register initial form response: $e");
-      return false;
+      throw Exception(e.toString());
     }
   }
 
