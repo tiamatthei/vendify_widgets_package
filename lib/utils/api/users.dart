@@ -106,4 +106,15 @@ class UsersApi extends BaseApi {
       return [];
     }
   }
+
+  Future<Map<String, dynamic>?> getUserSummary({int? userId}) async {
+    try {
+      String respBody = await BaseApi.get('$usersEndpoint/summary/${userId ?? ""}', withToken: true);
+      Map<String, dynamic> body = jsonDecode(respBody);
+      return body;
+    } catch (e) {
+      log("Error trying to get user summary: $e");
+      return null;
+    }
+  }
 }
