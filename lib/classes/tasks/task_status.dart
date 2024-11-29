@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:vendify_widgets_package/colors.dart';
 
 class TaskStatus {
-  int taskStatusId;
+  int? taskStatusId;
   String? taskStatus;
   bool? isCompleted;
 
   TaskStatus({
-    required this.taskStatusId,
+    this.taskStatusId,
     this.taskStatus,
     this.isCompleted,
   });
