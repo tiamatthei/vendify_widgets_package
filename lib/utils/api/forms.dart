@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:vendify_widgets_package/classes/contacts/contact.dart';
 import 'package:vendify_widgets_package/classes/forms/form.dart';
 import 'package:vendify_widgets_package/classes/forms/form_field.dart';
 import 'package:vendify_widgets_package/classes/forms/form_field_value.dart';
@@ -98,7 +99,7 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<bool> registerInitialFormResponse(FormResponseModel response, {double? latitude, double? longitude}) async {
+  Future<ContactModel?> registerInitialFormResponse(FormResponseModel response, {double? latitude, double? longitude}) async {
     String endpoint = '$formsEndpoint/initial-response';
     try {
       Map<String, dynamic> body = response.toJson();
@@ -114,7 +115,7 @@ class FormsApi extends BaseApi {
       log(responseJson.toString());
 
       if (responseJson['success'] == true) {
-        return true;
+        return ContactModel.fromJson(responseJson['data']);
       } else {
         throw Exception(responseJson['message'] ?? 'Error desconocido al registrar la respuesta inicial.');
       }
