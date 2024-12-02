@@ -59,6 +59,7 @@ class Request {
         'resolution': json['resolution'],
         'isAccepted': json['isAccepted'],
         'tenantId': json['tenantId'],
+        'request_type_id': json['request_type_id'],
       }));
 
   Map<String, dynamic> toJson() => {
