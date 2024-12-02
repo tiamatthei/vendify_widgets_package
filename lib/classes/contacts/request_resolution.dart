@@ -12,7 +12,7 @@ class RequestResolution {
         resolution: json['resolution'],
         isAccepted: json['isAccepted'],
         tenantId: json['tenantId'],
-        requestTypeId: json['request_type_id'],
+        requestTypeId: json['requestTypeId'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -20,6 +20,6 @@ class RequestResolution {
         'resolution': resolution,
         'isAccepted': isAccepted,
         'tenantId': tenantId,
-        'request_type_id': requestTypeId,
+        'requestTypeId': requestTypeId,
       };
 }
