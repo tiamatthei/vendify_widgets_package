@@ -231,6 +231,18 @@ class ContactsApi extends BaseApi {
     }
   }
 
+  Future<bool> updateContactStatus(int contactId, int statusId) async {
+    try {
+      String respBody =
+          await BaseApi.patch('$contactsEndpoint/$contactId/status', {'statusId': statusId}, withToken: true);
+      Map<String, dynamic> body = jsonDecode(respBody);
+      return body['success'];
+    } catch (e) {
+      log("Error trying to update contact status: $e");
+      return false;
+    }
+  }
+
   Future<bool> markAsSeen(int contactId) async {
     //TODO CHECK IF THIS WORKS CORRECTLY
     try {
