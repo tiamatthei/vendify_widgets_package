@@ -169,13 +169,13 @@ class DocumentsApi extends BaseApi {
   }
 
   Future<bool> updateDocument(
-      int contactTaskId, int documentId, int contactId, int documentTypeId, Uint8List bytes, String filename) async {
+      int? contactTaskId, int documentId, int contactId, int documentTypeId, Uint8List bytes, String filename) async {
     String endpoint = '$documentsEndpoint/update/$documentId';
     String encodedFilename = base64Encode(utf8.encode(filename));
     Map<String, dynamic> requestBody = {
       'documentTypeId': documentTypeId,
       'filename': encodedFilename,
-      'contactTaskId': contactTaskId,
+      'contactTaskId': contactTaskId ?? -1,
       'contactId': contactId,
     };
     try {
