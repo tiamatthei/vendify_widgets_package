@@ -7,7 +7,6 @@ import 'package:vendify_widgets_package/utils/api/base_api.dart';
 class UsersApi extends BaseApi {
   static const String usersEndpoint = 'users';
   static const String registerUserEndpoint = 'register/user';
-  static const String markNoteInteractionAsSeenEndpoint = 'contact_notes_interactions';
   Future<List<User>> getUsers(
       {int page = 1, String? orderFilter, List<Map<String, String>> userFilters = const []}) async {
     String endpoint = usersEndpoint;
@@ -133,7 +132,7 @@ class UsersApi extends BaseApi {
 
   Future<bool> markNoteInteractionAsSeen(int interactionId) async {
     try {
-      String endpoint = '$usersEndpoint/usersEndpoint/$interactionId/seen';
+      String endpoint = '$usersEndpoint/contact_notes_interactions/$interactionId/seen';
       await BaseApi.patch(endpoint, {}, withToken: true);
       return true;
     } catch (e) {
