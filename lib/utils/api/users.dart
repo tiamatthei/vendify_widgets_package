@@ -145,7 +145,7 @@ class UsersApi extends BaseApi {
     try {
       String respBody = await BaseApi.get('$usersEndpoint/contact_notes_interactions/count', withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
-      return body['interaction_count'];
+      return body['interactionCount'];
     } catch (e) {
       log("Error trying to count user contact notes interactions: $e");
       return 0;
