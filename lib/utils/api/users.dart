@@ -117,4 +117,16 @@ class UsersApi extends BaseApi {
       return null;
     }
   }
+
+  Future<List<Map<String, dynamic>>> getUserContactNotesInteractions() async {
+    try {
+      String respBody = await BaseApi.get('$usersEndpoint/contact_notes_interactions', withToken: true);
+      List<dynamic> data = jsonDecode(respBody);
+      List<Map<String, dynamic>> notesInteractions = data.map((notesInteractions) => notesInteractions as Map<String, dynamic>).toList();
+      return notesInteractions;
+    } catch (e) {
+      log("Error trying to get user contact notes interactions: $e");
+      return [];
+    }
+  }
 }
