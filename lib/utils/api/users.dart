@@ -7,6 +7,7 @@ import 'package:vendify_widgets_package/utils/api/base_api.dart';
 class UsersApi extends BaseApi {
   static const String usersEndpoint = 'users';
   static const String registerUserEndpoint = 'register/user';
+  static const String markNoteInteractionAsSeenEndpoint = 'contact_notes_interactions';
   Future<List<User>> getUsers(
       {int page = 1, String? orderFilter, List<Map<String, String>> userFilters = const []}) async {
     String endpoint = usersEndpoint;
@@ -120,13 +121,24 @@ class UsersApi extends BaseApi {
 
   Future<List<Map<String, dynamic>>> getUserContactNotesInteractions() async {
     try {
-      String respBody = await BaseApi.get('$usersEndpoint/contact_notes_interactions', withToken: true);
+      String respBody = await BaseApi.get('$usersEndpoint/usersEndpoint', withToken: true);
       List<dynamic> data = jsonDecode(respBody);
       List<Map<String, dynamic>> notesInteractions = data.map((notesInteractions) => notesInteractions as Map<String, dynamic>).toList();
       return notesInteractions;
     } catch (e) {
       log("Error trying to get user contact notes interactions: $e");
       return [];
+    }
+  }
+
+  Future<bool> markNoteInteractionAsSeen(int interactionId) async {
+    try {
+      String endpoint = '$usersEndpoint/usersEndpoint/$interactionId/seen';
+      await BaseApi.patch(endpoint, {}, withToken: true);
+      return true;
+    } catch (e) {
+      log("Error trying to mark note interaction as seen: $e");
+      return false;
     }
   }
 }
