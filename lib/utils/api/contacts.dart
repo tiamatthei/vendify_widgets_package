@@ -313,4 +313,15 @@ class ContactsApi extends BaseApi {
       return false;
     }
   }
+
+  Future<Map<String, dynamic>> getClientFunnelInfo() async {
+    try {
+      String respBody = await BaseApi.get('$contactsEndpoint/clientfunnel');
+      Map<String, dynamic> body = jsonDecode(respBody);
+      return body;
+    } catch (e) {
+      log("Error trying to get client funnel info: $e");
+      return {};
+    }
+  }
 }
