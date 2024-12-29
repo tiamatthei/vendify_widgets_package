@@ -42,12 +42,12 @@ class AssistantApi extends BaseApi {
     }
   }
 
-  Future<List<AssistantConfig>?> getAssistantConfigsByTenantId() async {
+  Future<AssistantConfig?> getAssistantConfigByTenantId() async {
     String endpoint = '$assistantEndpoint/tenant';
     try {
       log("Getting assistant configs by tenant id...");
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      return (jsonDecode(respBody) as List).map((e) => AssistantConfig.fromJson(e)).toList();
+      return AssistantConfig.fromJson(jsonDecode(respBody));
     } catch (e) {
       log("Error trying to get assistant configs by tenant id: $e");
       return null;
