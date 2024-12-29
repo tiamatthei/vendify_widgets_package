@@ -48,7 +48,8 @@ class ContactsApi extends BaseApi {
     }
 
     try {
-      String respBody = await BaseApi.get("$contactsEndpoint/tenant", withToken: true, queryParams: queryParams);
+      String respBody = await BaseApi.get("$contactsEndpoint/tenant",
+          withToken: true, queryParams: queryParams);
       List<ContactModel> model = contactModelFromJson(respBody);
       return model;
     } catch (e) {
@@ -59,7 +60,8 @@ class ContactsApi extends BaseApi {
 
   Future<List<ContactModel>> getTenantContactMarkers() async {
     try {
-      String respBody = await BaseApi.get("$contactsEndpoint/markers", withToken: true);
+      String respBody =
+          await BaseApi.get("$contactsEndpoint/markers", withToken: true);
       List<ContactModel> model = contactModelFromJson(respBody);
       return model;
     } catch (e) {
@@ -69,7 +71,9 @@ class ContactsApi extends BaseApi {
   }
 
   Future<List<ContactModel>> getContactsReport(
-      {String? orderFilter = 'updatedAt', DateTime? startDate, DateTime? endDate}) async {
+      {String? orderFilter = 'updatedAt',
+      DateTime? startDate,
+      DateTime? endDate}) async {
     String endpoint = '$contactsEndpoint/report';
     Map<String, String> queryParams = {};
     if (orderFilter != null) {
@@ -82,7 +86,8 @@ class ContactsApi extends BaseApi {
       queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
     }
     try {
-      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      String respBody = await BaseApi.get(endpoint,
+          withToken: true, queryParams: queryParams);
       List<ContactModel> model = contactModelFromJson(respBody);
       return model;
     } catch (e) {
@@ -101,7 +106,8 @@ class ContactsApi extends BaseApi {
       queryParams['end_date'] = endDate.toIso8601String().split('T')[0];
     }
     try {
-      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      String respBody = await BaseApi.get(endpoint,
+          withToken: true, queryParams: queryParams);
       Map<String, dynamic> body = jsonDecode(respBody);
       return body['count'];
     } catch (e) {
@@ -112,7 +118,8 @@ class ContactsApi extends BaseApi {
 
   Future<ContactModel?> getContact(int id) async {
     try {
-      String respBody = await BaseApi.get('$contactsEndpoint/$id/details', withToken: true);
+      String respBody =
+          await BaseApi.get('$contactsEndpoint/$id/details', withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       ContactModel contact = ContactModel.fromJson(body);
       return contact;
@@ -150,7 +157,8 @@ class ContactsApi extends BaseApi {
     }
 
     try {
-      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      String respBody = await BaseApi.get(endpoint,
+          withToken: true, queryParams: queryParams);
       List<ContactModel> model = contactModelFromJson(respBody);
       return model;
     } catch (e) {
@@ -161,7 +169,8 @@ class ContactsApi extends BaseApi {
 
   Future<bool?> createContact(ContactModel contact) async {
     try {
-      var response = await BaseApi.post(contactsEndpoint, contact.toJson(), withToken: true);
+      var response = await BaseApi.post(contactsEndpoint, contact.toJson(),
+          withToken: true);
       var data = jsonDecode(response);
       if (data['exists']) {
         return false;
@@ -175,7 +184,8 @@ class ContactsApi extends BaseApi {
 
   Future<bool> updateContact(Map<String, dynamic> contact, int id) async {
     try {
-      await BaseApi.patch('$contactsEndpoint/$id/edit', contact, withToken: true);
+      await BaseApi.patch('$contactsEndpoint/$id/edit', contact,
+          withToken: true);
       return true;
     } catch (e) {
       log("Error trying to update contact: $e");
@@ -185,9 +195,11 @@ class ContactsApi extends BaseApi {
 
   Future<List<ContactLabel>?> getContactLabels() async {
     try {
-      String respBody = await BaseApi.get('$contactsEndpoint/labels', withToken: true);
+      String respBody =
+          await BaseApi.get('$contactsEndpoint/labels', withToken: true);
       List<dynamic> body = jsonDecode(respBody);
-      List<ContactLabel> labels = body.map((label) => ContactLabel.fromJson(label)).toList();
+      List<ContactLabel> labels =
+          body.map((label) => ContactLabel.fromJson(label)).toList();
       return labels;
     } catch (e) {
       log("Error trying to get contact labels: $e");
@@ -197,9 +209,11 @@ class ContactsApi extends BaseApi {
 
   Future<List<ContactState>?> getContactStates() async {
     try {
-      String respBody = await BaseApi.get('$contactsEndpoint/states', withToken: true);
+      String respBody =
+          await BaseApi.get('$contactsEndpoint/states', withToken: true);
       List<dynamic> body = jsonDecode(respBody);
-      List<ContactState> states = body.map((state) => ContactState.fromJson(state)).toList();
+      List<ContactState> states =
+          body.map((state) => ContactState.fromJson(state)).toList();
       return states;
     } catch (e) {
       log("Error trying to get contact states: $e");
@@ -209,9 +223,11 @@ class ContactsApi extends BaseApi {
 
   Future<List<ContactStatus>?> getContactStatus() async {
     try {
-      String respBody = await BaseApi.get('$contactsEndpoint/status', withToken: true);
+      String respBody =
+          await BaseApi.get('$contactsEndpoint/status', withToken: true);
       List<dynamic> body = jsonDecode(respBody);
-      List<ContactStatus> status = body.map((status) => ContactStatus.fromJson(status)).toList();
+      List<ContactStatus> status =
+          body.map((status) => ContactStatus.fromJson(status)).toList();
       return status;
     } catch (e) {
       log("Error trying to get contact status: $e");
@@ -221,8 +237,9 @@ class ContactsApi extends BaseApi {
 
   Future<bool> updateContactState(int contactId, int stateId) async {
     try {
-      String respBody =
-          await BaseApi.patch('$contactsEndpoint/$contactId/state', {'stateId': stateId}, withToken: true);
+      String respBody = await BaseApi.patch(
+          '$contactsEndpoint/$contactId/state', {'stateId': stateId},
+          withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       return body['success'];
     } catch (e) {
@@ -233,8 +250,9 @@ class ContactsApi extends BaseApi {
 
   Future<bool> updateContactStatus(int contactId, int statusId) async {
     try {
-      String respBody =
-          await BaseApi.patch('$contactsEndpoint/$contactId/status', {'statusId': statusId}, withToken: true);
+      String respBody = await BaseApi.patch(
+          '$contactsEndpoint/$contactId/status', {'statusId': statusId},
+          withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       return body['success'];
     } catch (e) {
@@ -246,7 +264,9 @@ class ContactsApi extends BaseApi {
   Future<bool> markAsSeen(int contactId) async {
     //TODO CHECK IF THIS WORKS CORRECTLY
     try {
-      String respBody = await BaseApi.post('$contactsEndpoint/$contactId/seen', {}, withToken: true);
+      String respBody = await BaseApi.post(
+          '$contactsEndpoint/$contactId/seen', {},
+          withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       return body['success'];
     } catch (e) {
@@ -257,8 +277,9 @@ class ContactsApi extends BaseApi {
 
   Future<bool> addLabelToContact(int contactId, int labelId) async {
     try {
-      String respBody =
-          await BaseApi.post('$contactsEndpoint/$contactId/labels', {'labelId': labelId}, withToken: true);
+      String respBody = await BaseApi.post(
+          '$contactsEndpoint/$contactId/labels', {'labelId': labelId},
+          withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       return body['success'];
     } catch (e) {
@@ -269,8 +290,9 @@ class ContactsApi extends BaseApi {
 
   Future<bool> removeLabelFromContact(int contactId, int labelId) async {
     try {
-      String respBody =
-          await BaseApi.delete('$contactsEndpoint/$contactId/labels', {'labelId': labelId}, withToken: true);
+      String respBody = await BaseApi.delete(
+          '$contactsEndpoint/$contactId/labels', {'labelId': labelId},
+          withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       return body['success'];
     } catch (e) {
@@ -281,9 +303,12 @@ class ContactsApi extends BaseApi {
 
   Future<List<Interaction>> getContactInteractions(int contactId) async {
     try {
-      String respBody = await BaseApi.get('$contactsEndpoint/$contactId/interactions', withToken: true);
+      String respBody = await BaseApi.get(
+          '$contactsEndpoint/$contactId/interactions',
+          withToken: true);
       List<dynamic> body = jsonDecode(respBody);
-      List<Interaction> interactions = body.map((interaction) => Interaction.fromJson(interaction)).toList();
+      List<Interaction> interactions =
+          body.map((interaction) => Interaction.fromJson(interaction)).toList();
       return interactions;
     } catch (e) {
       log("Error trying to get contact interactions: $e");
@@ -293,9 +318,11 @@ class ContactsApi extends BaseApi {
 
   Future<List<Interaction>> getMostRecentInteractions() async {
     try {
-      String respBody = await BaseApi.get('$contactsEndpoint/interactions', withToken: true);
+      String respBody =
+          await BaseApi.get('$contactsEndpoint/interactions', withToken: true);
       List<dynamic> body = jsonDecode(respBody);
-      List<Interaction> interactions = body.map((interaction) => Interaction.fromJson(interaction)).toList();
+      List<Interaction> interactions =
+          body.map((interaction) => Interaction.fromJson(interaction)).toList();
       return interactions;
     } catch (e) {
       log("Error trying to get most recent interactions: $e");
@@ -305,7 +332,9 @@ class ContactsApi extends BaseApi {
 
   Future<bool> markInteractionAsSeen(int interactionId) async {
     try {
-      String respBody = await BaseApi.patch('$contactsEndpoint/interactions/$interactionId', {}, withToken: true);
+      String respBody = await BaseApi.patch(
+          '$contactsEndpoint/interactions/$interactionId', {},
+          withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       return body['success'];
     } catch (e) {
@@ -314,9 +343,14 @@ class ContactsApi extends BaseApi {
     }
   }
 
-  Future<Map<String, dynamic>> getClientFunnelInfo() async {
+  Future<Map<String, dynamic>> getClientFunnelInfo(
+      int contactId, int tenantId) async {
     try {
-      String respBody = await BaseApi.get('$contactsEndpoint/clientfunnel');
+      String respBody =
+          await BaseApi.get('$contactsEndpoint/clientfunnel', queryParams: {
+        'contactId': contactId.toString(),
+        'tenantId': tenantId.toString(),
+      });
       Map<String, dynamic> body = jsonDecode(respBody);
       return body;
     } catch (e) {
