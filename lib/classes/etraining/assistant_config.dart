@@ -19,25 +19,25 @@ class AssistantConfig {
 
   factory AssistantConfig.fromJson(Map<String, dynamic> json) {
     return AssistantConfig(
-      assistantConfigId: json['assistant_config_id'],
+      assistantConfigId: json['assistantConfigId'],
       endpoint: json['endpoint'],
-      apiKey: json['api_key'],
-      assistantId: json['assistant_id'],
+      apiKey: json['apiKey'],
+      assistantId: json['assistantId'],
       instructions: json['instructions'],
-      tenantId: json['tenant_id'],
-      vectorStoreIds: json['vector_store_ids'] != null ? List<String>.from(json['vector_store_ids']) : null,
+      tenantId: json['tenantId'],
+      vectorStoreIds: json['vectorStoreIds'] != null ? List<String>.from(json['vector_store_ids']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'assistant_config_id': assistantConfigId,
+      'assistantConfigId': assistantConfigId,
       'endpoint': endpoint,
-      'api_key': apiKey,
-      'assistant_id': assistantId,
+      'apiKey': apiKey,
+      'assistantId': assistantId,
       'instructions': instructions,
-      'tenant_id': tenantId,
-      'vector_store_ids': vectorStoreIds,
+      'tenantId': tenantId,
+      'vectorStoreIds': vectorStoreIds,
     };
   }
 }
