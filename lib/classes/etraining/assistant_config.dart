@@ -25,7 +25,7 @@ class AssistantConfig {
       assistantId: json['assistantId'],
       instructions: json['instructions'],
       tenantId: json['tenantId'],
-      vectorStoreIds: json['vectorStoreIds'] != null ? List<String>.from(json['vector_store_ids']) : null,
+      vectorStoreIds: json['vectorStoreIds'] != null ? List<String>.from(json['vectorStoreIds']) : null,
     );
   }
 
