@@ -4,25 +4,31 @@ List<ProductModel> productModelFromJson(String str) =>
     List<ProductModel>.from(json.decode(str).map((x) => ProductModel.fromJson(x)));
 
 class ProductModel {
-  final int productId;
-  final String name;
-  final String description;
-  final double price;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  int productId;
+  int catalogId;
+  String? name;
+  String? barcode;
+  String? description;
+  double? price;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   ProductModel({
     required this.productId,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.catalogId,
+    this.name,
+    this.barcode,
+    this.description,
+    this.price,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         productId: json["productId"],
+        catalogId: json["catalogId"],
         name: json["name"],
+        barcode: json["barcode"],
         description: json["desription"],
         price: json["price"],
         createdAt: DateTime.parse(json["createdAt"]),
@@ -31,14 +37,16 @@ class ProductModel {
 
   Map<String, dynamic> toJson() => {
         "id": productId,
+        "catalogId": catalogId,
         "name": name,
+        "barcode": barcode,
         "description": description,
         "price": price,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
       };
   @override
   String toString() {
-    return 'ProductModel{productId: $productId, name: $name, description: $description, price: $price, createdAt: $createdAt, updatedAt: $updatedAt}';
+    return 'ProductModel{productId: $productId, catagolId: $catalogId, name: $name, barcode: $barcode, description: $description, price: $price, createdAt: $createdAt, updatedAt: $updatedAt}';
   }
 }
