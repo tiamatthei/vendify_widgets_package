@@ -4,7 +4,7 @@ List<ProductModel> productModelFromJson(String str) =>
     List<ProductModel>.from(json.decode(str).map((x) => ProductModel.fromJson(x)));
 
 class ProductModel {
-  final String productId;
+  final int productId;
   final String name;
   final String description;
   final double price;
