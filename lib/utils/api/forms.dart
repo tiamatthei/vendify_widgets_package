@@ -178,11 +178,11 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<List<dynamic>?> getContactsWithFormResponses(int formId) async {
+  Future<List<FormResponseModel>?> getContactsWithFormResponses(int formId) async {
     String endpoint = '$formsEndpoint/responses/contacts/$formId';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      List<dynamic> contacts = jsonDecode(respBody) as List<dynamic>;
+      List<FormResponseModel> contacts = jsonDecode(respBody) as List<FormResponseModel>;
       return contacts;
     } catch (e) {
       log("Error trying to get contacts with form responses: $e");
