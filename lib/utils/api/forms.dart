@@ -181,8 +181,12 @@ class FormsApi extends BaseApi {
   Future<List<FormResponseModel>?> getContactsWithFormResponses(int formId) async {
     String endpoint = '$formsEndpoint/responses/contacts/$formId';
     try {
+      log("Fetching contacts with form responses from endpoint: $endpoint");
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      List<FormResponseModel> contacts = jsonDecode(respBody) as List<FormResponseModel>;
+      log("Response received: $respBody");
+      List<FormResponseModel> contacts = (jsonDecode(respBody) as List)
+          .map((e) => FormResponseModel.fromJson(e))
+          .toList();
       return contacts;
     } catch (e) {
       log("Error trying to get contacts with form responses: $e");
