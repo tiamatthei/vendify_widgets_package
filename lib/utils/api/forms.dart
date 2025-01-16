@@ -177,4 +177,16 @@ class FormsApi extends BaseApi {
       return false;
     }
   }
+
+  Future<List<dynamic>?> getContactsWithFormResponses(int formId) async {
+    String endpoint = '$formsEndpoint/responses/contacts/$formId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      List<dynamic> contacts = jsonDecode(respBody) as List<dynamic>;
+      return contacts;
+    } catch (e) {
+      log("Error trying to get contacts with form responses: $e");
+      return [];
+    }
+  }
 }
