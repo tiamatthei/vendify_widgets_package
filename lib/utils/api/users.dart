@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:convert';
 
 import 'package:vendify_widgets_package/classes/users/user.dart';
+import 'package:vendify_widgets_package/classes/users/user_group.dart';
 import 'package:vendify_widgets_package/utils/api/base_api.dart';
 
 class UsersApi extends BaseApi {
@@ -122,7 +123,8 @@ class UsersApi extends BaseApi {
     try {
       String respBody = await BaseApi.get('$usersEndpoint/contact_notes_interactions', withToken: true);
       List<dynamic> data = jsonDecode(respBody);
-      List<Map<String, dynamic>> notesInteractions = data.map((notesInteractions) => notesInteractions as Map<String, dynamic>).toList();
+      List<Map<String, dynamic>> notesInteractions =
+          data.map((notesInteractions) => notesInteractions as Map<String, dynamic>).toList();
       return notesInteractions;
     } catch (e) {
       log("Error trying to get user contact notes interactions: $e");
@@ -150,6 +152,18 @@ class UsersApi extends BaseApi {
     } catch (e) {
       log("Error trying to count user contact notes interactions: $e");
       return 0;
+    }
+  }
+
+  Future<List<UserGroup>> getUserGroups() async {
+    try {
+      String respBody = await BaseApi.get('$usersEndpoint/groups');
+      Map<String, dynamic> body = jsonDecode(respBody);
+      List<UserGroup> userGroups = body['groups'].map((group) => UserGroup.fromJson(group)).toList();
+      return userGroups;
+    } catch (e) {
+      log("Error trying to get client funnel info: $e");
+      return [];
     }
   }
 }

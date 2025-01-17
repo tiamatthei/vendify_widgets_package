@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendify_widgets_package/class_widgets/user_tiny_card.dart';
+import 'package:vendify_widgets_package/classes/users/user_group.dart';
 import 'package:vendify_widgets_package/classes/users/user_parent.dart';
 import 'package:vendify_widgets_package/utils/api/auth.dart';
 
 class User extends UserParent {
   Future<Map<String, dynamic>>? userTasks;
   final int? contactCount;
+  UserGroup? userGroup;
 
   User({
     required int userId,
@@ -27,6 +29,7 @@ class User extends UserParent {
     String? jwt,
     this.userTasks,
     this.contactCount,
+    this.userGroup,
   }) : super(
           userId: userId,
           tenantId: tenantId,
@@ -149,6 +152,7 @@ class User extends UserParent {
         'email': email,
         'joinedAt': joinedAt != null ? joinedAt!.toIso8601String() : '',
         'contactCount': contactCount ?? 0,
+        'userGroup': userGroup?.toJson(),
       };
 
   // Method to create a User object from a JSON map
@@ -160,16 +164,10 @@ class User extends UserParent {
         phone: json['phone'],
         role: json['role'] ?? 'executive',
         email: json['email'],
-        joinedAt: json['joinedAt'] != null
-            ? DateTime.parse(json['joinedAt'])
-            : DateTime.now(),
-        contactCount: json['contactCount'] != null
-            ? int.tryParse(json['contactCount'])
-            : 0,
+        joinedAt: json['joinedAt'] != null ? DateTime.parse(json['joinedAt']) : DateTime.now(),
+        contactCount: json['contactCount'] != null ? int.tryParse(json['contactCount']) : 0,
         profileImage: json['profileImage'],
-        lastLogin: json['lastLogin'] != null
-            ? DateTime.parse(json['lastLogin'])
-            : null,
+        lastLogin: json['lastLogin'] != null ? DateTime.parse(json['lastLogin']) : null,
         isActive: json['isActive'],
         jwt: json['jwt'],
         enrollState: json['enrollState'],
@@ -177,6 +175,16 @@ class User extends UserParent {
         tenantId: json['tenantId'],
         rut: json['rut'],
         userTasks: json['userTasks'],
+        userGroup: json['groupId'] != null
+            ? UserGroup.fromJson({
+                'groupId': json['groupId'],
+                'tenantId': json['tenantId'],
+                'groupName': json['groupName'],
+                'groupDescription': json['groupDescription'],
+                'groupCreatedAt': json['groupCreatedAt'],
+                'groupUpdatedAt': json['groupUpdatedAt'],
+              })
+            : null,
       );
 
   @override
@@ -197,10 +205,7 @@ class User extends UserParent {
 
   @override
   int get hashCode {
-    return userId.hashCode ^
-        firstName.hashCode ^
-        email.hashCode ^
-        joinedAt.hashCode;
+    return userId.hashCode ^ firstName.hashCode ^ email.hashCode ^ joinedAt.hashCode;
   }
 
   @override
