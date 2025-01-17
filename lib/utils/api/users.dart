@@ -157,7 +157,7 @@ class UsersApi extends BaseApi {
 
   Future<List<UserGroup>> getUserGroups() async {
     try {
-      String respBody = await BaseApi.get('$usersEndpoint/groups');
+      String respBody = await BaseApi.get('$usersEndpoint/groups', withToken: true);
       Map<String, dynamic> body = jsonDecode(respBody);
       List<UserGroup> userGroups = body['groups'].map((group) => UserGroup.fromJson(group)).toList();
       return userGroups;
