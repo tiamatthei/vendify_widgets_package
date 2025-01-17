@@ -107,10 +107,7 @@ class FormsApi extends BaseApi {
       if (longitude != null) body['longitude'] = longitude;
       if (contactInfo != null) body['contactInfo'] = contactInfo.toJson();
 
-      log("Registering initial form response with body: $body");
       final responseString = await BaseApi.post(endpoint, body, withToken: true);
-
-      log(responseString);
 
       final responseJson = jsonDecode(responseString) as Map<String, dynamic>;
 
