@@ -184,6 +184,7 @@ class FormsApi extends BaseApi {
     String endpoint = '$formsEndpoint/responses/contacts/$formId';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
+      log("Response body: $respBody");
       List<FormResponseModel> contacts = (jsonDecode(respBody) as List)
           .map((e) => FormResponseModel.fromJson(e as Map<String, dynamic>))
           .toList();
