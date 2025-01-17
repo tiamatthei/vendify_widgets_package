@@ -99,13 +99,15 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<ContactModel?> registerInitialFormResponse(FormResponseModel response, {double? latitude, double? longitude}) async {
+  Future<ContactModel?> registerInitialFormResponse(FormResponseModel response, {ContactModel? contactInfo, double? latitude, double? longitude}) async {
     String endpoint = '$formsEndpoint/initial-response';
     try {
       Map<String, dynamic> body = response.toJson();
       if (latitude != null) body['latitude'] = latitude;
       if (longitude != null) body['longitude'] = longitude;
+      if (contactInfo != null) body['contactInfo'] = contactInfo.toJson();
 
+      log("Registering initial form response with body: $body");
       final responseString = await BaseApi.post(endpoint, body, withToken: true);
 
       log(responseString);
@@ -181,9 +183,7 @@ class FormsApi extends BaseApi {
   Future<List<FormResponseModel>?> getContactsWithFormResponses(int formId) async {
     String endpoint = '$formsEndpoint/responses/contacts/$formId';
     try {
-      log("Fetching contacts with form responses from endpoint: $endpoint");
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      log("Response received: $respBody");
       List<FormResponseModel> contacts = (jsonDecode(respBody) as List)
           .map((e) => FormResponseModel.fromJson(e))
           .toList();
