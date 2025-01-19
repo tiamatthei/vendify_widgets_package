@@ -158,8 +158,8 @@ class UsersApi extends BaseApi {
   Future<List<UserGroup>> getUserGroups() async {
     try {
       String respBody = await BaseApi.get('$usersEndpoint/groups', withToken: true);
-      Map<String, dynamic> body = jsonDecode(respBody);
-      List<UserGroup> userGroups = body['groups'].map((group) => UserGroup.fromJson(group)).toList();
+      List<dynamic> body = jsonDecode(respBody);
+      List<UserGroup> userGroups = body.map((group) => UserGroup.fromJson(group)).toList();
       return userGroups;
     } catch (e) {
       log("Error trying to get client funnel info: $e");
