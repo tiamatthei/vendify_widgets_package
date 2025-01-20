@@ -165,6 +165,7 @@ class FormsApi extends BaseApi {
 
   Future<bool> updateFormResponseValues(List<FormFieldValueModel> formFieldValues, {ContactModel? contactInfo}) async {
     String endpoint = '$formsEndpoint/response';
+    log("Updating form response values...");
     try {
       Map<String, dynamic> formResponse = {
         'responses': formFieldValues.map((e) => e.toJson()).toList(),
@@ -172,7 +173,9 @@ class FormsApi extends BaseApi {
       if (contactInfo != null) {
         formResponse['contactInfo'] = contactInfo.toJson();
       }
+      log("Form response: $formResponse");
       await BaseApi.patch(endpoint, formResponse, withToken: true);
+      log("Form response updated successfully");
       return true;
     } catch (e) {
       log("Error trying to update form response values: $e");
