@@ -18,7 +18,7 @@ class ContactsApi extends BaseApi {
       DateTime? startDate,
       DateTime? endDate,
       int? userId,
-      int? groupId}) async {
+      List<int>? groupId}) async {
     Map<String, String> queryParams = {
       'page': page.toString(),
     };
@@ -48,8 +48,8 @@ class ContactsApi extends BaseApi {
       queryParams['userId'] = userId.toString();
     }
 
-    if (groupId != null) {
-      queryParams['groupId'] = groupId.toString();
+    if (groupId != null && groupId.isNotEmpty) {
+      queryParams['groupId'] = groupId.join(',');
     }
     try {
       String respBody = await BaseApi.get("$contactsEndpoint/tenant",
