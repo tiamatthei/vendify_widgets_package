@@ -18,7 +18,7 @@ class ContactsApi extends BaseApi {
       DateTime? startDate,
       DateTime? endDate,
       int? userId,
-      List<int> groupId = const []
+      List<int>? groupId = const []
       }) async {
     Map<String, String> queryParams = {
       'page': page.toString(),
@@ -49,7 +49,7 @@ class ContactsApi extends BaseApi {
       queryParams['userId'] = userId.toString();
     }
 
-    if (groupId.isNotEmpty) {
+    if (groupId != null && groupId.isNotEmpty) {
       queryParams['groupId'] = groupId.join(',');
     }
     try {
