@@ -197,4 +197,22 @@ class FormsApi extends BaseApi {
       return [];
     }
   }
+
+  Future<Map<String, int>> getFormFieldValueStats(int formId, int formFieldId, {String? startDate, String? endDate, List<int>? groupIds, List<int>? executiveIds}) async {
+    String endpoint = '$formsEndpoint/form-field-value-stats/$formId/$formFieldId';
+    try {
+      Map<String, String> queryParams = {};
+      if (startDate != null) queryParams['startDate'] = startDate;
+      if (endDate != null) queryParams['endDate'] = endDate;
+      if (groupIds != null) queryParams['groupIds'] = groupIds.join(',');
+      if (executiveIds != null) queryParams['executiveIds'] = executiveIds.join(',');
+
+      String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
+      Map<String, int> stats = Map<String, int>.from(jsonDecode(respBody));
+      return stats;
+    } catch (e) {
+      log("Error trying to get form field value stats: $e");
+      return {};
+    }
+  }
 }
