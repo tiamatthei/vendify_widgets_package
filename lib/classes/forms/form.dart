@@ -43,3 +43,26 @@ class FormModel {
         'formFields': formFields?.map((x) => x.toJson()).toList(),
       };
 }
+
+class FormFieldValueStat {
+  final String fieldValue;
+  final int count;
+  final double percentage;
+  final String fieldLabel;
+
+  FormFieldValueStat({
+    required this.fieldValue,
+    required this.count,
+    required this.percentage,
+    required this.fieldLabel,
+  });
+
+  factory FormFieldValueStat.fromJson(Map<String, dynamic> json) {
+    return FormFieldValueStat(
+      fieldValue: json['fieldValue'],
+      count: json['count'],
+      percentage: json['percentage']?.toDouble() ?? 0.0,
+      fieldLabel: json['fieldLabel'],
+    );
+  }
+}
