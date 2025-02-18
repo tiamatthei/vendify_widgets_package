@@ -66,3 +66,23 @@ class FormFieldValueStat {
     );
   }
 }
+
+class FormFieldValueStatsResponse {
+  final List<FormFieldValueStat> stats;
+  final int totalResponses;
+
+  FormFieldValueStatsResponse({
+    required this.stats,
+    required this.totalResponses,
+  });
+
+  factory FormFieldValueStatsResponse.fromJson(Map<String, dynamic> json) {
+    var statsList = (json['stats'] as List)
+        .map((e) => FormFieldValueStat.fromJson(e as Map<String, dynamic>))
+        .toList();
+    return FormFieldValueStatsResponse(
+      stats: statsList,
+      totalResponses: json['totalResponses'],
+    );
+  }
+}

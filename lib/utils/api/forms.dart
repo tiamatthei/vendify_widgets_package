@@ -198,31 +198,29 @@ class FormsApi extends BaseApi {
     }
   }
 
-    Future<List<FormFieldValueStat>> getFormFieldValueStats(
-        int formId,
-        int formFieldId, {
-        String? startDate,
-        String? endDate,
-        List<int>? groupIds,
-        List<int>? executiveIds,
-    }) async {
-      String endpoint = '$formsEndpoint/stats/$formId/$formFieldId';
-      try {
-        Map<String, String> queryParams = {};
-        if (startDate != null) queryParams['startDate'] = startDate;
-        if (endDate != null) queryParams['endDate'] = endDate;
-        if (groupIds != null) queryParams['groupIds'] = groupIds.join(',');
-        if (executiveIds != null) queryParams['executiveIds'] = executiveIds.join(',');
-  
-        String respBody = await BaseApi.get(endpoint, withToken: true, queryParams: queryParams);
-        List<dynamic> jsonList = jsonDecode(respBody);
-        List<FormFieldValueStat> stats = jsonList
-            .map((e) => FormFieldValueStat.fromJson(e as Map<String, dynamic>))
-            .toList();
-        return stats;
-      } catch (e) {
-        log("Error trying to get form field value stats: $e");
-        return [];
-      }
+  Future<FormFieldValueStatsResponse> getFormFieldValueStats(
+    int formId,
+    int formFieldId, {
+    String? startDate,
+    String? endDate,
+    List<int>? groupIds,
+    List<int>? executiveIds,
+  }) async {
+    String endpoint = '$formsEndpoint/stats/$formId/$formFieldId';
+    try {
+      Map<String, String> queryParams = {};
+      if (startDate != null) queryParams['startDate'] = startDate;
+      if (endDate != null) queryParams['endDate'] = endDate;
+      if (groupIds != null) queryParams['groupIds'] = groupIds.join(',');
+      if (executiveIds != null) queryParams['executiveIds'] = executiveIds.join(',');
+
+      String respBody = await BaseApi.get(endpoint,
+          withToken: true, queryParams: queryParams);
+      final decoded = jsonDecode(respBody) as Map<String, dynamic>;
+      return FormFieldValueStatsResponse.fromJson(decoded);
+    } catch (e) {
+      log("Error trying to get form field value stats: $e");
+      return FormFieldValueStatsResponse(stats: [], totalResponses: 0);
     }
+  }
 }
