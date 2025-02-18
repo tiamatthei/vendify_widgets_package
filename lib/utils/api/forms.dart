@@ -199,7 +199,7 @@ class FormsApi extends BaseApi {
   }
 
   Future<Map<String, int>> getFormFieldValueStats(int formId, int formFieldId, {String? startDate, String? endDate, List<int>? groupIds, List<int>? executiveIds}) async {
-    String endpoint = '$formsEndpoint/form-field-value-stats/$formId/$formFieldId';
+    String endpoint = '$formsEndpoint/stats/$formId/$formFieldId';
     try {
       Map<String, String> queryParams = {};
       if (startDate != null) queryParams['startDate'] = startDate;
