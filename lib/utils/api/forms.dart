@@ -15,7 +15,9 @@ class FormsApi extends BaseApi {
     String endpoint = formsEndpoint;
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      List<FormModel> model = (jsonDecode(respBody) as List).map((e) => FormModel.fromJson(e)).toList();
+      List<FormModel> model = (jsonDecode(respBody) as List)
+          .map((e) => FormModel.fromJson(e))
+          .toList();
       return model;
     } catch (e) {
       log("Error trying to get forms: $e");
@@ -99,7 +101,8 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<ContactModel?> registerInitialFormResponse(FormResponseModel response, {ContactModel? contactInfo, double? latitude, double? longitude}) async {
+  Future<ContactModel?> registerInitialFormResponse(FormResponseModel response,
+      {ContactModel? contactInfo, double? latitude, double? longitude}) async {
     String endpoint = '$formsEndpoint/initial-response';
     try {
       Map<String, dynamic> body = response.toJson();
@@ -107,7 +110,8 @@ class FormsApi extends BaseApi {
       if (longitude != null) body['longitude'] = longitude;
       if (contactInfo != null) body['contactInfo'] = contactInfo.toJson();
 
-      final responseString = await BaseApi.post(endpoint, body, withToken: true);
+      final responseString =
+          await BaseApi.post(endpoint, body, withToken: true);
 
       final responseJson = jsonDecode(responseString) as Map<String, dynamic>;
 
@@ -116,7 +120,8 @@ class FormsApi extends BaseApi {
       if (responseJson['success'] == true) {
         return ContactModel.fromJson(responseJson['data']);
       } else {
-        throw Exception(responseJson['message'] ?? 'Error desconocido al registrar la respuesta inicial.');
+        throw Exception(responseJson['message'] ??
+            'Error desconocido al registrar la respuesta inicial.');
       }
     } catch (e) {
       log("Error trying to register initial form response: $e");
@@ -129,7 +134,9 @@ class FormsApi extends BaseApi {
     String endpoint = '$formsEndpoint/responses/$formId';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      List<FormResponseModel> model = (jsonDecode(respBody) as List).map((e) => FormResponseModel.fromJson(e)).toList();
+      List<FormResponseModel> model = (jsonDecode(respBody) as List)
+          .map((e) => FormResponseModel.fromJson(e))
+          .toList();
       return model;
     } catch (e) {
       log("Error trying to get form responses: $e");
@@ -142,7 +149,8 @@ class FormsApi extends BaseApi {
     String endpoint = '$formsEndpoint/response/$formResponseId';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      FormResponseModel model = FormResponseModel.fromJson(jsonDecode(respBody));
+      FormResponseModel model =
+          FormResponseModel.fromJson(jsonDecode(respBody));
       return model;
     } catch (e) {
       log("Error trying to get form response: $e");
@@ -150,12 +158,15 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<List<FormResponseModel>?> getContactFormResponses(int contactId) async {
+  Future<List<FormResponseModel>?> getContactFormResponses(
+      int contactId) async {
     //Get all form responses for a contact
     String endpoint = '$formsEndpoint/responses/contact/$contactId';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
-      List<FormResponseModel> model = (jsonDecode(respBody) as List).map((e) => FormResponseModel.fromJson(e)).toList();
+      List<FormResponseModel> model = (jsonDecode(respBody) as List)
+          .map((e) => FormResponseModel.fromJson(e))
+          .toList();
       return model;
     } catch (e) {
       log("Error trying to get contact form responses: $e");
@@ -163,7 +174,9 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<bool> updateFormResponseValues(List<FormFieldValueModel> formFieldValues, {ContactModel? contactInfo}) async {
+  Future<bool> updateFormResponseValues(
+      List<FormFieldValueModel> formFieldValues,
+      {ContactModel? contactInfo}) async {
     String endpoint = '$formsEndpoint/response';
     log("Updating form response values...");
     try {
@@ -183,7 +196,8 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<List<FormResponseModel>?> getContactsWithFormResponses(int formId) async {
+  Future<List<FormResponseModel>?> getContactsWithFormResponses(
+      int formId) async {
     String endpoint = '$formsEndpoint/responses/contacts/$formId';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
@@ -212,7 +226,8 @@ class FormsApi extends BaseApi {
       if (startDate != null) queryParams['startDate'] = startDate;
       if (endDate != null) queryParams['endDate'] = endDate;
       if (groupIds != null) queryParams['groupIds'] = groupIds.join(',');
-      if (executiveIds != null) queryParams['executiveIds'] = executiveIds.join(',');
+      if (executiveIds != null)
+        queryParams['executiveIds'] = executiveIds.join(',');
 
       String respBody = await BaseApi.get(endpoint,
           withToken: true, queryParams: queryParams);
@@ -221,6 +236,22 @@ class FormsApi extends BaseApi {
     } catch (e) {
       log("Error trying to get form field value stats: $e");
       return FormFieldValueStatsResponse(stats: [], totalResponses: 0);
+    }
+  }
+
+  Future<List<FormResponseModel>?> getContactsWithFormResponsesByTenant(
+      int formId) async {
+    String endpoint = '$formsEndpoint/responses/contacts/tenant/$formId';
+    try {
+      String respBody = await BaseApi.get(endpoint, withToken: true);
+      log("Response body: $respBody");
+      List<FormResponseModel> contacts = (jsonDecode(respBody) as List)
+          .map((e) => FormResponseModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+      return contacts;
+    } catch (e) {
+      log("Error trying to get contacts with form responses: $e");
+      return [];
     }
   }
 }
