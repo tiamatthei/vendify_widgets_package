@@ -239,9 +239,9 @@ class FormsApi extends BaseApi {
     }
   }
 
-  Future<List<FormResponseModel>?> getContactsWithFormResponsesByTenant(
-      int formId) async {
-    String endpoint = '$formsEndpoint/responses/contacts/tenant/$formId';
+  Future<List<FormResponseModel>?>
+      getContactsWithFormResponsesByTenant() async {
+    String endpoint = '$formsEndpoint/responses/contacts/tenant';
     try {
       String respBody = await BaseApi.get(endpoint, withToken: true);
       log("Response body: $respBody");
