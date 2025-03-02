@@ -243,9 +243,7 @@ class FormsApi extends BaseApi {
       List<int>? groupId) async {
     String endpoint = '$formsEndpoint/responses/contacts/tenant';
     Map<String, String> queryParams = {};
-    if (groupId != null) {
-      queryParams['groupId'] = groupId.join(',');
-    }
+    queryParams['groupId'] = groupId!.join(',');
     try {
       String respBody = await BaseApi.get(endpoint,
           withToken: true, queryParams: queryParams);
